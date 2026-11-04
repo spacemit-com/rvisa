@@ -1,0 +1,58 @@
+# RVISA maintenance areas and contributor assignments.
+# Empty rosters indicate that appointments have not yet been recorded.
+format_version: 1
+status: unassigned
+organizations: []
+people: []
+areas:
+  - id: project
+    paths:
+      - README.md
+      - README_CN.md
+      - VERSION
+      - CHANGELOG.md
+      - CONTRIBUTING.md
+      - MAINTAINERS.yaml
+      - CODE_OF_CONDUCT.md
+      - AGENTS.md
+      - LICENSE
+      - rfcs/**
+    maintainers: []
+  - id: specification
+    paths:
+      - spec/**
+    maintainers: []
+  - id: mlir
+    paths:
+      - mlir/**
+    maintainers: []
+  - id: python-frontend
+    paths:
+      - frontends/README.md
+      - frontends/python/**
+    maintainers: []
+  - id: cpp-frontend
+    paths:
+      - frontends/README.md
+      - frontends/cpp/**
+    maintainers: []
+  - id: target-mappings
+    paths:
+      - mappings/**
+    maintainers: []
+  - id: demos
+    paths:
+      - demos/**
+    maintainers: []
+  - id: conformance
+    paths:
+      - conformance/**
+    maintainers: []
+  - id: maintenance-tools
+    paths:
+      - schemas/**
+      - tools/**
+      - tests/**
+      - .editorconfig
+      - .gitignore
+    maintainers: []

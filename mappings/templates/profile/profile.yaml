@@ -1,0 +1,20 @@
+# Profile metadata form. Null identity fields belong to this template.
+# A concrete profile supplies fixed sources and a defined supported domain.
+status: template
+profile_id: null
+mapping_revision: null
+rvisa_version: null
+target:
+  family: null
+  extension_names: []
+  implementation_revision: null
+specification_source:
+  repository_url: null
+  revision: null
+  document_path: null
+  accessed_on: null
+parameter_constraints: {}
+capabilities: []
+register_domains: []
+toolchain_constraints: []
+limitations: []

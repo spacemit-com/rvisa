@@ -1,0 +1,10 @@
+# Coverage and evidence form for a concrete mapping revision.
+# An empty checks list records no completed verification.
+status: template
+profile_id: null
+mapping_revision: null
+rvisa_version: null
+rule_coverage: []
+checks: []
+# Check records identify the layer, versions, configuration, inputs,
+# method, outcome, evidence location, and limitations.
