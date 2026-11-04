@@ -26,4 +26,6 @@ The compiler may partition computation and overlap independent work while preser
 
 Program completion satisfies the runtime's visibility contract for externally observable writes. Internal function return does not by itself require draining every physical engine. Storage cannot be reused while outstanding work may still access it.
 
+[vconfig](../operations/control/vconfig.md) defines the concrete configuration operands and full/tail behavior. [Compiler-Managed Transfers](transfers.md) defines readiness, alias dependencies, and temporary-storage lifetime for internally scheduled memory work.
+
 See [values and state](value-model.md), [memory](memory-model.md), and [operand stages](../operands/stages.md).

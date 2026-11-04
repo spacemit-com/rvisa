@@ -28,4 +28,6 @@ Zero-filled inactive elements are not automatically equivalent to omitting the c
 
 Target differences and equivalence conditions are documented in each profile's numerical contract. Independent reference checks must model the precision they claim to verify.
 
+[tmma](../operations/matrix/tmma.md#numerical-order-and-tails) defines widening, FMA ordering, and active contraction; [tmma_scaled](../operations/matrix/tmma-scaled.md#value-and-numerical-semantics) additionally fixes the separate f32 scaling-rounding points. Those rules do not complete the still-open numerical contracts of ordinary reductions, approximations, and conversions.
+
 See [matrix operations](../operations/matrix/README.md) and [conformance](../conformance.md).

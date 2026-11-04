@@ -15,6 +15,10 @@ References provide architectural context and documentation guidance. A concrete 
 | [MLIR documentation](https://mlir.llvm.org/docs/) | Dialects, types, operations, interfaces, and conversion infrastructure |
 | [RISE RISC-V Optimization Guide](https://riscv-optimization-guide.riseproject.dev/) | Implementation-neutral guidance and explicitly qualified implementation-specific recommendations |
 
+## RVISA design provenance
+
+The [design baseline](design-baseline.md) identifies the exact earlier RVISA revision, its declared specification status, and the current primary definitions. It distinguishes semantic adoption from frontend or target implementation support.
+
 ## Specification authoring references
 
 - [RISC-V specification template](https://github.com/riscv/docs-spec-template/tree/5885bbe659fc2955b49ab213c50ee2889db5e257) for document organization and state separation.

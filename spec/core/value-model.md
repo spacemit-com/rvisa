@@ -28,7 +28,21 @@ Tile values can express vector values and their grouping constraints. This relat
 
 ## Effects and state
 
-Operation contracts identify reads, writes, allocation, configuration, target-state interactions, and synchronization. Logical configuration dependencies remain visible to verification and transformation even if the virtual operation has no explicit configuration operand.
+Operation contracts identify the following semantic properties:
+
+| Property | Meaning |
+| --- | --- |
+| Pure | Computes from values, metadata, and declared state dependencies without external memory access |
+| Read / Write | Observes or changes addressed storage |
+| Allocate | Creates storage with ownership and lifetime obligations |
+| Config | Reads or updates logical configuration, as stated by the operation |
+| TargetState | Depends on or changes architectural state identified by a profile |
+| Synchronize | Establishes an explicitly specified ordering or completion relation |
+| Control | Introduces control-flow structure |
+
+These are semantic classifications, not an implemented MLIR effect interface. Pure computation may depend on configuration or require internal register transfers and private storage. A memory-packing overload has its own Read/Write effects; it cannot inherit the purity of a value-packing overload.
+
+Logical configuration dependencies remain visible to verification and transformation even if the virtual operation has no explicit configuration operand.
 
 Calls and mixed scalar/vector/tile regions participate in the same effect analysis. A physical asynchronous transfer is an implementation detail unless the operation contract exposes its completion state.
 

@@ -4,7 +4,7 @@ A tile is a typed mapping from a multidimensional logical coordinate domain to e
 
 ## Shape
 
-A tile can describe fixed extents and valid symbolic views of scalable values. Literal tile extents are positive compile-time quantities in the current model. Runtime access bounds and active contraction extents are distinct from the full value shape.
+A tile can describe fixed extents and valid symbolic views of scalable values. The conceptual notation is `tile<T, Shape, Layout>`. Literal tile extents are positive compile-time quantities and need not be powers of two. Runtime access bounds and active contraction extents are distinct from the full value shape.
 
 ## Register representation
 
@@ -16,15 +16,38 @@ Resource limits or target transfer requirements may require register reuse, spil
 
 ## Relationship to vectors
 
-Tile semantics can express resolved vector values, capacities, and grouping relationships. This inclusion does not change explicit vector validity rules.
+Tile semantics can express resolved vector values, capacities, and grouping relationships:
 
-A vector entering a tile data position first establishes a two-dimensional value view. Element count, order, symbolic capacity, and group constraints must be preserved. Additional batch structure must be explicit.
+| Resolved vector mode | Expressible tile coordinates and preserved constraints |
+| --- | --- |
+| Scalable | [C(T,L)], retaining the symbolic capacity and LMUL relationship |
+| Fixed, inferred representation | [D], retaining the fixed element count |
+| Separate fixed vectors | [G,D], retaining member boundaries and each member's capacity condition |
+| Context inferred | Resolve the mode first, then use its corresponding coordinates |
 
-A tile entering a vector data position is flattened in logical last-dimension-fastest order over its complete shape. The receiving operation then applies its vector type and configuration checks.
+This inclusion does not establish C++ inheritance, convert arbitrary function signatures, or infer matrix/batch axes. It does not make an invalid explicit vector type legal.
+
+**RVISA-TILE-VIEW-1.** A vector entering a tile data position MUST first establish an explicit rank-2 [vshape](../operations/vector/vshape.md) view. Element count, order, symbolic capacity, and group constraints are preserved. A positive G does not bypass this requirement. Additional batch structure requires an explicit tile reshape.
+
+**RVISA-TILE-FLAT-1.** A tile entering a vector data position MUST be flattened over its complete current logical shape in last-dimension-fastest order:
+
+~~~text
+[R,C]:        q = r*C + c
+[B,M,N]:      q = (b*M + m)*N + n
+[B0,B1,M,N]:  q = ((b0*B1 + b1)*M + m)*N + n
+~~~
+
+A fixed shape produces the logical type `vec<T, product(shape), -1>`, not a separate fixed vector for each row or batch. A symbolic shape preserves a provable legal scalable relationship; otherwise the implementation requires a supported symbolic view or diagnoses the unsupported case. It must not invent an LMUL.
+
+Flattening follows coordinates after any transpose and the exposed output shape selected by a matrix operation's CLayout. Physical bytes and memory strides do not determine this order. Ordinary elementwise vector operations return vectors; vector reductions return scalars. Neither automatically restores the input tile shape. Re-entry into a tile data position requires an explicit view again.
+
+The receiving vector operation also applies its type, numerical, and configuration checks.
 
 ## Broadcasting and transformations
 
 Scalar broadcasting requires a uniquely inferable destination shape. Reshape, transpose, broadcast, and representation conversion are distinct transformations with different coordinate effects.
+
+The absence of dedicated matrix registers alone does not invalidate a tile. Within a profile's supported operation and numerical domain, vector-register fragments can implement the same tile contract. Actual resource or capability failures still require a permitted decomposition or diagnostic. Tile axes are not limited to one vector register; explicit vector member-capacity restrictions remain in force.
 
 A view is not a promise of zero physical movement. Inter-domain transfers and staging requirements belong to target mappings.
 

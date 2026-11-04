@@ -41,4 +41,6 @@ A transfer-selection option permits a target path without changing the operation
 
 The compiler manages readiness, waits, temporary-storage lifetime, and reuse for internally scheduled transfers. Completion follows the [execution model](execution-model.md). Cross-program atomics, volatile/MMIO access, and host-stream synchronization need their own contracts and are not inferred from ordinary loads or stores.
 
+The concrete permission normalization, dependency table, and pipeline obligations are defined in [Compiler-Managed Transfers](transfers.md). [Tile memory](../operations/memory/tile-memory.md), [vector memory](../operations/memory/vector-memory.md), and [im2col](../operations/memory/im2col.md) provide their own address/bounds rules.
+
 See [memory types](../types/memory.md) and [memory operations](../operations/memory/README.md).

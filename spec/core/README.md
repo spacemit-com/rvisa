@@ -8,6 +8,7 @@ The core models define the semantics that RVISA virtual operations and their tar
 | [Values and state](value-model.md) | Computation values, descriptors, views, and effects |
 | [Layout](layout-model.md) | Coordinates, matrix axes, storage strides, and representation |
 | [Memory](memory-model.md) | Addressing, bounds, aliasing, ordering, and completion |
+| [Transfers](transfers.md) | Path selection, readiness, dependencies, and buffer lifetime |
 | [Numerics](numeric-model.md) | Precision, rounding, reductions, and special values |
 | [Diagnostics](diagnostics.md) | Invalid programs and unsupported targets |
 

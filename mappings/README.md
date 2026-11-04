@@ -16,6 +16,10 @@ The [mapping guarantees](contract.md#mapping-guarantees) are scoped to a profile
 
 The family descriptions identify areas of study. Exact behavior is defined by a versioned profile, not inferred from a family name.
 
+## Core operation contracts
+
+Profile authors begin with [vmadot](../spec/operations/vector/vmadot.md), [tmma](../spec/operations/matrix/tmma.md), and [tmma_scaled](../spec/operations/matrix/tmma-scaled.md) for input pairing, accumulator placement, scale axes, and numerics. [Vector configuration](../spec/operations/control/vconfig.md) and [transfers](../spec/core/transfers.md) define state and lifetime obligations. The [core design cases](../conformance/cases/core-designs.md) identify semantic distinctions a mapping must preserve before instruction/register evidence is added.
+
 ## Profiles
 
 Concrete profiles are registered under `<family>/profiles/<profile-id>/`. No [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), or [AME](https://github.com/riscv/riscv-attached-matrix-extension) profile has yet been registered.

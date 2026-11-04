@@ -1,21 +1,43 @@
 # Vector Operations
 
-Vector operations preserve the distinction between scalable capacity, inferred fixed-length representation, and separate fixed-length groups. Their semantics depend on logical values and configuration, rather than an assumed register count.
+Vector operations preserve the distinction between scalable capacity, inferred fixed-length representation, and separate fixed-length groups. Their semantics depend on logical values and configuration rather than an assumed register count.
 
-## Computation and transformation
+## Defined operations
 
-Elementwise arithmetic and comparisons preserve the applicable coordinate relationships. Type conversion preserves the required element correspondence and rechecks capacity/group constraints. Shape and packing operations must retain their explicit ordering and grouping rules.
+| Operation | Definition |
+| --- | --- |
+| [vshape](vshape.md) | Element-preserving value views and symbolic shape inference |
+| [vcast](vcast.md) | Numerical conversion with mode-preserving capacity/group rules |
+| [vmadot](vmadot.md) | Cartesian group matrix multiplication, accumulator first |
+| [vconfig](../control/vconfig.md) | Logical full/tail configuration and state scope |
+| [vload / vstore](../memory/vector-memory.md) | Flat vector memory access and bounds |
 
-A reduction defines its contributing elements and numerical order. Tail fill is part of the value; it is not an implicit arithmetic mask.
+## Computation vocabulary
 
-## Matrix primitives in the vector domain
+The following contracts establish roles and value behavior. Numerical or packing details marked open must be resolved before a complete implementation claim.
 
-`vmadot(acc, x, y)` expresses the vector-group matrix relationship. For input groups `x[b0,m,k]` and `y[b1,n,k]`, its accumulation spans the Cartesian product of the two group axes.
+| Operation | Operand/result relationship | Contract boundary |
+| --- | --- | --- |
+| vzero(dtype, group=None) | Zero vector constrained by configuration and expected type | dtype/group are static; operation groups are distinct from type LMUL |
+| vmacc(acc,x,y) | Corresponding-lane widened FMA, returning an accumulator-type vector | Preserve input correspondence and accumulation precision; specify rounding/special values |
+| vbroadcast(value,n) | Replicate the value into n leading logical groups | n is static; retain each group's element order and metadata |
+| vselect(mask,a,b) | Per-coordinate selection with compatible shapes and legal scalar broadcast | Does not suppress prior operand effects |
+| vmin / vmax | Elementwise minimum/maximum | NaN and signed-zero behavior require an explicit numerical contract |
+| vexp / vlog | Elementwise natural exponential/logarithm | Accuracy, domain, and special values require an explicit contract |
+| vsqrt / vrsqrt / vabs | Square root, reciprocal square root, and absolute value | Dtype and approximation rules require explicit coverage |
+| vreduce_sum / max / min / mul | Reduction of the complete vector carrier to a scalar | Includes fill elements; order, special values, and supported formats remain to be completed |
+| viota | Lane-index value construction | Result dtype and representable index range remain provisional |
+| vpack(value,group_len) | Group-interleaving value transformation | Complete coordinate map and grouped-type bridge remain to be specified |
+| vpack(memory,options...) | Memory packing variant | Separate addresses, ownership, Read/Write effects, and option spelling remain to be specified |
 
-This pairing differs from the paired-batch reduction of `tmma`. Flattening a carrier must not discard the group/packing metadata required to distinguish them.
+The spelling vreduce_sum(value), for example, does not add an implicit active-length argument. Choose appropriate fill/masking when an algorithm needs a reduction identity. A fill that was suitable before a nonlinear transform may cease to be suitable afterward.
 
-## Configuration and legality
+Tile data first follows [complete flattening](../../types/tile.md#relationship-to-vectors). Ordinary vector results retain vector identity; scalar reductions do not restore tile shape.
 
-Configuration-sensitive operations are ordered with the logical configuration they use. A vector-family name does not imply a standard RVV single-instruction implementation. Profile-specific geometry, layouts, and numerical support remain explicit. Each mapping identifies the instruction sequence, source/result register groups, mask representation, overlap restrictions, and configuration effects; concrete physical register numbers follow those constraints.
+## Configuration and target legality
 
-See [vector types](../../types/vector.md), [matrix operations](../matrix/README.md), and the [operation index](../README.md).
+Pure calculations preserve applicable configuration and target-state dependencies. A memory-packing overload cannot inherit Pure from a value overload.
+
+A vector-family name does not establish a standard RVV single-instruction implementation. Each profile declares geometry, numerical support, instruction sequences, register classes/groups, masks, overlap restrictions, and configuration effects. The unresolved bridges above must be diagnosed or identified as an explicit extension, not filled in from an incidental target layout.
+
+See [Vector Types](../../types/vector.md), [open contracts](../../status.md), and [extended stores](../memory/extended-stores.md).

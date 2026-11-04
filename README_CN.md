@@ -30,11 +30,13 @@ RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/p
 | [核心模型](spec/core/README.md) | 执行、值、布局、内存、数值和诊断 |
 | [类型](spec/types/README.md) | 标量、向量、tile、mask 和内存类型 |
 | [操作数](spec/operands/README.md) | 操作数角色、求值阶段和约束 |
-| [操作](spec/operations/README.md) | 操作分类和定义格式 |
+| [操作](spec/operations/README.md) | 虚拟操作签名、语义、默认值与诊断 |
 | [目标映射](mappings/README.md) | 版本化的寄存器、操作数和 lowering 合同 |
 | [符合性](spec/conformance.md) | 实现声明的要求和验证证据 |
 
 核心规范定义可观察行为；MLIR dialect 将其表示为编译器 IR；目标 profile 规定这些行为在具体架构上的实现条件。
+
+草案已定义 [vector/tile 类型](spec/types/vector.md)、[矩阵与分块缩放运算](spec/operations/matrix/README.md)、[访存与卷积展开](spec/operations/memory/README.md)，以及[编译器管理的传输](spec/core/transfers.md)。[设计基线](spec/design-baseline.md)记录定义来源，[核心设计用例](conformance/cases/core-designs.md)给出可独立核对的预期结果。
 
 ## 项目状态
 
@@ -42,7 +44,7 @@ RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/p
 
 | 组件 | 状态 |
 | --- | --- |
-| 核心规范与操作参考 | 开发中 |
+| 核心规范与操作参考 | 已写入关键合同的工作草案，未决事项单独跟踪 |
 | 目标映射合同 | 开发中，尚未登记具体 profile |
 | [MLIR dialect](mlir/README.md) | TBD |
 | [参考算例](demos/README.md) | 已描述计算问题，源程序实现 TBD |

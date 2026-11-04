@@ -4,6 +4,7 @@ RVISA types describe computation values and the element, shape, capacity, and gr
 
 | Type category | Definition |
 | --- | --- |
+| [Element types](element-types.md) | Numerical vocabulary, storage boundaries, and format capabilities |
 | [Scalar](scalar.md) | One typed computation element |
 | [Vector](vector.md) | Fixed or scalable ordered elements with explicit grouping semantics |
 | [Tile](tile.md) | Multidimensional computation values whose mappings prioritize target registers |

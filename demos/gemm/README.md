@@ -27,4 +27,4 @@ Record the instruction sequence and separate register classes/groups for A, B, a
 
 Cover rectangular shapes, nontrivial strides, initial accumulators, zero extents, and partial tiles. Compare against an independent computation using the declared numerical policy.
 
-Python/C++ source forms are TBD. See [matrix operations](../../spec/operations/matrix/README.md) and the [workload index](../README.md).
+The primary operation is [tmma](../../spec/operations/matrix/tmma.md), with [tview/tload/tstore](../../spec/operations/memory/tile-memory.md) for memory. Python/C++ source forms are TBD. See the [workload index](../README.md).

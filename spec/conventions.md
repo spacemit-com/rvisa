@@ -16,6 +16,12 @@ Use *RVISA operation* for a specified virtual operation and *target instruction*
 
 Distinguish a logical group from a target register group, a register class from a concrete physical register number, and a mapping rule from one generated instruction sequence. Qualify mapping guarantees by profile identity and revision. The primary definitions are the [tile representation policy](types/tile.md#register-representation) and [target mapping guarantees](../mappings/contract.md#mapping-guarantees).
 
+## Signature metanotation
+
+Operation synopses use language-neutral notation: `ptr<T>` denotes an element-typed address, `descriptor<T,R,Access>` a ranked memory descriptor, `tile_data<T,S>` a data position normalized under the tile interoperability rules, and `static<X>` information required at compile time or specialization. `vector<T>` abbreviates a resolved vector mode where its D/G parameters are described separately.
+
+These forms describe operand roles and constraints, not delivered SDK types or an MLIR assembly grammar. Defaults are expanded before validity checks; inference must be unique where required. Operation names use unprefixed scalar forms, v-prefixed vector forms, and t-prefixed tile forms, with im2col as an explicit exception. Family placement in this manual does not change canonical operation names.
+
 ## Requirement identifiers
 
 A requirement referenced by another component should have a stable identifier and one primary definition. Identifiers should describe the subject, remain unique within the specification, and survive editorial relocation.

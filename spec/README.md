@@ -15,6 +15,7 @@ RVISA defines virtual instruction syntax, typed operations, operand roles, and r
 | [Value model](core/value-model.md) | Values, views, descriptors, and state |
 | [Layout model](core/layout-model.md) | Logical coordinates, matrix axes, and physical representation |
 | [Memory model](core/memory-model.md) | Addressing, bounds, aliasing, ordering, and transfer completion |
+| [Compiler-managed transfers](core/transfers.md) | Transfer permission, readiness, waits, and temporary-storage lifetime |
 | [Numeric model](core/numeric-model.md) | Precision, rounding, reductions, and special values |
 | [Diagnostics](core/diagnostics.md) | Invalid programs and unsupported configurations |
 
@@ -34,6 +35,6 @@ RVISA defines virtual instruction syntax, typed operations, operand roles, and r
 
 ## Supporting material
 
-[References](references.md) identify related specifications and guides. [RFCs](../rfcs/README.md) record proposals and decisions. Contributions follow [CONTRIBUTING.md](../CONTRIBUTING.md).
+[Design baseline](design-baseline.md) records the fixed source revision and definition correspondence for the adopted core designs. [References](references.md) identify related specifications and guides. [RFCs](../rfcs/README.md) record proposals and decisions. Contributions follow [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 Requirements in this working draft are subject to review. Examples and mapping guidance do not silently extend or override the language contract.

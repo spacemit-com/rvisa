@@ -22,4 +22,4 @@ Identify the load/add/store sequence, vector register groups, mask representatio
 
 Cover N=0, N=1, values around a capacity boundary, and multiple iterations. Verify both arithmetic and untouched memory outside the output range.
 
-Python/C++ source forms are TBD. See the [workload index](../README.md), [vector types](../../spec/types/vector.md), and [memory model](../../spec/core/memory-model.md).
+Python/C++ source forms are TBD. See the [workload index](../README.md), [vector types](../../spec/types/vector.md), [vconfig](../../spec/operations/control/vconfig.md), and [vector memory](../../spec/operations/memory/vector-memory.md).

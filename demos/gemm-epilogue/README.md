@@ -23,4 +23,4 @@ Identify the matrix accumulator representation, the vector register groups used 
 
 Check bias contribution count, negative/positive activation inputs, numerical extremes in the declared domain, and partial output tiles. Compare fused and decomposed realizations under the same permitted numerical behavior.
 
-Python/C++ source forms are TBD. See [GEMM](../gemm/README.md), [layout](../../spec/core/layout-model.md), and the [workload index](../README.md).
+Python/C++ source forms are TBD. See [GEMM](../gemm/README.md), [vshape](../../spec/operations/vector/vshape.md), [tile/vector interoperation](../../spec/types/tile.md#relationship-to-vectors), and the [workload index](../README.md).

@@ -28,4 +28,4 @@ Record payload, scale, and accumulator operand correspondence in the target sequ
 
 Use nonuniform scales and accumulators, block-boundary tails, and zero active K. Separate coordinate checks from low-precision decoding and floating-point behavior.
 
-Python/C++ source forms are TBD. See [matrix operations](../../spec/operations/matrix/README.md), [numerics](../../spec/core/numeric-model.md), and the [workload index](../README.md).
+Python/C++ source forms are TBD. See [tmma_scaled](../../spec/operations/matrix/tmma-scaled.md), [numerics](../../spec/core/numeric-model.md), and the [workload index](../README.md).

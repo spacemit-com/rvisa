@@ -14,6 +14,6 @@ A conversion changes the element type according to an explicit numerical contrac
 
 A scalar may be broadcast into a data operand position only when the complete destination shape is uniquely determined. Address and metadata positions do not participate in data broadcasting.
 
-Element formats and RVISA type semantics are independent of source-language type spelling. The detailed format catalogue is part of the developing operation/type reference.
+Element formats and RVISA type semantics are independent of source-language type spelling. [Element Types](element-types.md) records the vocabulary used by the current definitions and the remaining format/storage boundaries.
 
 See [operand roles](../operands/roles.md), [masks](mask.md), and [numerics](../core/numeric-model.md).

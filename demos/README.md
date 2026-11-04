@@ -19,6 +19,8 @@ Each implemented workload contains `kernel.py`, `kernel.cpp`, and a `demo.yaml` 
 
 The metadata identifies the workload, core version, required operations/profiles, and verification state. Execution instructions specify the actual implementation and runtime they use.
 
+Core operand stages and source-default normalization are defined in [Operand Evaluation Stages](../spec/operands/stages.md). Reuse the [core design cases](../conformance/cases/core-designs.md) for shared behavior; a demo must not silently choose an unresolved reduction or packing contract.
+
 ## Target realization records
 
 A target-specific demo identifies its profile revision, virtual operations, target instruction sequences, and register classes/groups for inputs, accumulators, results, and temporaries. It records fragment geometry, configuration changes, transfers, and any permitted spills or staging. A generic example may describe these obligations without claiming an implemented target mapping.

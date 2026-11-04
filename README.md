@@ -30,11 +30,13 @@ The [RVISA Specification](spec/README.md) is the reading entry point.
 | [Core models](spec/core/README.md) | Execution, values, layouts, memory, numerics, and diagnostics |
 | [Types](spec/types/README.md) | Scalar, vector, tile, mask, and memory types |
 | [Operands](spec/operands/README.md) | Operand roles, evaluation stages, and constraints |
-| [Operations](spec/operations/README.md) | Operation families and definition format |
+| [Operations](spec/operations/README.md) | Virtual signatures, semantics, defaults, and diagnostics |
 | [Target mappings](mappings/README.md) | Versioned register, operand, and lowering contracts |
 | [Conformance](spec/conformance.md) | Requirements and evidence for implementation claims |
 
 The core specification defines observable behavior. The MLIR dialect represents that behavior in compiler IR; target profiles define the conditions under which it can be implemented on a particular architecture.
+
+The draft defines [vector/tile types](spec/types/vector.md), [matrix and block-scaled operations](spec/operations/matrix/README.md), [memory and convolution access](spec/operations/memory/README.md), and [compiler-managed transfers](spec/core/transfers.md). Their [design baseline](spec/design-baseline.md) records provenance, while [core design cases](conformance/cases/core-designs.md) provide independently checkable expectations.
 
 ## Project status
 
@@ -42,7 +44,7 @@ The specification is a **working draft**. Its scope and outstanding decisions ar
 
 | Component | Status |
 | --- | --- |
-| Core specification and operation reference | In development |
+| Core specification and operation reference | Key contracts defined in the working draft; open decisions tracked separately |
 | Target mapping contracts | In development; concrete profiles are not yet registered |
 | [MLIR dialect](mlir/README.md) | TBD |
 | [Reference workloads](demos/README.md) | Documented workloads; source implementations TBD |

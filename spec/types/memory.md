@@ -11,7 +11,7 @@ A ranked descriptor carries, as applicable:
 | Base | Storage address |
 | Element offset | Offset from the base in element units |
 | Sizes and strides | Logical bounds and affine addressing increments |
-| Allocation extent | Information used to establish the accessible allocation |
+| Allocation extent | Accessible allocation extent in bytes |
 | Access | Read, write, or read/write permission |
 | Address space | Storage-domain classification |
 | Alignment | Guaranteed byte alignment |
@@ -20,8 +20,10 @@ Address calculation and caller obligations follow the [memory model](../core/mem
 
 ## Validity
 
-The initial affine descriptor model uses nonnegative sizes and strides. Additional addressing forms require explicit contracts.
+The initial affine descriptor model uses nonnegative sizes and strides. Rank is compile-time structure; sizes and strides may be runtime values and must contain exactly one entry per axis. Zero sizes are valid empty access bounds. Read, write, and read/write access are distinct permissions. A generic address space does not by itself identify on-chip scratch storage. Additional addressing forms require explicit contracts.
 
 An output-intent annotation alone does not imply write-only access. Distinct descriptors may alias unless a stronger condition is declared.
+
+[tview](../operations/memory/tile-memory.md#tview) constructs a descriptor; tile load/store operations consume it with independently specified origins and shapes.
 
 Packed low-precision formats require a storage and addressing definition independent of ordinary byte-sized element arithmetic. Source-language pointer and descriptor spellings do not alter these descriptor semantics.

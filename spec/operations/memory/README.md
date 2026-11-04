@@ -2,20 +2,26 @@
 
 Memory operations connect computation values to addressed storage. Each operation defines its addressing form, access permissions, bounds, inactive-element behavior, and observable effects.
 
-| Operation class | Contract focus |
+| Operation | Primary definition |
 | --- | --- |
-| Scalar load/store | One addressed element and caller-provided validity |
-| Vector load/store | Configuration, overload-specific extent, and fill/write behavior |
-| Memory view | Descriptor construction without loading data |
-| Tile load/store | Multidimensional bounds and coordinate-based access |
-| Convolution access / im2col | Unfolded coordinates, source geometry, padding, and result order |
+| load / store | Scalar element access below |
+| [vload / vstore](vector-memory.md) | Flat configuration-dependent access, fill, and active writes |
+| [tview](tile-memory.md#tview) | Descriptor construction |
+| [tload](tile-memory.md#tload) | Coordinate-based reads and per-element fill |
+| [tstore](tile-memory.md#tstore) | Coordinate-based writes and bounds suppression |
+| [im2col](im2col.md) | Convolution-window access and unfolded matrix order |
+| [vsstore / tsstore](extended-stores.md) | Provisional address contracts |
 
-A profile identifies the load/store or transfer sequence and the register representation of each loaded or stored value. Tile transfers follow the [tile register policy](../../types/tile.md#register-representation); memory descriptors and temporary staging remain distinct from those computation values.
+## Scalar access
 
-Flat vector-tail rules do not automatically apply to grouped or multidimensional overloads. Tile loads use defined fill for out-of-bounds coordinates; tile stores suppress writes outside their valid region.
+`load(ptr,idx) -> T` reads one element of the pointer's declared element type. `store(ptr,idx,value:T) -> void` writes one such element. idx is an element offset; these operations introduce no implicit bounds or fill. Their effects are Read and Write, respectively.
 
-Transfer selection, including an `allow_tma` option, does not alter values or bounds. Compiler-managed asynchronous work must satisfy the same dependency and completion contract.
+The caller supplies valid storage, permission, alignment, and nonoverflowing addresses under the [memory model](../../core/memory-model.md). A dtype mismatch is not an implicit cast or bit reinterpretation. Vector/tile data use their own store operations.
 
-Extended-store address contracts, including `vsstore` and `tsstore`, remain provisional and require explicit definitions before exposure by an implementation.
+## Mapping and transfer requirements
 
-See [memory types](../../types/memory.md), [memory semantics](../../core/memory-model.md), and [open contracts](../../status.md).
+A profile identifies memory instruction sequences and the register representation of each loaded or stored value. Tile transfers follow the [tile register policy](../../types/tile.md#register-representation); descriptors and temporary staging remain distinct from computation values.
+
+Flat vector-tail rules do not automatically apply to grouped or multidimensional overloads. Transfer selection does not alter values or bounds. Readiness, alias ordering, waits, and buffer reuse follow [Compiler-Managed Transfers](../../core/transfers.md).
+
+See [memory types](../../types/memory.md) and [core design cases](../../../conformance/cases/core-designs.md).

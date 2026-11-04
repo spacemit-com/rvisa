@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Adopt concrete vector/tile types and operation contracts from the fixed v0.1-draft design baseline, with provenance and RFC 0002.
+- Define configuration, vector views/conversion, Cartesian group multiplication, matrix batch modes, block scaling, bounded memory access, compiler-managed transfers, and convolution-window loading.
+- Add specification-level positive and negative conformance cases; preserve unresolved numerical, packing, extended-store, and runtime contracts explicitly.
+
 - Define RVISA's positioning around virtual instruction syntax, register representations, and explicit mappings in versioned target profiles.
 - Specify tile register priority and distinguish mapping guarantees from concrete register allocation and profile maturity.
 - Align compiler design, profile templates, reference workloads, and conformance evidence with the instruction/register contracts.

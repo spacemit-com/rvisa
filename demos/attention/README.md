@@ -26,4 +26,4 @@ Record the register classes/groups for matrix inputs, score fragments, reduction
 
 Compare with an independent dense reference over the supported domain. Cover masks, sequence-length tails, multiple heads, extreme logits, and blocked rescaling behavior.
 
-Python/C++ source forms are TBD. See [numerics](../../spec/core/numeric-model.md), [matrix operations](../../spec/operations/matrix/README.md), and the [workload index](../README.md).
+Python/C++ source forms are TBD. See [numerics](../../spec/core/numeric-model.md), [tmma](../../spec/operations/matrix/tmma.md), [vector reductions](../../spec/operations/vector/README.md#computation-vocabulary), and the [workload index](../README.md).

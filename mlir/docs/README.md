@@ -10,6 +10,8 @@ Types distinguish scalar, fixed/scalable vector, tile, mask, and memory-referenc
 
 The source-language evaluation stage determines what must be known during specialization. An IR encoding choice does not change that stage or the operation's semantics.
 
+The [operation reference](../../spec/operations/README.md) supplies the concrete verification inputs: vconfig capacity/valid-state distinctions, vshape/vcast constraints, matrix pairing and numerical policies, scale axes, bounded memory effects, and im2col coordinates. Preserve the [operand stages](../../spec/operands/stages.md#concrete-operand-stages) when deciding between SSA operands and static attributes; the exact encodings remain TBD.
+
 ## Target representation constraints
 
 The design must preserve the register classes/groups and operand constraints selected by a target profile, including fragment coordinates, alignment, overlap, operand ties, and fixed-register requirements where applicable. The exact type, attribute, property, or interface encoding remains part of the dialect design.
