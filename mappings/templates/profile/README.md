@@ -13,7 +13,7 @@ This document set is the authoring template for a concrete target profile.
 | [conformance.yaml](conformance.yaml) | Coverage and verification evidence |
 | [CHANGELOG.md](CHANGELOG.md) | Revision history |
 
-Assign the profile identity and source versions when creating a concrete profile. Populate its supported domain and evidence without implying support outside that domain.
+Assign the profile identity and source versions when creating a concrete profile. Populate its supported domain and evidence without implying support outside that domain. Every supported operation links its instruction sequence, operand correspondence, register class/group constraints, and numerical/state obligations across these documents.
 
 The YAML records are proposed metadata forms; their schema is under development. Null identity fields and `status: template` identify this authoring resource rather than a registered target.
 

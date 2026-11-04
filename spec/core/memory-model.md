@@ -29,6 +29,12 @@ Absent an explicit noalias contract, different arguments may refer to overlappin
 
 Writable addresses within one parallel block write must not conflict unless the operation explicitly defines conflict resolution. Merely discarding a store's result does not remove its write effect.
 
+## Register values and temporary storage
+
+A loaded tile follows the [tile register representation policy](../types/tile.md#register-representation); a memory descriptor continues to describe addressed storage. A profile records any required register-to-memory or memory-to-register transfers, including spills and staging used by a legal decomposition.
+
+Temporary memory must have defined ownership, bounds, alignment, access ordering, and lifetime. A spill or staging step preserves the computation value and numerical contract, and its storage remains valid until all dependent work completes.
+
 ## Transfers and visibility
 
 A transfer-selection option permits a target path without changing the operation's values, bounds, or numerical behavior. An `allow_tma` permission does not require a transfer engine or guarantee overlap.

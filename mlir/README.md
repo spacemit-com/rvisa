@@ -2,13 +2,13 @@
 
 **Implementation status: TBD.**
 
-The RVISA dialect provides the compiler representation of RVISA types, operations, effects, and control flow. Its semantics are defined by the [language specification](../spec/README.md).
+The RVISA dialect is intended to represent virtual instructions, types, operand roles, register representation constraints, effects, and control flow. Its semantics are defined by the [virtual instruction specification](../spec/README.md).
 
 ## Design
 
-[Dialect design](docs/README.md) covers type/operation representation, verification, interfaces, transformations, and conversion boundaries. The design must retain symbolic capacity, logical coordinates, numerical policy, and state dependencies.
+[Dialect design](docs/README.md) covers type/operation representation, verification, interfaces, transformations, and conversion boundaries. The design must retain symbolic capacity, logical coordinates, numerical policy, state dependencies, and the selected profile's register class/group constraints.
 
-Target conversion implements a versioned [mapping contract](../mappings/contract.md). The existence of a target instruction is not sufficient to justify a conversion.
+Target conversion implements a versioned [mapping contract](../mappings/contract.md). Conversion preserves the profile's instruction and register guarantees and the [tile register policy](../spec/types/tile.md#register-representation). Physical register assignment is performed at the appropriate lowering stage; an RVISA SSA value does not by itself fix that assignment.
 
 ## Source organization
 

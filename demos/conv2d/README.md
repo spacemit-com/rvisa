@@ -14,6 +14,10 @@ An explicit or implicit unfolding maps output positions and filter/channel coord
 
 A materialized intermediate, descriptor-based access, and an accelerated transfer path can have different costs while implementing the same coordinate contract.
 
+## Mapping concerns
+
+Identify the virtual load/unfold/compute operations, their target instruction sequences, and the register groups carrying input, weight, and accumulator fragments. Account for register reuse and any materialized intermediate or staging storage permitted by the profile.
+
 ## Verification cases
 
 Compare with an independently indexed direct convolution. Cover asymmetric padding, nonunit stride/dilation, empty output regions, boundary filters, and matrix tails.

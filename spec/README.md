@@ -1,8 +1,8 @@
-# RVISA Specification
+# RISC-V Virtual ISA Specification
 
 **Document state: working draft.** See [Specification Status](status.md) for coverage and open decisions.
 
-RVISA defines the observable behavior of scalar, vector, and tile programs and the contracts required to map them to RISC-V targets. This manual separates language semantics from IR representation and target implementation choices.
+RVISA defines virtual instruction syntax, typed operations, operand roles, and register grouping constraints rooted in RISC-V matrix extensions and RVV. This manual specifies their observable behavior and the versioned contracts that map them to target instruction sequences and register representations.
 
 ## Part I: Architecture and programming model
 
@@ -28,7 +28,7 @@ RVISA defines the observable behavior of scalar, vector, and tile programs and t
 ## Part III: Compiler representation and target realization
 
 - [MLIR representation](../mlir/README.md)
-- [Target mappings](../mappings/README.md)
+- [Target mappings](../mappings/README.md) and [mapping guarantees](../mappings/contract.md#mapping-guarantees)
 - [Reference workloads](../demos/README.md)
 - [Conformance cases and methods](../conformance/README.md)
 

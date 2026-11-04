@@ -1,6 +1,6 @@
 # Contributing to RVISA
 
-Contributions include specification corrections, architectural proposals, target mappings, compiler representation, examples, and conformance work. Discuss changes in terms of observable behavior and their effect on implementers.
+Contributions include specification corrections, architectural proposals, target mappings, compiler representation, examples, and conformance work. Discuss changes in terms of virtual instruction semantics, target register/instruction constraints, observable behavior, and their effect on implementers.
 
 ## Preparing a change
 
@@ -13,14 +13,14 @@ A semantic proposal should address:
 - Types, operands, results, and evaluation stages.
 - Coordinate, memory, numerical, and state behavior.
 - Invalid cases and required diagnostics.
-- IR and target mapping implications.
+- IR and target mapping implications, including sequence families, register classes/groups, and allocation constraints.
 - Independent verification and migration where applicable.
 
 ## Writing specification text
 
 Follow the [specification conventions](spec/conventions.md). Define behavior directly, with precise conditions and units. Separate requirements from rationale, examples, optimization advice, and unresolved proposals.
 
-Keep one primary definition for each rule. Cross-reference that definition from IR descriptions, mappings, examples, and verification cases. Use stable rule identifiers where a requirement is referenced across components.
+Keep one primary definition for each rule. Cross-reference that definition from IR descriptions, mappings, examples, and verification cases. Use stable rule identifiers where a requirement is referenced across components. Tile representation policy is defined in [Tile Types](spec/types/tile.md#register-representation), and profile-specific correspondence is governed by the [mapping guarantees](mappings/contract.md#mapping-guarantees).
 
 Examples must identify their assumptions and numerical policy. A target-specific optimization must state the profile conditions on which it depends. Imported material requires attribution and an applicable license.
 
@@ -42,7 +42,7 @@ Changes spanning the specification, dialect, mappings, and examples must account
 
 Documentation review includes links, anchors, terminology, equations, examples, metadata, and consistency between the root READMEs. Check that every referenced artifact exists and that its status is accurate.
 
-Semantic verification uses independent positive and negative cases. Record documentation checks, mathematical checks, IR checks, target compilation, execution, and performance separately, with versions and limitations.
+Semantic verification uses independent positive and negative cases. Record documentation checks, mathematical checks, IR checks, target compilation, instruction/register inspection, execution, and performance separately, with versions and limitations. Inspection verifies the declared mapping constraints rather than requiring an incidental compiler allocation.
 
 Module-specific tests live with their implementation. Shared obligations are maintained in [conformance/](conformance/README.md); repository tooling is described in [tools/](tools/README.md). Tool and build commands are documented when an executable entry point is available.
 

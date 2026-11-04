@@ -4,7 +4,9 @@
 
 RVISA is a **working draft**. [VERSION](../VERSION) records the current specification version. The current text may change through review; it is not a ratified RISC-V International specification.
 
-The core chapters establish the conceptual and semantic baseline under discussion. Detailed operation signatures and concrete target profiles are still being developed.
+The core chapters establish the virtual instruction semantics, type/operand constraints, and register representation policy under discussion. Detailed operation signatures and concrete target profiles are still being developed.
+
+The [instruction and register mapping proposal](../rfcs/0001-instruction-and-register-mapping-contracts.md) records the rationale and review scope for these draft contracts. Defined mapping requirements do not establish a supported target or confer the profile maturity state `stable`.
 
 Source-language frontend implementations are outside the scope of this revision. Python and C++ reference workloads remain in [demos/](../demos/README.md), with their implementation status tracked separately.
 
@@ -32,7 +34,7 @@ Document review, implementation availability, and verification evidence are inde
 | Numerical operations | Operation-specific special-value, reduction, and approximation contracts |
 | ABI and runtime | Cross-compilation-unit and runtime interfaces |
 | IR and metadata | Detailed dialect representation and versioned metadata schemas |
-| Target realization | Selected source revisions, supported subsets, resources, and execution evidence |
+| Target realization | Selected source revisions, legal instruction sequences, register classes/groups, resource policies, supported subsets, and verification evidence |
 
 An open contract must be resolved explicitly in its primary definition and reflected in affected IR descriptions, mappings, examples, and verification cases. The [RFC process](../rfcs/README.md) records material decisions.
 

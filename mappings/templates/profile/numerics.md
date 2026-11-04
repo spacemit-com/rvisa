@@ -10,7 +10,7 @@ Record input, product, intermediate, accumulator, and result formats; rounding m
 
 Identify the exact input/configuration domain for which the target satisfies the source contract. Separate exact equivalence, specification-permitted variation, and approximation guarantees.
 
-A narrowing intermediate or reordered reduction requires explicit justification. Unsupported cases need a legal decomposition or rejection; they cannot be included through an unspecified tolerance.
+Register packing, fragment boundaries, accumulator transfers, and spills must preserve the stated formats and numerical order. A narrowing intermediate or reordered reduction requires explicit justification. Unsupported cases need a legal decomposition or rejection; they cannot be included through an unspecified tolerance.
 
 ## Evidence
 

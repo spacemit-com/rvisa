@@ -4,7 +4,7 @@ A mask associates Boolean conditions with a defined logical coordinate domain. I
 
 ## Interpretation
 
-Mask storage is an implementation choice subject to the target contract. It is not derived by inserting `sizeof(bool)` into a numerical vector-capacity formula.
+The profile identifies the mask or predicate representation required by its instruction sequences, including any register class, fixed register, grouping, and overlap constraints. Allocation is an implementation choice within that contract. It is not derived by inserting `sizeof(bool)` into a numerical vector-capacity formula.
 
 A mask is not a scalar branch condition. Reducing it to a scalar decision requires an explicitly defined operation.
 

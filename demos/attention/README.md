@@ -20,6 +20,8 @@ Optional outputs such as log-sum-exp require their own defined behavior. Empty r
 
 Matrix execution interacts with reductions, normalization, value-layout changes, and memory scheduling. Include the transfer and temporary-storage requirements between these phases.
 
+Record the register classes/groups for matrix inputs, score fragments, reduction state, normalization, and output accumulation. Inspect the instruction sequences and legal reuse or spill/staging policy across phase boundaries under the selected profile.
+
 ## Verification cases
 
 Compare with an independent dense reference over the supported domain. Cover masks, sequence-length tails, multiple heads, extreme logits, and blocked rescaling behavior.

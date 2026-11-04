@@ -8,7 +8,7 @@ Record the operation name, stable identifier, family, document status, applicabl
 
 ## Synopsis
 
-State the computation in one paragraph and provide its logical signature. Distinguish explicit operands, implicit state dependencies, results, and effects.
+State the virtual instruction's computation in one paragraph and provide its typed signature. Distinguish explicit operands, implicit state dependencies, results, and effects. Python/C++ notation examples refer to the same signature without asserting an implemented frontend.
 
 ## Operands and results
 
@@ -38,10 +38,20 @@ List memory and configuration interactions, allocation/lifetime obligations, cal
 
 ## IR and target mappings
 
-Reference the MLIR representation and relevant Python/C++ demos. Identify applicable mapping rules and legal decompositions without redefining the core semantics. Record many-to-one and one-to-many correspondence where relevant.
+Reference the MLIR representation and relevant Python/C++ demos. Identify applicable profile identities/revisions and their mapping rules without redefining the core semantics.
+
+| Mapping property | Required reference or description |
+| --- | --- |
+| Instruction correspondence | Legal target sequence or parameterized sequence family and selection conditions |
+| Operand representation | Register classes/groups, element coordinates, immediates, and implicit state |
+| Allocation constraints | Group size/alignment, overlap, operand ties, and any required fixed registers |
+| Tile realization | Register representation, fragment geometry, and permitted reuse, spills, or staging |
+| Numerical and state legality | Accumulation/rounding, active regions, configuration, clobbers, and completion |
+
+Record many-to-one and one-to-many correspondence where relevant. The [mapping guarantees](../../mappings/contract.md#mapping-guarantees) allow implementation choices within the declared rules.
 
 ## Conformance and examples
 
-Associate positive and negative cases with requirements. State numerical comparison policy and required evidence. Label illustrative examples and keep them consistent with the primary definition.
+Associate positive and negative cases with requirements. State numerical comparison policy and required evidence. Include instruction/register inspection obligations separately from value comparisons. Label illustrative examples and keep them consistent with the primary definition.
 
 Return to the [operation reference](README.md).

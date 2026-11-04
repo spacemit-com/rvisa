@@ -3,7 +3,7 @@
 For each profile revision, record:
 
 - Profile and upstream source revisions.
-- Changed capabilities, parameters, registers, operands, and configuration.
+- Changed capabilities, instruction sequence families, register classes/groups, operand constraints, configuration, and spill/staging policy.
 - Numerical or observable-semantic changes.
 - Compatibility consequences and migration guidance.
 - Affected verification and replacement evidence.

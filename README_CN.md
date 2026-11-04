@@ -1,10 +1,14 @@
-# RVISA 规范
+# RISC-V Virtual ISA
 
 [English](README.md) | [简体中文](README_CN.md)
 
-RVISA 是面向 RISC-V 标量、向量与矩阵计算的虚拟指令集，定义统一的编程模型，用于表达计算并映射到 RVV 及 [IME](https://github.com/riscv/integrated-matrix-extension)、[VME](https://github.com/riscv/riscv-isa-manual/pull/2997)、[AME](https://github.com/riscv/riscv-attached-matrix-extension) 等矩阵扩展。
+RVISA（RISC-V Virtual ISA）定义面向 RISC-V 标量、向量与矩阵计算的虚拟指令语法。其设计从 RISC-V 矩阵扩展的指令、操作数和寄存器组织出发，覆盖 [IME](https://github.com/riscv/integrated-matrix-extension)、[VME](https://github.com/riscv/riscv-isa-manual/pull/2997)、[AME](https://github.com/riscv/riscv-attached-matrix-extension) 等扩展，并结合 RVV。
 
-本仓库包含 RVISA 语言规范、目标映射合同、MLIR 设计文档，以及参考算例，面向架构设计者、编译器实现者、算子开发者和规范贡献者。
+RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/)，低于 [NVIDIA cuTile](https://docs.nvidia.com/cuda/cutile-python/)。它从 RISC-V 矩阵扩展出发，采用以 [RVV Intrinsics](https://github.com/riscv-non-isa/riscv-rvv-intrinsic-doc) 为参考的记法，表达带类型的操作、操作数角色及寄存器组约束。版本化目标 profile 明确定义这些操作到目标指令序列、寄存器类别与寄存器组的映射。
+
+[tile 映射](spec/types/tile.md#register-representation)优先使用目标提供的寄存器，包括向量寄存器及寄存器组、矩阵操作数寄存器和累加寄存器。一个 tile 可以跨多个寄存器，也可以按照指令形状进行分片。[映射保证](mappings/contract.md#mapping-guarantees)明确各 profile 的合法指令序列、分组、分配约束和数据搬运，同时允许实现在这些约束内选择具体方案。
+
+本仓库包含 RVISA 指令语法、类型与操作数定义、目标映射合同、MLIR 设计文档，以及参考算例，面向架构设计者、编译器实现者、算子开发者和规范贡献者。
 
 ## 矩阵扩展上游仓库
 

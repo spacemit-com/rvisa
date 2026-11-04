@@ -13,4 +13,6 @@ Record the primary evidence for this profile.
 
 Distinguish approved text, draft snapshots, open proposals, implementation code, and plans. A source's maturity and a mapping's maturity are separate.
 
+Instruction selection, register classes/groups, overlap/alignment, fixed-register restrictions, and configuration clobbers each require explicit source support. Distinguish architecture requirements from compiler choices observed in one experiment.
+
 Connect each claim to [profile metadata](profile.yaml) and the relevant register, operand, lowering, or numerical definition. Preserve prior references when revising the profile.

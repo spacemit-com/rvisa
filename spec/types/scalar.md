@@ -4,7 +4,7 @@ A scalar represents one numerical or Boolean computation value. Its type is dist
 
 ## Representation and use
 
-An operation's accepted scalar types determine element width, signedness or floating-point format, range, and numerical behavior. Type availability and operation support are separate target capabilities.
+An operation's accepted scalar types determine element width, signedness or floating-point format, range, and numerical behavior. Type availability and operation support are separate target capabilities. A target profile identifies the register class or immediate forms accepted by each mapped operand; a scalar type alone does not select a physical register.
 
 A scalar used as an index or extent must satisfy the relevant range and unit constraints. A scalar condition controls program flow; a vector or tile mask is not implicitly converted into that condition.
 

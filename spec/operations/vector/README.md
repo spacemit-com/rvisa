@@ -16,6 +16,6 @@ This pairing differs from the paired-batch reduction of `tmma`. Flattening a car
 
 ## Configuration and legality
 
-Configuration-sensitive operations are ordered with the logical configuration they use. A vector-family name does not imply a standard RVV single-instruction implementation. Profile-specific geometry, layouts, and numerical support remain explicit.
+Configuration-sensitive operations are ordered with the logical configuration they use. A vector-family name does not imply a standard RVV single-instruction implementation. Profile-specific geometry, layouts, and numerical support remain explicit. Each mapping identifies the instruction sequence, source/result register groups, mask representation, overlap restrictions, and configuration effects; concrete physical register numbers follow those constraints.
 
 See [vector types](../../types/vector.md), [matrix operations](../matrix/README.md), and the [operation index](../README.md).

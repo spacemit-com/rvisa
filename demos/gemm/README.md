@@ -21,6 +21,8 @@ Matrix-axis layout, memory layout, and target representation are separate choice
 
 Select legal microtiles, prepare operand layouts, retain the accumulator across K partitions, and handle M/N/K boundaries. Include configuration transitions and any register-domain transfers.
 
+Record the instruction sequence and separate register classes/groups for A, B, and the accumulator/result. Check coordinate packing, overlap, live accumulator requirements, and the conditions for fragmentation, spills, or staging under the selected profile.
+
 ## Verification cases
 
 Cover rectangular shapes, nontrivial strides, initial accumulators, zero extents, and partial tiles. Compare against an independent computation using the declared numerical policy.

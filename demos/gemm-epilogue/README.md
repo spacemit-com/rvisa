@@ -17,6 +17,8 @@ Input/output layouts and types follow the associated GEMM contract. Conversions 
 
 Preserve the output coordinate order when moving between matrix and vector execution domains. Account for accumulator transfers, staging storage, layout conversion, and configuration restoration.
 
+Identify the matrix accumulator representation, the vector register groups used by the epilogue, and the instructions that transfer between them. Inspect register overlap, conversion, and preservation constraints separately from the final numerical result.
+
 ## Verification cases
 
 Check bias contribution count, negative/positive activation inputs, numerical extremes in the declared domain, and partial output tiles. Compare fused and decomposed realizations under the same permitted numerical behavior.

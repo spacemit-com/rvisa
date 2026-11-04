@@ -1,6 +1,6 @@
 # Execution Model
 
-A kernel describes one logical program containing scalar control flow, vector operations, and tile computation. A runtime invocation determines its arguments and execution environment. The mapping from logical programs to physical processors, threads, and execution resources belongs to the target/runtime contract.
+A kernel describes one logical program of RVISA virtual operations containing scalar control flow, vector operations, and tile computation. A runtime invocation determines its arguments and execution environment. The mapping from logical programs to physical processors, threads, and execution resources belongs to the target/runtime contract.
 
 ## Evaluation stages
 
@@ -22,7 +22,7 @@ Loop iterations begin with the loop-entry logical configuration. Configuration-s
 
 ## Scheduling and completion
 
-The compiler may partition computation and overlap independent work while preserving numerical, memory, configuration, and call dependencies. Source ordering is interpreted through observable behavior, not as a requirement that every operation map to one instruction.
+The compiler may partition computation and overlap independent work while preserving numerical, memory, configuration, and call dependencies. Scheduling and physical register allocation obey the selected profile's instruction, register class, grouping, overlap, and clobber constraints. Source ordering is interpreted through observable behavior, not as a requirement that every operation map to one instruction.
 
 Program completion satisfies the runtime's visibility contract for externally observable writes. Internal function return does not by itself require draining every physical engine. Storage cannot be reused while outstanding work may still access it.
 

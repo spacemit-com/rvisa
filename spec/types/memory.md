@@ -1,6 +1,6 @@
 # Memory Types and Descriptors
 
-A memory reference describes where an operation may access storage. It is distinct from the computation value obtained by a load.
+A memory reference describes where an operation may access storage. It is distinct from the computation value obtained by a load. Loaded tile values follow the [tile register representation policy](tile.md#register-representation); constructing a descriptor does not load or allocate those values.
 
 ## Descriptors
 

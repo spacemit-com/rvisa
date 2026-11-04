@@ -14,6 +14,6 @@ A numerical reference identifies input conversion, intermediate precision, round
 
 Use an independently derived algorithm or oracle for the property under test. Record where shared utilities might couple the reference to the implementation.
 
-Memory faults, synchronization, target state, and performance require evidence beyond a mathematical model. Executable reference components are under development.
+Instruction selection, register grouping/allocation constraints, memory faults, synchronization, target state, and performance require evidence beyond a mathematical model. Validate mapping constraints against the profile and fixed architectural sources, and inspect emitted code separately from numerical expectations. Executable reference components are under development.
 
 Return to the [conformance framework](../README.md).

@@ -2,7 +2,7 @@
 
 ## Project boundaries
 
-Treat this repository as a specification project. Write for architecture reviewers, compiler implementers, kernel developers, and contributors. Project documentation describes the subject directly; workspace setup history and task progress belong outside the repository.
+Treat this repository as a virtual instruction specification project rooted in RISC-V matrix extensions and RVV. Write for architecture reviewers, compiler implementers, kernel developers, and contributors. Project documentation describes the subject directly; workspace setup history and task progress belong outside the repository.
 
 Read README.md, CONTRIBUTING.md, spec/conventions.md, and spec/status.md before substantive changes. Preserve the Apache-2.0 text in LICENSE and applicable third-party attribution.
 
@@ -11,6 +11,12 @@ Read README.md, CONTRIBUTING.md, spec/conventions.md, and spec/status.md before 
 Keep chapters and module documents at their established paths. Keep the root README variants consistent in scope, status, and navigation.
 
 Shared collaboration rules belong in CONTRIBUTING.md, with assignments in MAINTAINERS.yaml. Do not add ci/, releases/, LICENSES/, or a standalone GOVERNANCE.md under the current project organization.
+
+## Architectural position
+
+Describe typed operations, operand roles, and constraints on register groups using notation modeled on RVV Intrinsics. Use PTX/cuTile comparisons as design positioning, with positive definitions of RVISA's own instruction and register contracts.
+
+Keep [tile register priority](spec/types/tile.md#register-representation) and [profile mapping guarantees](mappings/contract.md#mapping-guarantees) as the primary definitions. Distinguish logical values, register classes/groups, and concrete allocation. A profile may permit multiple instruction sequences and allocations; any required fixed registers, spills, or staging policies remain explicit. Do not imply that a virtual operation always maps to one machine instruction or that all tile elements are simultaneously resident.
 
 ## Specification quality
 
@@ -24,7 +30,7 @@ Separate normative requirements, informative explanations, examples, and target-
 
 MLIR remains TBD until explicitly implemented and verified. This revision excludes source-language frontend implementations; retain the Python and C++ reference workloads in demos/. Keep those status boundaries accurate without repeating setup narratives throughout the manual. Templates and empty profile registries are not supported targets.
 
-Report structural checks, mathematical evidence, IR validation, compilation, execution, and performance independently. Do not invent tool commands, people, organizations, version numbers, or successful results.
+Report structural checks, mathematical evidence, IR validation, compilation, instruction/register inspection, execution, and performance independently. Do not invent tool commands, people, organizations, version numbers, or successful results.
 
 ## Workspace operations
 

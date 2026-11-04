@@ -1,6 +1,6 @@
 # Target Mapping Contract
 
-A mapping is a versioned contract between RVISA semantics and a target execution model. It defines the conditions under which a source operation can be realized and the behavior required of that realization.
+A mapping is a versioned contract from RVISA operations to target instruction sequences and register representations. It specifies the supported operand domain, legality conditions, and observable behavior of each realization.
 
 ## Identity and applicability
 
@@ -14,13 +14,23 @@ A profile identifies:
 
 Architecture versions, implementation revisions, and toolchain revisions are separate identities. Unknown capability or resource values must remain unresolved until a supported mapping can be established.
 
+## Mapping guarantees
+
+**RVISA-MAP-1.** For each supported operation and operand domain, a profile MUST identify the legal target instruction sequence or sequence family, selection preconditions, register classes and groups, operand correspondence, configuration effects, and numerical obligations. A precise parameterized rule may represent several legal realizations.
+
+Mapping stability means that this declared contract is preserved within the identified profile revision. Changes to legal sequences, grouping requirements, resource policies, or observable behavior require the revision analysis below. Mapping stability is distinct from the evidence-based profile maturity state `stable`.
+
+A virtual operation may lower to several target instructions; several operations may share or fuse a legal sequence where their contracts permit it. A rule may specify an empty sequence when its semantics and representation constraints require no emitted instructions; a logical view alone does not establish that condition. Exact instruction counts, physical register numbers, scheduling, and spills may vary within the declared rules. Any fixed-register requirement imposed by the target remains binding and is recorded explicitly.
+
 ## Register and operand model
 
-Describe A, B, and accumulator/result representations independently. Record domain, element coordinates, capacity, groups, alignment, aliases, overlap restrictions, implicit operands, and destructive updates.
+Describe A, B, and accumulator/result representations independently. Record architectural register class, element coordinates, capacity, groups, alignment, aliases, overlap restrictions, implicit operands, destructive updates, and any required fixed registers. Distinguish those architectural constraints from the concrete allocation chosen by a compiler.
 
 The mapping preserves logical elements and grouping constraints while selecting a physical representation. Register count, simultaneous residency, active shape, and per-instruction geometry are different quantities.
 
-Configuration reads/writes, clobbers, function boundaries, staging, and inter-domain transfers belong to the mapping. They cannot be hidden behind a one-line mnemonic correspondence.
+Tile representations follow [RVISA-TILE-REG-1](../spec/types/tile.md#register-representation). For each supported domain, explain the choice of register classes/groups, fragment geometry, simultaneous resource requirements, and conditions for reuse, spilling, or memory staging.
+
+Configuration reads/writes, clobbers, function boundaries, temporary lifetime, and inter-domain transfers belong to the mapping. They cannot be hidden behind a one-line mnemonic correspondence.
 
 ## Lowering legality
 
@@ -58,7 +68,7 @@ These are RVISA mapping states, not upstream ratification labels. A template is 
 
 Stable status requires source/dependency identification, complete register/operand/numerical/state contracts for the declared subset, independent positive and negative cases, at least one compilation and execution path, and cross-organization review. Simulator evidence supports its stated execution scope; it does not establish device performance.
 
-Record documentation checks, mathematical checks, IR legality, compilation, simulator execution, device execution, and performance independently. Each result identifies versions, configuration, inputs, method, outcome, and limitations.
+Record documentation checks, mathematical checks, IR legality, target compilation, instruction/register inspection, simulator execution, device execution, and performance independently. Inspection checks the declared sequence family, operand roles, grouping, overlap, clobbers, and spill/staging conditions. Exact physical register numbers are checked only where required by the target contract. Each result identifies versions, configuration, inputs, method, outcome, and limitations.
 
 ## Revision policy
 

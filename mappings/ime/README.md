@@ -4,11 +4,14 @@ Vector-register representations are central to [IME](https://github.com/riscv/in
 
 ## Mapping requirements
 
-- Source and accumulator element widths and their grouping relationships.
+- Supported RVISA operations, legal instruction sequences, and their selection conditions.
+- Source and accumulator element widths and their register-class/group relationships.
 - Logical-to-register coordinates, operand overlap/alignment, and packing.
 - Configuration transitions, active regions, numerical reduction, and vector epilogues.
 
 Use the [Integrated Matrix Extension source material](https://github.com/riscv/integrated-matrix-extension) as an entry point. Each profile fixes its own source revision and capabilities; it must not combine incompatible draft or vendor definitions.
+
+Tile representations follow the [register priority policy](../../spec/types/tile.md#register-representation). Each profile records fragmentation, simultaneous resource requirements, and the conditions for transfers, reuse, spills, or staging.
 
 ## Profile index
 

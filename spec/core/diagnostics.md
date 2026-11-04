@@ -1,6 +1,6 @@
 # Diagnostics
 
-Diagnostics identify violations of the language contract and failures to satisfy target requirements. They should include the affected operation, source location, actual and expected properties, and relevant target context.
+Diagnostics identify violations of the virtual instruction contract and failures to satisfy a target profile's instruction or register requirements. They should include the affected operation, source location, actual and expected properties, and relevant target context.
 
 ## Categories
 
@@ -21,6 +21,6 @@ Static contradictions must be diagnosed. Conditions dependent on runtime allocat
 
 Unsupported source syntax must not be ignored. An unknown target capability must not be interpreted as present. A provisional contract requires a declared, supported interpretation before an implementation can expose it.
 
-A fallback may be selected only where the requested semantic and capability constraints permit it. A diagnostic should distinguish an invalid program from a valid operation outside the selected implementation's coverage.
+A fallback may be selected only where the requested semantic and capability constraints permit it. A diagnostic should distinguish an invalid program from a valid operation outside the selected implementation's coverage. A failed register mapping reports the relevant class, grouping, alignment, overlap, or capacity condition and identifies whether a permitted decomposition was available.
 
 See [operand constraints](../operands/constraints.md) and [conformance requirements](../conformance.md).

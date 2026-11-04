@@ -1,6 +1,6 @@
 # Core Models
 
-The core models define the behavior shared by RVISA operations and their implementations.
+The core models define the semantics that RVISA virtual operations and their target instruction sequences must preserve. Types, operand roles, register representation constraints, and observable effects are considered together.
 
 | Model | Subject |
 | --- | --- |
@@ -11,6 +11,6 @@ The core models define the behavior shared by RVISA operations and their impleme
 | [Numerics](numeric-model.md) | Precision, rounding, reductions, and special values |
 | [Diagnostics](diagnostics.md) | Invalid programs and unsupported targets |
 
-Operation definitions refine these models with concrete signatures and behavior. Target mappings preserve them within a declared profile.
+Operation definitions refine these models with concrete signatures and behavior. The [tile register policy](../types/tile.md#register-representation) and [mapping guarantees](../../mappings/contract.md#mapping-guarantees) connect the logical models to legal register representations and instruction sequences within a declared profile.
 
 Return to the [specification](../README.md).

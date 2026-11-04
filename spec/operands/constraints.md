@@ -12,7 +12,7 @@ Broadcasting is legal only where the data role permits it and the target shape i
 
 Memory operands follow access, alignment, allocation, bounds, and aliasing requirements. Logical constraints do not establish a valid target register allocation.
 
-A target profile may restrict supported combinations and legal representations. It cannot change the core result, omit state dependencies, or relax required numerical behavior.
+A target profile may restrict supported combinations and legal representations. It specifies instruction selection conditions, register classes, group size/alignment, overlap, operand ties, immediate ranges, and any required fixed registers. These conditions constrain allocation without fixing every physical register number. A profile cannot change the core result, omit state dependencies, or relax required numerical behavior.
 
 ## Validation order
 

@@ -32,6 +32,10 @@ An inferred representation of `vec<T, D, -1>` contains D elements even if it use
 
 For `vec<T, D, G>` with positive D/G, each of the G vectors satisfies `D * sizeof(T) <= vlenb`. G is a count of separate vectors, not an LMUL. Splitting an over-capacity member does not make that explicit type legal.
 
+## Target register constraints
+
+A target profile relates the resolved type mode to architectural register classes/groups, element coordinates, alignment, and overlap rules. Logical G and LMUL constraints remain distinct from the number of physical registers simultaneously live. Allocation and any permitted fragment reuse must preserve the mode-specific capacity and grouping rules above.
+
 ## Inference and conversion
 
 Context-inferred types must resolve consistently before concrete calls and ABI decisions. A missing constraint does not imply LMUL=1 or a fixed default length.

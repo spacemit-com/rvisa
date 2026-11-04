@@ -1,10 +1,14 @@
-# RVISA Specification
+# RISC-V Virtual ISA
 
 [English](README.md) | [Chinese](README_CN.md)
 
-RVISA is a virtual instruction set for RISC-V scalar, vector, and matrix computation. It defines a common programming model for expressing computation and mapping it to RVV and matrix extensions, including [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), and [AME](https://github.com/riscv/riscv-attached-matrix-extension).
+RVISA (RISC-V Virtual ISA) defines virtual instruction syntax for RISC-V scalar, vector, and matrix computation. Its design starts from the instructions, operands, and register organization of RISC-V matrix extensions, including [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), and [AME](https://github.com/riscv/riscv-attached-matrix-extension), together with RVV.
 
-This repository contains the RVISA language specification, target mapping contracts, MLIR design documents, and reference workloads. It is intended for architecture designers, compiler implementers, kernel developers, and specification contributors.
+RVISA targets an abstraction level slightly above [NVIDIA PTX](https://docs.nvidia.com/cuda/parallel-thread-execution/) and below [NVIDIA cuTile](https://docs.nvidia.com/cuda/cutile-python/). Rooted in RISC-V matrix extensions, it uses notation modeled on [RVV Intrinsics](https://github.com/riscv-non-isa/riscv-rvv-intrinsic-doc) to express typed operations, operand roles, and constraints on register groups. Versioned target profiles define explicit mappings to target instruction sequences and register classes and groups.
+
+[Tile mappings](spec/types/tile.md#register-representation) prioritize target registers: vector registers and register groups, matrix operand registers, and accumulator registers where available. A tile can span multiple registers or be partitioned to match instruction geometry. The [mapping guarantees](mappings/contract.md#mapping-guarantees) define the legal sequences, grouping, allocation constraints, and transfers for each profile; they allow implementation choices within those constraints.
+
+This repository contains the RVISA instruction syntax, type and operand definitions, target mapping contracts, MLIR design documents, and reference workloads. It is intended for architecture designers, compiler implementers, kernel developers, and specification contributors.
 
 ## Matrix extension repositories
 

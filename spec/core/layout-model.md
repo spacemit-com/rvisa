@@ -27,8 +27,8 @@ A tile used in a vector data position is interpreted through its complete logica
 
 ## Target realization
 
-A logical tile may be distributed across multiple registers or executed in fragments. Fragment padding is not part of the value and must not contribute to computation or valid writes.
+Tile layouts follow the [register representation policy](../types/tile.md#register-representation). A logical tile may be distributed across multiple registers or executed in fragments. Fragment padding is not part of the value and must not contribute to computation or valid writes.
 
-Profiles document coordinate mappings, alignment, grouping, replication, and transfers. Register count, simultaneous residency, and instruction count are separate properties.
+Profiles document the relation from each logical element to a register class, group, lane, or matrix coordinate. They also record alignment, overlap, replication, transfers, and any permitted spill/staging layout. Register count, simultaneous residency, instruction count, and concrete physical register numbers are separate properties.
 
 See [vector types](../types/vector.md), [tile types](../types/tile.md), and [mapping requirements](../../mappings/contract.md).

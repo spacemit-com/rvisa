@@ -10,7 +10,7 @@ Loops, scalar conditionals, and compiled calls preserve value types, shapes, and
 
 `vconfig` is the logical vector-configuration entry point. The selected active range and element/grouping relationships constrain dependent operations without changing scalable type capacity.
 
-Configuration belongs to a function or region; nested calls and regions preserve the parent logical state. The compiler is responsible for any corresponding target configuration transitions.
+Configuration belongs to a function or region; nested calls and regions preserve the parent logical state. The compiler is responsible for any corresponding target configuration transitions. The profile records the instruction sequence, configuration/register clobbers, and preservation requirements used to implement those transitions.
 
 The return convention for dynamic requested lengths remains provisional. An implementation must not silently choose between active length and full capacity.
 

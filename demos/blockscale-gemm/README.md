@@ -22,6 +22,8 @@ Scaling applies to the inputs, not the initial accumulator. A partial active K r
 
 A target's payload support does not imply native block scaling. Validate scale representation, block size, packing, and numerical equivalence before choosing a native or decomposed path.
 
+Record payload, scale, and accumulator operand correspondence in the target sequence, including their register classes/groups or other required operand forms. Inspect packing, alignment, transfer, and spill/staging conditions for the selected profile.
+
 ## Verification cases
 
 Use nonuniform scales and accumulators, block-boundary tails, and zero active K. Separate coordinate checks from low-precision decoding and floating-point behavior.

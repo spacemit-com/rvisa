@@ -1,10 +1,10 @@
 # RVV Mappings
 
-RVV mappings provide vector representations and decomposition paths for RVISA operations, including logical tiles that are not held in dedicated matrix registers.
+RVV mappings define vector instruction sequences and register-group representations for RVISA operations, including tiles carried in vector registers.
 
 ## Mapping requirements
 
-A mapping preserves symbolic capacity, logical coordinates, explicit vector grouping, active extents, numerical order, and configuration scope. It identifies legal element-width/grouping combinations and the resource constraints used during partitioning.
+A mapping preserves symbolic capacity, logical coordinates, explicit vector grouping, active extents, numerical order, and configuration scope. It identifies legal element-width/grouping combinations, operand overlap and mask constraints, and the resource requirements used during partitioning. Tile realizations apply the [register priority policy](../../spec/types/tile.md#register-representation), with documented conditions for fragment reuse and spills.
 
 Fragment tails must not contribute extra logical elements or valid stores. Internal vector configuration must preserve source-visible state when vector and tile operations are mixed.
 

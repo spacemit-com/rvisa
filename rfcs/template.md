@@ -16,7 +16,7 @@ Describe the concrete use case and current behavior. Reference relevant requirem
 
 ## Design
 
-Define the affected types, operands, operations, effects, numerical/memory behavior, diagnostics, and interfaces. Separate specified behavior from implementation choices and unresolved questions.
+Define the affected virtual operations, types, operands, instruction sequence families, register classes/groups, effects, numerical/memory behavior, diagnostics, and interfaces. Identify tile representation policy and allocation constraints where relevant. Separate specified behavior from implementation choices and unresolved questions.
 
 ## Cross-layer impact
 
@@ -28,7 +28,7 @@ Explain the considered approaches and their technical trade-offs.
 
 ## Validation and migration
 
-Identify independent positive/negative evidence, required verification layers, migration steps, and limitations. Separate planned evidence from obtained results.
+Identify independent positive/negative evidence, required verification layers, migration steps, and limitations. Separate planned evidence from obtained results, including numerical checks and inspection of emitted instruction/register constraints.
 
 ## Decision record
 

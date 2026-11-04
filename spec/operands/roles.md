@@ -17,6 +17,6 @@ Data broadcasting applies only where the operation permits it. A pointer, shape,
 
 The accumulator's position and initialization semantics are defined per operation. For example, `vmadot` uses an accumulator-first form, whereas `tmma` uses data inputs followed by the accumulator; the operand order must remain explicit across Python and C++ source forms.
 
-Effects may include implicit configuration dependencies even when there is no source-level operand representing that state. The target mapping records corresponding machine operands, fixed registers, and clobbers.
+Effects may include implicit configuration dependencies even when there is no source-level operand representing that state. The target mapping records corresponding machine operands, register classes/groups, any required fixed registers, and clobbers. Input, accumulator, and result roles may impose different classes or destructive-update constraints; their correspondence is explicit even when several roles reuse a physical register.
 
 See [evaluation stages](stages.md) and [constraints](constraints.md).

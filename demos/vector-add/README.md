@@ -16,6 +16,8 @@ The numerical behavior follows the selected scalar/vector addition type. N is a 
 
 Process the main range and tail according to actual supported vector capacity and active-length behavior. Preserve configuration dependencies and avoid accesses beyond N.
 
+Identify the load/add/store sequence, vector register groups, mask representation if used, and configuration effects for the selected profile. Inspect grouping and tail constraints independently of the numerical comparison.
+
 ## Verification cases
 
 Cover N=0, N=1, values around a capacity boundary, and multiple iterations. Verify both arithmetic and untouched memory outside the output range.

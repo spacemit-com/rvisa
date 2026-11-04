@@ -14,4 +14,10 @@ A proposal identifies effects on core rules, types/operands, MLIR, mappings, dem
 
 Editorial corrections need not create an RFC. Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for review requirements.
 
-No numbered proposals have yet been registered.
+## Proposal index
+
+| RFC | Status | Subject |
+| --- | --- | --- |
+| [0001](0001-instruction-and-register-mapping-contracts.md) | draft | Virtual instruction positioning, tile register priority, and versioned mapping guarantees |
+
+A draft proposal records design and review scope; its presence does not establish completed approval or implementation evidence.

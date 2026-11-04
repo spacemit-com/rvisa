@@ -2,12 +2,13 @@
 
 | Term | Meaning in RVISA |
 | --- | --- |
-| RVISA | RISC-V virtual instruction set described by this project |
+| RVISA | RISC-V Virtual ISA; the virtual instruction specification described by this project |
+| Virtual operation | Typed RVISA operation with defined operands, effects, and semantics; a profile identifies its legal target realization |
 | Program | One logical execution of a kernel body |
 | Kernel | A compiled computation invoked through a runtime contract |
 | Scalar | A single computation value |
 | Vector / vec | An ordered value with fixed or scalable capacity and defined grouping |
-| Tile | A multidimensional computation value |
+| Tile | A multidimensional computation value whose target representation prioritizes registers |
 | Mask | Boolean conditions over a specified logical coordinate domain |
 | Descriptor | Addressing metadata for memory; not the contents of that memory |
 | Operand | An input to an operation, with a type, role, and evaluation stage |
@@ -15,7 +16,12 @@
 | Effect | An observable memory, configuration, allocation, or other state interaction |
 | Layout | A coordinate interpretation or physical representation, qualified by context |
 | Lowering | Transformation to a more concrete representation while preserving its contract |
-| Target profile | Versioned capabilities, resource constraints, and mapping requirements |
+| Target profile | Versioned instruction mappings, register constraints, capabilities, and supported domain |
+| Register class | A target-defined category of architectural registers with stated operand and access rules |
+| Register group | Registers used together under a target's size, alignment, overlap, and operand constraints |
+| Register allocation | Assignment of concrete physical registers and reuse over time within the profile's constraints |
+| Mapping guarantee | A profile revision's declared correspondence between RVISA operations, legal target sequences, and operand/register constraints |
+| Mapping stability | Preservation of that declared contract within a profile revision; distinct from the profile maturity state `stable` |
 | Conformance | Satisfaction of identified requirements for a declared version and scope |
 | RVV | RISC-V vector execution facilities relevant to a selected target |
 | [IME](https://github.com/riscv/integrated-matrix-extension) | Integrated Matrix Extension family; precise meaning is fixed by the profile |

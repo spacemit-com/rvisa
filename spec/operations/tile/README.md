@@ -1,6 +1,6 @@
 # Tile Operations
 
-Tile operations describe multidimensional computation values. They apply independently of whether a target has dedicated matrix registers.
+Tile operations describe virtual instructions on multidimensional computation values. Their realizations follow the [tile register policy](../../types/tile.md#register-representation), using the vector, matrix, or accumulator register classes available in the selected profile.
 
 ## Elementwise operations
 
@@ -15,7 +15,7 @@ Operands must satisfy type and shape relationships. A scalar may broadcast only 
 | Broadcast | Replicate specified coordinates |
 | Representation conversion | Preserve logical coordinates and values while changing their physical placement |
 
-These transformations must not be conflated. A value view does not guarantee that the corresponding physical transformation is free.
+These transformations must not be conflated. A value view does not guarantee that the corresponding physical transformation is free. Profiles identify the required register permutations, group changes, inter-class transfers, or permitted staging sequences.
 
 ## Interoperation
 

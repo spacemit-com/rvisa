@@ -1,6 +1,8 @@
 # Target Mappings
 
-A target mapping realizes RVISA semantics through a specific architecture and implementation profile. It connects logical values and operands to register domains, instruction operands, configuration state, memory accesses, and numerical behavior.
+A target mapping defines how RVISA virtual operations are realized by instruction sequences and register classes/groups in a specific architecture and implementation profile. It connects typed values and operand roles to configuration state, memory accesses, and numerical behavior.
+
+The [mapping guarantees](contract.md#mapping-guarantees) are scoped to a profile revision. They describe legal realizations and allocation constraints, while the separate maturity states describe review and verification evidence.
 
 ## Mapping families
 
