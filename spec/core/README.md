@@ -1,6 +1,6 @@
 # Core Models
 
-The core models define the behavior shared by RVISA operations and language bindings.
+The core models define the behavior shared by RVISA operations and their implementations.
 
 | Model | Subject |
 | --- | --- |

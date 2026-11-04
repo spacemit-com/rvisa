@@ -4,7 +4,7 @@
 
 RVISA 是面向 RISC-V 标量、向量与矩阵计算的虚拟指令集，定义统一的编程模型，用于表达计算并映射到 RVV 及 [IME](https://github.com/riscv/integrated-matrix-extension)、[VME](https://github.com/riscv/riscv-isa-manual/pull/2997)、[AME](https://github.com/riscv/riscv-attached-matrix-extension) 等矩阵扩展。
 
-本仓库包含 RVISA 语言规范、目标映射合同、前端与 MLIR 设计文档，以及参考算例，面向架构设计者、编译器实现者、算子开发者和规范贡献者。
+本仓库包含 RVISA 语言规范、目标映射合同、MLIR 设计文档，以及参考算例，面向架构设计者、编译器实现者、算子开发者和规范贡献者。
 
 ## 矩阵扩展上游仓库
 
@@ -30,7 +30,7 @@ RVISA 是面向 RISC-V 标量、向量与矩阵计算的虚拟指令集，定义
 | [目标映射](mappings/README.md) | 版本化的寄存器、操作数和 lowering 合同 |
 | [符合性](spec/conformance.md) | 实现声明的要求和验证证据 |
 
-核心规范定义可观察行为；前端以源语言表达这些行为；MLIR dialect 将其表示为编译器 IR；目标 profile 规定这些行为在具体架构上的实现条件。
+核心规范定义可观察行为；MLIR dialect 将其表示为编译器 IR；目标 profile 规定这些行为在具体架构上的实现条件。
 
 ## 项目状态
 
@@ -41,8 +41,9 @@ RVISA 是面向 RISC-V 标量、向量与矩阵计算的虚拟指令集，定义
 | 核心规范与操作参考 | 开发中 |
 | 目标映射合同 | 开发中，尚未登记具体 profile |
 | [MLIR dialect](mlir/README.md) | TBD |
-| [Python 与 C++ 前端](frontends/README.md) | TBD |
 | [参考算例](demos/README.md) | 已描述计算问题，源程序实现 TBD |
+
+保留 Python 与 C++ demo 作为参考算例，本版本不包含源语言前端实现。
 
 文档状态与实现支持分别记录，变更见 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -50,7 +51,7 @@ RVISA 是面向 RISC-V 标量、向量与矩阵计算的虚拟指令集，定义
 
 - [spec/](spec/README.md)：规范章节与参考资料。
 - [mappings/](mappings/README.md)：标准及厂商目标 profile。
-- [mlir/](mlir/README.md) 与 [frontends/](frontends/README.md)：编译器表示与语言绑定。
+- [mlir/](mlir/README.md)：编译器表示与 dialect 设计。
 - [demos/](demos/README.md) 与 [conformance/](conformance/README.md)：参考算例与共享验证要求。
 - [rfcs/](rfcs/README.md)：设计提案与决议记录。
 - [schemas/](schemas/README.md)、[tools/](tools/README.md) 与 [tests/](tests/README.md)：元数据与仓库维护。

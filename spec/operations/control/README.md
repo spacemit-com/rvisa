@@ -4,7 +4,7 @@ Control and configuration operations determine which computation is performed an
 
 ## Control flow
 
-Loops, scalar conditionals, and compiled calls preserve value types, shapes, and effect dependencies. Loop-carried values retain their incoming values when the loop executes zero times. Source constructs outside a frontend's declared subset require a diagnostic.
+Loops, scalar conditionals, and compiled calls preserve value types, shapes, and effect dependencies. Loop-carried values retain their incoming values when the loop executes zero times. An implementation that accepts source code must diagnose constructs outside its declared subset.
 
 ## Configuration
 

@@ -6,4 +6,4 @@ A generated artifact identifies its authoritative inputs. Semantic definitions r
 
 Maintenance tooling is under development. Executable entry points and local invocation instructions are documented when available. Tool validation is maintained in [tests/](../tests/README.md).
 
-Compiler/frontend drivers belong to their own modules; shared semantic execution belongs to the conformance framework.
+Dialect development drivers belong to the [MLIR module](../mlir/README.md); shared semantic execution belongs to the conformance framework.

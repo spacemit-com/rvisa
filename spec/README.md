@@ -2,7 +2,7 @@
 
 **Document state: working draft.** See [Specification Status](status.md) for coverage and open decisions.
 
-RVISA defines the observable behavior of scalar, vector, and tile programs and the contracts required to map them to RISC-V targets. This manual separates language semantics from source-language bindings, IR representation, and target implementation choices.
+RVISA defines the observable behavior of scalar, vector, and tile programs and the contracts required to map them to RISC-V targets. This manual separates language semantics from IR representation and target implementation choices.
 
 ## Part I: Architecture and programming model
 
@@ -25,9 +25,8 @@ RVISA defines the observable behavior of scalar, vector, and tile programs and t
 - [Operation reference](operations/README.md)
 - [Conformance requirements](conformance.md)
 
-## Part III: Bindings and target realization
+## Part III: Compiler representation and target realization
 
-- [Python and C++ frontends](../frontends/README.md)
 - [MLIR representation](../mlir/README.md)
 - [Target mappings](../mappings/README.md)
 - [Reference workloads](../demos/README.md)

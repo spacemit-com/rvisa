@@ -10,7 +10,7 @@ Acceptance records a design decision. Implementation and verification are tracke
 
 ## Review scope
 
-A proposal identifies effects on core rules, types/operands, frontends, MLIR, mappings, demos, and conformance. It states which components are unaffected or still TBD and explains compatibility consequences.
+A proposal identifies effects on core rules, types/operands, MLIR, mappings, demos, and conformance. It states which components are unaffected or still TBD and explains compatibility consequences.
 
 Editorial corrections need not create an RFC. Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for review requirements.
 

@@ -19,4 +19,4 @@ Target conversion implements a versioned [mapping contract](../mappings/contract
 | `tools/` | Dialect development drivers |
 | `test/` | Parsing/printing, diagnostics, interfaces, and conversion tests |
 
-The LLVM/MLIR dependency revision and build interface will be specified with the implementation. User-facing C++ language bindings are maintained separately in the [C++ frontend](../frontends/cpp/README.md).
+The LLVM/MLIR dependency revision and build interface will be specified with the implementation.

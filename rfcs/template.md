@@ -20,7 +20,7 @@ Define the affected types, operands, operations, effects, numerical/memory behav
 
 ## Cross-layer impact
 
-Describe implications for language bindings, MLIR, each affected target profile, examples, conformance, and compatibility. Identify version or ABI consequences.
+Describe implications for MLIR, each affected target profile, examples, conformance, and compatibility. Identify version or ABI consequences.
 
 ## Alternatives
 

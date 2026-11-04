@@ -15,7 +15,7 @@ Reference workloads connect the RVISA programming model to common numerical kern
 
 ## Paired source forms
 
-Each implemented workload contains `kernel.py`, `kernel.cpp`, and a `demo.yaml` record alongside its README. Both forms implement the same input/output and numerical contract. Language-specific syntax is described by the [frontends](../frontends/README.md).
+Each implemented workload contains `kernel.py`, `kernel.cpp`, and a `demo.yaml` record alongside its README. Both forms implement the same input/output and numerical contract. Each demo documents the source conventions it uses and identifies any external compiler or runtime dependencies.
 
 The metadata identifies the workload, core version, required operations/profiles, and verification state. Execution instructions specify the actual implementation and runtime they use.
 

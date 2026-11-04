@@ -6,13 +6,13 @@ A kernel describes one logical program containing scalar control flow, vector op
 
 Source-language parsing, specialization, and program execution are distinct stages. Types, shape relationships, and compile-time options are resolved as required by each operation. Runtime values remain runtime values even when an implementation happens to observe a constant.
 
-Python and C++ source forms describe the same target computation. A frontend must not silently replace device control flow with host evaluation.
+Python and C++ source forms describe the same target computation. An implementation accepting these source forms must not silently replace device control flow with host evaluation.
 
 ## Control flow and calls
 
 Scalar conditions select control-flow paths. A mask value is not implicitly a scalar condition. Loops preserve the types and shapes of carried values, and a zero-iteration loop retains its incoming values.
 
-A compiled call must preserve the argument/result contract and the declared effects. A frontend must diagnose unsupported source constructs rather than omit their behavior.
+A compiled call must preserve the argument/result contract and the declared effects. An implementation that accepts source code must diagnose unsupported source constructs rather than omit their behavior.
 
 ## Configuration scope
 

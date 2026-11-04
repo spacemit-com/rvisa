@@ -22,9 +22,9 @@ Separate normative requirements, informative explanations, examples, and target-
 
 ## Implementation status
 
-MLIR and source frontends remain TBD until explicitly implemented and verified. Keep those status boundaries accurate without repeating setup narratives throughout the manual. Templates and empty profile registries are not supported targets.
+MLIR remains TBD until explicitly implemented and verified. This revision excludes source-language frontend implementations; retain the Python and C++ reference workloads in demos/. Keep those status boundaries accurate without repeating setup narratives throughout the manual. Templates and empty profile registries are not supported targets.
 
-Report structural checks, mathematical evidence, frontend/IR validation, compilation, execution, and performance independently. Do not invent tool commands, people, organizations, version numbers, or successful results.
+Report structural checks, mathematical evidence, IR validation, compilation, execution, and performance independently. Do not invent tool commands, people, organizations, version numbers, or successful results.
 
 ## Workspace operations
 

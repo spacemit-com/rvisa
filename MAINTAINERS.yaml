@@ -26,16 +26,6 @@ areas:
     paths:
       - mlir/**
     maintainers: []
-  - id: python-frontend
-    paths:
-      - frontends/README.md
-      - frontends/python/**
-    maintainers: []
-  - id: cpp-frontend
-    paths:
-      - frontends/README.md
-      - frontends/cpp/**
-    maintainers: []
   - id: target-mappings
     paths:
       - mappings/**

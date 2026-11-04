@@ -24,4 +24,4 @@ The initial affine descriptor model uses nonnegative sizes and strides. Addition
 
 An output-intent annotation alone does not imply write-only access. Distinct descriptors may alias unless a stronger condition is declared.
 
-Packed low-precision formats require a storage and addressing definition independent of ordinary byte-sized element arithmetic. Source-language pointer and descriptor spellings belong to the [frontends](../../frontends/README.md).
+Packed low-precision formats require a storage and addressing definition independent of ordinary byte-sized element arithmetic. Source-language pointer and descriptor spellings do not alter these descriptor semantics.

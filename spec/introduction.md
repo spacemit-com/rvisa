@@ -4,7 +4,7 @@ RVISA provides a virtual instruction set for RISC-V programs that combine scalar
 
 ## Audience
 
-The specification addresses architecture designers defining target capabilities, compiler developers implementing frontends and lowering, kernel developers writing numerical workloads, and reviewers evaluating portability and conformance.
+The specification addresses architecture designers defining target capabilities, compiler developers implementing IR and target lowering, kernel developers writing numerical workloads, and reviewers evaluating portability and conformance.
 
 Readers are expected to understand basic RISC-V scalar/vector execution, multidimensional arrays, and compiler intermediate representations. Terms specific to this specification are defined in the [glossary](glossary.md).
 
@@ -13,7 +13,6 @@ Readers are expected to understand basic RISC-V scalar/vector execution, multidi
 | Layer | Responsibility |
 | --- | --- |
 | Core language | Values, types, operations, control flow, effects, and observable results |
-| Source frontend | Language syntax, binding rules, specialization, and diagnostics |
 | Compiler IR | Representation of the same semantics for verification and transformation |
 | Target mapping | Legal instruction sequences, register/operand layouts, configuration, and resource constraints |
 | Runtime environment | Invocation, allocation, dispatch, completion, and platform integration where specified |

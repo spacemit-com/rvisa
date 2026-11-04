@@ -36,9 +36,9 @@ Identify input/intermediate/accumulator/result formats, rounding points, reducti
 
 List memory and configuration interactions, allocation/lifetime obligations, calls, and synchronization. Distinguish logical behavior from internally scheduled asynchronous work.
 
-## Bindings and target mappings
+## IR and target mappings
 
-Reference Python/C++ bindings and MLIR representation. Identify applicable mapping rules and legal decompositions without redefining the core semantics. Record many-to-one and one-to-many correspondence where relevant.
+Reference the MLIR representation and relevant Python/C++ demos. Identify applicable mapping rules and legal decompositions without redefining the core semantics. Record many-to-one and one-to-many correspondence where relevant.
 
 ## Conformance and examples
 

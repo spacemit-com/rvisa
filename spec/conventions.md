@@ -1,6 +1,6 @@
 # Conventions
 
-These conventions apply to the specification, operation reference, bindings, and target profiles.
+These conventions apply to the specification, operation reference, IR descriptions, examples, and target profiles.
 
 ## Normative and informative text
 
@@ -42,6 +42,6 @@ These terms are not interchangeable. Unknown resource limits do not mean unbound
 
 ## Examples and references
 
-Label pseudocode as such. Python/C++ examples illustrate bindings and do not imply execution support. Numerical examples state formats, rounding assumptions, and comparison policy.
+Label pseudocode as such. Python/C++ examples illustrate RVISA semantics and do not imply execution support. Numerical examples state formats, rounding assumptions, and comparison policy.
 
 Link matrix-extension references to the corresponding upstream specification or proposal. Use vendor sources for vendor-specific extensions. Concrete target claims cite a fixed source version and relevant section. The [reference index](references.md) identifies upstream entry points; the profile supplies its exact dependencies.

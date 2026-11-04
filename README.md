@@ -4,7 +4,7 @@
 
 RVISA is a virtual instruction set for RISC-V scalar, vector, and matrix computation. It defines a common programming model for expressing computation and mapping it to RVV and matrix extensions, including [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), and [AME](https://github.com/riscv/riscv-attached-matrix-extension).
 
-This repository contains the RVISA language specification, target mapping contracts, frontend and MLIR design documents, and reference workloads. It is intended for architecture designers, compiler implementers, kernel developers, and specification contributors.
+This repository contains the RVISA language specification, target mapping contracts, MLIR design documents, and reference workloads. It is intended for architecture designers, compiler implementers, kernel developers, and specification contributors.
 
 ## Matrix extension repositories
 
@@ -30,7 +30,7 @@ The [RVISA Specification](spec/README.md) is the reading entry point.
 | [Target mappings](mappings/README.md) | Versioned register, operand, and lowering contracts |
 | [Conformance](spec/conformance.md) | Requirements and evidence for implementation claims |
 
-The core specification defines observable behavior. Frontends express that behavior in a source language; the MLIR dialect represents it in compiler IR; target profiles define the conditions under which it can be implemented on a particular architecture.
+The core specification defines observable behavior. The MLIR dialect represents that behavior in compiler IR; target profiles define the conditions under which it can be implemented on a particular architecture.
 
 ## Project status
 
@@ -41,8 +41,9 @@ The specification is a **working draft**. Its scope and outstanding decisions ar
 | Core specification and operation reference | In development |
 | Target mapping contracts | In development; concrete profiles are not yet registered |
 | [MLIR dialect](mlir/README.md) | TBD |
-| [Python and C++ frontends](frontends/README.md) | TBD |
 | [Reference workloads](demos/README.md) | Documented workloads; source implementations TBD |
+
+Python and C++ demos remain part of the reference workloads. Source-language frontend implementations are outside the scope of this revision.
 
 Document status and implementation support are tracked separately. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
@@ -50,7 +51,7 @@ Document status and implementation support are tracked separately. Changes are r
 
 - [spec/](spec/README.md): specification chapters and references.
 - [mappings/](mappings/README.md): standard and vendor target profiles.
-- [mlir/](mlir/README.md) and [frontends/](frontends/README.md): compiler representation and language bindings.
+- [mlir/](mlir/README.md): compiler representation and dialect design.
 - [demos/](demos/README.md) and [conformance/](conformance/README.md): reference workloads and shared verification requirements.
 - [rfcs/](rfcs/README.md): design proposals and decision records.
 - [schemas/](schemas/README.md), [tools/](tools/README.md), and [tests/](tests/README.md): metadata and repository maintenance.

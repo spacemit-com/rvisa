@@ -6,6 +6,6 @@ A runner records dependency versions, target/profile parameters, invocation, inp
 
 An unsupported operation must not be silently replaced with a different semantic contract. A fallback, where permitted, is reported with the path actually exercised.
 
-Frontend/IR validation, simulator execution, and device execution use distinct adapters and evidence scopes. Runner implementations are under development.
+IR validation, simulator execution, and device execution use distinct adapters and evidence scopes. Runner implementations are under development.
 
 Return to the [conformance framework](../README.md).

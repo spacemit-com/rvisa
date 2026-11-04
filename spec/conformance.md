@@ -28,7 +28,6 @@ A target profile may narrow the supported domain; it cannot redefine an accepted
 | --- | --- |
 | Documentation and metadata | Structural consistency and traceability |
 | Independent formulas/coordinates | The stated mathematical or indexing properties |
-| Frontend checks | Accepted/rejected source behavior and semantic normalization |
 | IR checks | Representation invariants, effects, and conversion legality |
 | Target compilation | Acceptance by a specified toolchain and target configuration |
 | Execution | Results and behavior on the identified simulator or device |
