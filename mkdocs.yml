@@ -1,0 +1,156 @@
+# MkDocs configuration for the RVISA documentation site.
+#
+# The docs/ tree is assembled from the repository's primary documents by
+# tools/docs.sh (also run by the Docs workflow); it is fully generated, and
+# the root README.md serves as the site home page.
+# Local preview: tools/docs.sh && mkdocs serve
+
+site_name: RVISA
+site_description: >-
+  RVISA (RISC-V Virtual ISA) defines virtual instruction syntax for RISC-V
+  scalar, vector, and matrix computation.
+site_url: https://spacemit-com.github.io/rvisa/
+repo_url: https://github.com/spacemit-com/rvisa
+repo_name: spacemit-com/rvisa
+edit_uri: edit/main/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - content.action.edit
+
+markdown_extensions:
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Specification:
+      - Reading guide: spec/README.md
+      - Introduction: spec/introduction.md
+      - Conventions: spec/conventions.md
+      - Design baseline: spec/design-baseline.md
+      - Status: spec/status.md
+      - Conformance requirements: spec/conformance.md
+      - Glossary: spec/glossary.md
+      - References: spec/references.md
+      - Core models:
+          - Overview: spec/core/README.md
+          - Execution model: spec/core/execution-model.md
+          - Value model: spec/core/value-model.md
+          - Layout model: spec/core/layout-model.md
+          - Memory model: spec/core/memory-model.md
+          - Numeric model: spec/core/numeric-model.md
+          - Transfers: spec/core/transfers.md
+          - Diagnostics: spec/core/diagnostics.md
+      - Types:
+          - Overview: spec/types/README.md
+          - Scalar types: spec/types/scalar.md
+          - Vector types: spec/types/vector.md
+          - Tile types: spec/types/tile.md
+          - Mask types: spec/types/mask.md
+          - Element types: spec/types/element-types.md
+          - Memory types: spec/types/memory.md
+      - Operands:
+          - Overview: spec/operands/README.md
+          - Roles: spec/operands/roles.md
+          - Evaluation stages: spec/operands/stages.md
+          - Constraints: spec/operands/constraints.md
+      - Operations:
+          - Overview: spec/operations/README.md
+          - Operation template: spec/operations/operation-template.md
+          - Scalar operations: spec/operations/scalar/README.md
+          - Vector operations:
+              - Overview: spec/operations/vector/README.md
+              - vshape: spec/operations/vector/vshape.md
+              - vcast: spec/operations/vector/vcast.md
+              - vmadot: spec/operations/vector/vmadot.md
+          - Tile operations: spec/operations/tile/README.md
+          - Matrix operations:
+              - Overview: spec/operations/matrix/README.md
+              - tmma: spec/operations/matrix/tmma.md
+              - tmma.scaled: spec/operations/matrix/tmma-scaled.md
+          - Memory operations:
+              - Overview: spec/operations/memory/README.md
+              - Vector memory: spec/operations/memory/vector-memory.md
+              - Tile memory: spec/operations/memory/tile-memory.md
+              - Extended stores: spec/operations/memory/extended-stores.md
+              - im2col: spec/operations/memory/im2col.md
+          - Control:
+              - Overview: spec/operations/control/README.md
+              - vconfig: spec/operations/control/vconfig.md
+  - Mappings:
+      - Overview: mappings/README.md
+      - Mapping contract: mappings/contract.md
+      - IME:
+          - Mapping requirements: mappings/ime/README.md
+          - Registered profiles: mappings/ime/profiles/README.md
+      - VME:
+          - Mapping requirements: mappings/vme/README.md
+          - Registered profiles: mappings/vme/profiles/README.md
+      - AME:
+          - Mapping requirements: mappings/ame/README.md
+          - Registered profiles: mappings/ame/profiles/README.md
+      - RVV:
+          - Mapping requirements: mappings/rvv/README.md
+      - Vendor profiles: mappings/vendors/README.md
+      - Profile templates:
+          - Overview: mappings/templates/README.md
+          - Profile template:
+              - Overview: mappings/templates/profile/README.md
+              - Registers: mappings/templates/profile/registers.md
+              - Operands: mappings/templates/profile/operands.md
+              - Lowering: mappings/templates/profile/lowering.md
+              - Numerics: mappings/templates/profile/numerics.md
+              - Sources: mappings/templates/profile/sources.md
+              - Changelog: mappings/templates/profile/CHANGELOG.md
+  - MLIR:
+      - Overview: mlir/README.md
+      - Documentation: mlir/docs/README.md
+  - Demos:
+      - Workload index: demos/README.md
+      - vector-add: demos/vector-add/README.md
+      - GEMM: demos/gemm/README.md
+      - GEMM epilogue: demos/gemm-epilogue/README.md
+      - Block-scaled GEMM: demos/blockscale-gemm/README.md
+      - Convolution: demos/conv2d/README.md
+      - Attention: demos/attention/README.md
+  - Conformance:
+      - Framework: conformance/README.md
+      - Design cases:
+          - Overview: conformance/cases/README.md
+          - Core design cases: conformance/cases/core-designs.md
+      - Reference implementation: conformance/reference/README.md
+      - Runners: conformance/runners/README.md
+  - RFCs:
+      - Proposal index: rfcs/README.md
+      - '0001 — Instruction and register mapping contracts': rfcs/0001-instruction-and-register-mapping-contracts.md
+      - '0002 — Core operation contracts': rfcs/0002-core-operation-contracts.md
+      - Proposal template: rfcs/template.md
+  - Project:
+      - 中文介绍: README_CN.md
+      - Contributing: CONTRIBUTING.md
+      - Changelog: CHANGELOG.md
+      - Code of conduct: CODE_OF_CONDUCT.md
+      - Schemas: schemas/README.md
+      - Tools: tools/README.md
+      - Tests: tests/README.md

@@ -5,3 +5,7 @@ build/
 dist/
 *.egg-info/
 .DS_Store
+
+# MkDocs: generated site output and assembled docs tree
+site/
+docs/

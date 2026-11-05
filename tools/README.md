@@ -8,4 +8,6 @@ A generated artifact identifies its authoritative inputs. Semantic definitions r
 
 Maintenance tooling is under development. Executable entry points and local invocation instructions are documented when available. Tool validation is maintained in [tests/](../tests/README.md).
 
+The documentation site tree is assembled by `tools/docs.sh` from the primary documents; the MkDocs configuration is `mkdocs.yml` at the repository root, and the Docs workflow publishes the site to GitHub Pages.
+
 Dialect development drivers belong to the [MLIR module](../mlir/README.md); shared semantic execution belongs to the conformance framework.
