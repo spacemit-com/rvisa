@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Require programmer-expressible equivalents of tile optimizations; define rank-1 through rank-N linear carriers and legal register-group decomposition.
+- Specify carrier-preserving reshape/permutation, linear-layout derivations, anchor constraints, and closed-region load/store folding.
+- Define textract/tinsert for tile subvalues and retain tselect for Boolean elementwise selection; add axis-bound MMA with the 32x32 / 8x8x8 example, manual fragment expansion, and layout conformance cases.
+
 - Adopt concrete vector/tile types and operation contracts from the fixed v0.1-draft design baseline, with provenance and RFC 0002.
 - Define configuration, vector views/conversion, Cartesian group multiplication, matrix batch modes, block scaling, bounded memory access, compiler-managed transfers, and convolution-window loading.
 - Add specification-level positive and negative conformance cases; preserve unresolved numerical, packing, extended-store, and runtime contracts explicitly.

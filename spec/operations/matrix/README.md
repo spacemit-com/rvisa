@@ -5,6 +5,7 @@ Matrix operations combine logical contraction, batch pairing, accumulation, and 
 | Operation | Primary definition |
 | --- | --- |
 | [tmma](tmma.md) | Matrix axes, rank-2/rank-3 inputs, cross/reduce/broadcast pairing, accumulator initialization, numerical order, and active K |
+| [Axis-bound tmma](blocked-mma.md) | Explicit M/N/K factors, 32x32 blocking, linear-layout derivation, and a manual fragment-loop equivalent |
 | [tmma_scaled](tmma-scaled.md) | Per-input K-block scales, scale axes, decoding and f32 scaling, partial blocks, and format capabilities |
 | [vmadot](../vector/vmadot.md) | Related vector-domain primitive with Cartesian group pairing and an accumulator-first signature |
 

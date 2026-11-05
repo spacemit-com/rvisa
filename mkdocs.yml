@@ -58,6 +58,8 @@ nav:
           - Execution model: spec/core/execution-model.md
           - Value model: spec/core/value-model.md
           - Layout model: spec/core/layout-model.md
+          - Linear layouts: spec/core/linear-layout.md
+          - Tile optimization: spec/core/tile-optimization.md
           - Memory model: spec/core/memory-model.md
           - Numeric model: spec/core/numeric-model.md
           - Transfers: spec/core/transfers.md
@@ -84,10 +86,14 @@ nav:
               - vshape: spec/operations/vector/vshape.md
               - vcast: spec/operations/vector/vcast.md
               - vmadot: spec/operations/vector/vmadot.md
-          - Tile operations: spec/operations/tile/README.md
+          - Tile operations:
+              - Overview: spec/operations/tile/README.md
+              - Shape and layout: spec/operations/tile/layout-operations.md
+              - Extraction, insertion, and selection: spec/operations/tile/selection.md
           - Matrix operations:
               - Overview: spec/operations/matrix/README.md
               - tmma: spec/operations/matrix/tmma.md
+              - Axis-bound and blocked MMA: spec/operations/matrix/blocked-mma.md
               - tmma.scaled: spec/operations/matrix/tmma-scaled.md
           - Memory operations:
               - Overview: spec/operations/memory/README.md
@@ -163,12 +169,14 @@ nav:
       - Design cases:
           - Overview: conformance/cases/README.md
           - Core design cases: conformance/cases/core-designs.md
+          - Linear-layout cases: conformance/cases/linear-layout.md
       - Reference implementation: conformance/reference/README.md
       - Runners: conformance/runners/README.md
   - RFCs:
       - Proposal index: rfcs/README.md
       - '0001 — Instruction and register mapping contracts': rfcs/0001-instruction-and-register-mapping-contracts.md
       - '0002 — Core operation contracts': rfcs/0002-core-operation-contracts.md
+      - '0003 — Programmer-expressible tile layouts': rfcs/0003-programmer-expressible-tile-layouts.md
       - Proposal template: rfcs/template.md
   - Project:
       - 中文介绍: README_CN.md

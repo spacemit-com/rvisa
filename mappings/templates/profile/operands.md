@@ -7,7 +7,8 @@ Each supported virtual operation defines an explicit correspondence between its 
 | Source identity | Operation and operand identifiers, roles, and specification version |
 | Type and coordinates | Element types, shapes, grouping, layouts, and evaluation stages |
 | Target representation | Register class/group, immediate, descriptor, or implicit state, qualified by sequence step |
-| Coordinate relation | Logical index to register/lane or target matrix coordinate |
+| Coordinate relation | Linear-layout basis/domain, logical views, and register/element or target matrix coordinates |
+| Anchor constraints | Accepted carrier layouts, explicit M/N/K factor axes, and compatible load/store/extraction boundaries |
 | Validity | Alignment, overlap, range, grouping, operand ties, destructive updates, and any fixed-register constraints |
 | Effects | Reads, writes, configuration interactions, and clobbers |
 | Evidence | Source sections, requirement identifiers, and positive/negative cases |

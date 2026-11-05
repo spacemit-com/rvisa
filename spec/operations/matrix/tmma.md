@@ -11,6 +11,8 @@
 
 `tmma` contracts the K axes of two input tiles and incorporates an explicit accumulator. Matrix-axis interpretation, batch pairing, and numerical order are independent choices.
 
+This page defines the compact form without an axes binding. The explicit [axis-bound form](blocked-mma.md) describes factored M/N/K coordinates and programmer-written blocking. It does not change the compact form's defaults or batch interpretation.
+
 ~~~text
 tmma(a: tile<TA,SA>, b: tile<TB,SB>, acc: tile<TC,SC>,
      ALayout = ALayout.rowmajor,
@@ -59,7 +61,7 @@ M, N, and K are positive logical extents. Symbolic views require the same relati
 
 ## Rank and batch inference
 
-Normalized A and B must both have rank 2 or both have rank 3. Mixed ranks require an explicit reshape, such as [M,K] to [1,M,K]. Arbitrary additional input batch dimensions are not part of this contract.
+For the compact form, normalized A and B must both have rank 2 or both have rank 3. Mixed ranks require an explicit reshape, such as [M,K] to [1,M,K]. Arbitrary additional batch dimensions are not inferred. Higher-rank structural factorization requires the explicit [matrix-axis binding](blocked-mma.md#explicit-matrix-axis-binding); unannotated rank-4 input remains invalid here.
 
 With rank-2 A and B, every mode has an empty output batch prefix. With rank-3 inputs, the following rules apply before CLayout selects the last two axes:
 

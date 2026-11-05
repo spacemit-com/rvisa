@@ -18,6 +18,8 @@ The key entries below provide virtual signatures, operand stages, defaults, vali
 | Configuration | [vconfig](control/vconfig.md) |
 | Vector views and conversion | [vshape](vector/vshape.md), [vcast](vector/vcast.md) |
 | Vector-group contraction | [vmadot](vector/vmadot.md) |
+| Tile layout and subvalues | [tshape/ttranspose/tconvert_layout](tile/layout-operations.md), [textract/tinsert/tselect](tile/selection.md) |
+| Explicit blocked contraction | [Axis-bound tmma](matrix/blocked-mma.md) |
 | Matrix and scaled contraction | [tmma](matrix/tmma.md), [tmma_scaled](matrix/tmma-scaled.md) |
 | Flat vector access | [vload / vstore](memory/vector-memory.md) |
 | Descriptors and tile access | [tview / tload / tstore](memory/tile-memory.md) |

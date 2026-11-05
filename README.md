@@ -8,6 +8,8 @@ RVISA targets an abstraction level slightly above [NVIDIA PTX](https://docs.nvid
 
 [Tile mappings](spec/types/tile.md#register-representation) prioritize target registers: vector registers and register groups, matrix operand registers, and accumulator registers where available. A tile can span multiple registers or be partitioned to match instruction geometry. The [mapping guarantees](mappings/contract.md#mapping-guarantees) define the legal sequences, grouping, allocation constraints, and transfers for each profile; they allow implementation choices within those constraints.
 
+Every optimization of an RVISA tile computation must be [expressible by the programmer](spec/core/tile-optimization.md#expressibility-requirement). Tiles range from 1D to ND; reshape and axis permutation preserve element locations, while explicit conversions and load/store/MMA/textract anchors determine physical layout. [Linear layouts](spec/core/linear-layout.md) derive these mappings, including [blocked matrix computation](spec/operations/matrix/blocked-mma.md).
+
 This repository contains the RVISA instruction syntax, type and operand definitions, target mapping contracts, MLIR design documents, and reference workloads. It is intended for architecture designers, compiler implementers, kernel developers, and specification contributors.
 
 ## Matrix extension repositories
@@ -45,7 +47,7 @@ The specification is a **working draft**. Its scope and outstanding decisions ar
 | Component | Status |
 | --- | --- |
 | Core specification and operation reference | Key contracts defined in the working draft; open decisions tracked separately |
-| Target mapping contracts | In development; concrete profiles are not yet registered |
+| Target mapping contracts | Draft profiles registered; target conformance not established |
 | [MLIR dialect](mlir/README.md) | TBD |
 | [Reference workloads](demos/README.md) | Documented workloads, each with an RVISA-notation source form |
 

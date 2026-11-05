@@ -47,6 +47,6 @@ A positive vector group count alone does not make that vector an implicit matrix
 
 ## Mapping and conformance
 
-Logical purity does not guarantee zero register movement. A profile must preserve the original vector mode, coordinate order, and group constraints through any register permutation or transfer.
+The view preserves the source elements' carrier locations and composes their coordinate map. A consumer requiring another carrier needs a separately represented conversion or legal anchor rewrite. The profile preserves the original vector mode, order, and group constraints; see the [layout view rule](../../core/linear-layout.md#views-and-physical-movement).
 
 Test element-count mismatch, multiple inferred axes, symbolic divisibility, grouped linear order, and vector-origin overload preservation. Check views after a tile transpose against the tile's current logical shape rather than its earlier memory layout.

@@ -20,5 +20,6 @@ Editorial corrections need not create an RFC. Follow [CONTRIBUTING.md](../CONTRI
 | --- | --- | --- |
 | [0001](0001-instruction-and-register-mapping-contracts.md) | draft | Virtual instruction positioning, tile register priority, and versioned mapping guarantees |
 | [0002](0002-core-operation-contracts.md) | draft | Core vector/tile types, concrete operations, memory/transfer rules, and retained provisional boundaries |
+| [0003](0003-programmer-expressible-tile-layouts.md) | draft | Programmer-expressible tile optimizations, linear layouts, anchors, and factored MMA |
 
 A draft proposal records design and review scope; its presence does not establish completed approval or implementation evidence.

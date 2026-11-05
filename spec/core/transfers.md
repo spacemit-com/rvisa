@@ -39,7 +39,7 @@ An internal function return does not automatically drain all engines. However, a
 
 ## Path legality
 
-The chosen path must preserve coordinates, element type, bounds, fill values, alias ordering, and completion. Hardware zero fill cannot replace arbitrary other values without a correct supplementary sequence.
+The chosen path must preserve coordinates, element type, bounds, fill values, alias ordering, and completion. [Tile-region layout optimization](tile-optimization.md) may change the carrier produced or consumed at a transfer anchor, but must preserve these obligations and expose an equivalent programmer expression. Hardware zero fill cannot replace arbitrary other values without a correct supplementary sequence.
 
 Tile register representation and transfer-engine selection are separate decisions. A profile records transfer direction, supported rank/shape, strides, alignment, format, padding, rectangular or im2col access, and completion mechanism. Matrix capability in [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), or [AME](https://github.com/riscv/riscv-attached-matrix-extension) does not itself establish a TMA path.
 

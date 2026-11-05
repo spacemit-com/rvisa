@@ -21,7 +21,7 @@ tmma_scaled(a, a_scale, b, b_scale, acc,
             valid_k = K) -> tile<f32, output_shape>
 ~~~
 
-All five data operands are required. Layout, rank, batch, accumulator normalization, defaults, active K, and enum staging follow [tmma](tmma.md). Scale values may be runtime data; their types, shapes, and blocking relationship must be statically resolvable. There is no independent block-size operand and no transfer-policy operand on this pure computation.
+All five data operands are required. Layout, rank, batch, accumulator normalization, defaults, active K, and enum staging follow the compact form of [tmma](tmma.md). The [axis-bound extension](blocked-mma.md) does not implicitly define scale-factor axes for this operation. Scale values may be runtime data; their types, shapes, and blocking relationship must be statically resolvable. There is no independent block-size operand and no transfer-policy operand on this pure computation.
 
 ## Scale axes and block inference
 

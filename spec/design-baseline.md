@@ -31,6 +31,10 @@ Source status and current status are distinct. The earlier design supplies seman
 
 This correspondence records design provenance rather than a dependency on a sibling checkout. The prose is organized around the present specification's types, operands, effects, and operation entries. The [register priority](types/tile.md#register-representation) and [versioned mapping guarantees](../mappings/contract.md#mapping-guarantees) govern target realization.
 
+## Subsequent layout design
+
+[RFC 0003](../rfcs/0003-programmer-expressible-tile-layouts.md) refines the current draft with rank-1 through rank-N carrier rules, location-preserving views, explicit tile optimization, anchor regions, and factored matrix-axis binding. These additions are current RVISA design proposals; they are not attributed to the earlier source snapshot. The compact matrix form and existing numerical/memory obligations remain in force.
+
 ## Preserved boundaries
 
 The adoption retains unresolved semantics as provisional: dynamic configuration returns, fractional-LMUL/mask notation, grouped carrier bridges and packing, extended stores, reduction/approximation details, low-precision storage/conversions, and ABI/runtime contracts. The complete inventory is maintained in [Specification Status](status.md).

@@ -23,6 +23,8 @@ The metadata identifies the workload, core version, required operations/profiles
 
 Core operand stages and source-default normalization are defined in [Operand Evaluation Stages](../spec/operands/stages.md). Reuse the [core design cases](../conformance/cases/core-designs.md) for shared behavior; a demo must not silently choose an unresolved reduction or packing contract.
 
+Tile-level optimizations in a workload have an equivalent public expression under [RVISA-TILE-EXPR-1](../spec/core/tile-optimization.md#expressibility-requirement). Record explicit layout/fragment choices alongside the form left for compiler inference; compare their semantics before comparing performance.
+
 ## Target realization records
 
 A target-specific demo identifies its profile revision, virtual operations, target instruction sequences, and register classes/groups for inputs, accumulators, results, and temporaries. It records fragment geometry, configuration changes, transfers, and any permitted spills or staging. A generic example may describe these obligations without claiming an implemented target mapping.

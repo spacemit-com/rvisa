@@ -8,7 +8,7 @@ Tile operations describe virtual instructions on multidimensional computation va
 | --- | --- |
 | tzero(TileType) | Construct a zero tile of an explicit element type and complete shape |
 | tcast(value,dtype) | Convert elements and preserve the complete shape |
-| tselect(mask,a,b) | Select per logical coordinate after compatible shape/dtype normalization |
+| [tselect](selection.md#tselect) | Choose between two values per Boolean mask coordinate, preserving the complete normalized shape |
 | tadd / tmul | Elementwise addition/multiplication, preserving complete shape |
 | tmin / tmax | Elementwise minimum/maximum, preserving complete shape |
 
@@ -20,12 +20,16 @@ These are Pure value computations. Conversion rounding, exceptional arithmetic, 
 
 | Operation | Logical effect | Validity |
 | --- | --- | --- |
-| tshape(value,shape) | Preserve the last-axis-fastest element sequence under a new shape | Equal element counts, including provable symbolic relationships |
-| ttranspose(value,perm) | Permute logical axes | Static permutation must be a bijection over the axes |
+| [tshape](layout-operations.md#tshape) | Preserve the element sequence and carrier locations under a new shape | Equal element counts, including provable symbolic relationships |
+| [ttranspose](layout-operations.md#ttranspose) | Permute logical axes while preserving element locations | Static permutation must be a bijection over the axes |
 | tbroadcast(value,shape,axes) | Replicate explicitly selected coordinates | Complete source/destination axis relationship must be unambiguous |
-| tconvert_layout(value,layout) | Preserve logical coordinates and element values while changing representation | Static representation choice must admit a legal mapping |
+| [tconvert_layout](layout-operations.md#tconvert_layout) | Preserve logical coordinates and values while changing carrier placement | Static representation choice must admit a legal mapping |
+| [textract](selection.md#textract) | Extract one coordinate along an axis, such as a matrix row or column, and remove that axis | Axis/index and selected carrier must be legal |
+| [tinsert](selection.md#tinsert) | Form an immutable value with one slice replaced | Replacement type/subshape and index must match |
 
-These transformations must not be conflated. A view does not guarantee zero physical movement. Profiles identify register permutations, group changes, inter-class transfers, and permitted staging.
+View nodes preserve element locations. A required physical change is a representation conversion or anchor realization, not an implicit consequence of reshape/permutation. Profiles identify register moves, group changes, inter-class transfers, and permitted staging using [linear-layout derivations](../../core/linear-layout.md).
+
+textract and tinsert form the subvalue extraction/assembly pair. tselect chooses between two values per Boolean mask coordinate without removing an axis. [Programmer expressibility](../../core/tile-optimization.md#expressibility-requirement) requires compiler tile rewrites to have public operation/layout equivalents.
 
 The detailed multi-argument broadcast/tag notation remains provisional. It must not silently choose an axis mapping. treduce_sum is also provisional: reduction axes, scalar versus tile result, retained singleton axes, accumulation order, and numerical behavior must be specified together.
 

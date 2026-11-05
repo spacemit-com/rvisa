@@ -22,9 +22,11 @@ Logical values and SSA identities remain distinct from concrete physical registe
 
 Verifiers cover local constraints and cross-operand type/shape relationships. Interfaces expose effects, inference, and other behavior needed by generic transformations. Configuration-sensitive operations and calls retain dependencies that prevent invalid movement or elimination.
 
+IR must distinguish shape/permutation views from physical representation conversion. Record [linear-layout](../../spec/core/linear-layout.md) maps and validity, explicit versus inferred anchor constraints, [matrix-axis bindings](../../spec/operations/matrix/blocked-mma.md), textract/tinsert subvalue semantics, and tselect Boolean value selection. A shape-only rewrite must not silently insert register movement.
+
 ## Transformations and conversion
 
-Canonicalization preserves the numerical and memory contracts. Conversion legality includes resource constraints, representation changes, implicit state, and target-specific failure conditions.
+Canonicalization preserves the numerical and memory contracts. [Closed tile regions](../../spec/core/tile-optimization.md#closed-tile-regions) require complete boundary/effect analysis. A tile optimization must be reconstructible as public RVISA operations and layouts under RVISA-TILE-EXPR-1; a backend-only IR form is insufficient. Conversion legality includes resource constraints, representation changes, implicit state, and target-specific failure conditions.
 
 Conversion rules refer to the applicable profile revision, legal instruction sequence families, register/operand constraints, and primary semantic definitions. Unsupported behavior must be diagnosed or handled by an explicitly permitted decomposition.
 
