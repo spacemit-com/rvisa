@@ -1,0 +1,18 @@
+# RVISA notation — vector addition: Y[i] = X[i] + Z[i], 0 <= i < N, f32.
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+# The elementwise add is the tile operation tadd: the vector family defines
+# vzero/vmacc/vbroadcast/vselect and reductions, but no elementwise addition, so the
+# workload is expressed on rank-1 tiles. Descriptor bounds then supply the tail rule
+# (RVISA-TLOAD-BOUNDS-1, RVISA-TSTORE-BOUNDS-1) instead of vconfig.
+
+x_view = tview(ptr_x, sizes=[N], strides=[1])
+z_view = tview(ptr_z, sizes=[N], strides=[1])
+y_view = tview(ptr_y, sizes=[N], strides=[1])
+
+x = tload(x_view, origin=[i], shape=static<[16]>, other=0.0)
+z = tload(z_view, origin=[i], shape=static<[16]>, other=0.0)
+
+y = tadd(x, z)
+
+tstore(y_view, origin=[i], value=y)   # writes only coordinates inside sizes

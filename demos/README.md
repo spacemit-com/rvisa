@@ -1,23 +1,25 @@
 # Reference Workloads
 
-Reference workloads illustrate RVISA virtual instruction notation and its target instruction/register mappings through common numerical kernels. Each workload defines the computation, data contract, mapping concerns, and verification cases shared by its Python and C++ forms.
+Reference workloads illustrate RVISA virtual instruction notation and its target instruction/register mappings through common numerical kernels. Each workload defines the computation, data contract, mapping concerns, and verification cases, and states its source form.
 
-**Source implementation status: TBD.** The documents below describe the workloads; they are not executable kernel packages.
+**Source status: all six workloads have an RVISA-notation source form.** This revision contains no frontend, so those files are specification-level notation rather than executable programs.
 
-| Workload | Coverage |
-| --- | --- |
-| [Vector addition](vector-add/README.md) | Vector capacity, elementwise computation, and tails |
-| [GEMM](gemm/README.md) | Matrix coordinates, accumulation, and tiled memory access |
-| [GEMM with epilogue](gemm-epilogue/README.md) | Bias/activation, value views, and domain transitions |
-| [Block-scaled GEMM](blockscale-gemm/README.md) | Scale axes, block boundaries, and numerical ordering |
-| [Convolution](conv2d/README.md) | Convolution coordinates, padding, and matrix lowering |
-| [Attention](attention/README.md) | Matrix operations, reductions, normalization, and masks |
+| Workload | Coverage | Source forms |
+| --- | --- | --- |
+| [Vector addition](vector-add/README.md) | Vector capacity, elementwise computation, and tails | [vector-add.rvisa](vector-add/vector-add.rvisa) · [demo.yaml](vector-add/demo.yaml) |
+| [GEMM](gemm/README.md) | Matrix coordinates, accumulation, and tiled memory access | [gemm.rvisa](gemm/gemm.rvisa) · [demo.yaml](gemm/demo.yaml) |
+| [GEMM with epilogue](gemm-epilogue/README.md) | Bias/activation, value views, and domain transitions | [gemm-epilogue.rvisa](gemm-epilogue/gemm-epilogue.rvisa) · [demo.yaml](gemm-epilogue/demo.yaml) |
+| [Block-scaled GEMM](blockscale-gemm/README.md) | Scale axes, block boundaries, and numerical ordering | [blockscale-gemm.rvisa](blockscale-gemm/blockscale-gemm.rvisa) · [demo.yaml](blockscale-gemm/demo.yaml) |
+| [Convolution](conv2d/README.md) | Convolution coordinates, padding, and matrix lowering | [conv2d.rvisa](conv2d/conv2d.rvisa) · [demo.yaml](conv2d/demo.yaml) |
+| [Attention](attention/README.md) | Matrix operations, reductions, normalization, and masks | [attention.rvisa](attention/attention.rvisa) · [demo.yaml](attention/demo.yaml) |
 
-## Paired source forms
+## Source forms
 
-Each implemented workload contains `kernel.py`, `kernel.cpp`, and a `demo.yaml` record alongside its README. Both forms express the same typed operations, operand roles, grouping constraints, and input/output and numerical contract. Each demo documents the source conventions it uses and identifies any external compiler or runtime dependencies.
+An implemented workload carries a `demo.yaml` record and one or more source forms alongside its README. The primary source form is RVISA notation in a `<name>.rvisa` file: virtual operations, operand roles, and register-representation expectations written in the notation this manual defines. A host Python or C++ form may accompany it to make a workload checkable, and both express the same typed operations, operand roles, grouping constraints, and input/output and numerical contract.
 
-The metadata identifies the workload, core version, required operations/profiles, and verification state. Execution instructions specify the actual implementation and runtime they use.
+A `.rvisa` file is notation, not a program: without a frontend it is neither compiled nor executed, and it establishes no available runtime. Each demo documents the source conventions it uses, and any host form it adds identifies its external compiler or runtime dependencies.
+
+The metadata identifies the workload, core version, required operations/profiles, and verification state.
 
 Core operand stages and source-default normalization are defined in [Operand Evaluation Stages](../spec/operands/stages.md). Reuse the [core design cases](../conformance/cases/core-designs.md) for shared behavior; a demo must not silently choose an unresolved reduction or packing contract.
 
@@ -25,7 +27,7 @@ Core operand stages and source-default normalization are defined in [Operand Eva
 
 A target-specific demo identifies its profile revision, virtual operations, target instruction sequences, and register classes/groups for inputs, accumulators, results, and temporaries. It records fragment geometry, configuration changes, transfers, and any permitted spills or staging. A generic example may describe these obligations without claiming an implemented target mapping.
 
-Concrete register numbers may be shown for one generated program, with the profile's actual allocation constraints stated separately. Python/C++ notation examples do not establish an available frontend or runtime.
+Concrete register numbers may be shown for one generated program, with the profile's actual allocation constraints stated separately. Notation examples do not establish an available frontend or runtime.
 
 ## Verification
 

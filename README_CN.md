@@ -47,9 +47,9 @@ RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/p
 | 核心规范与操作参考 | 已写入关键合同的工作草案，未决事项单独跟踪 |
 | 目标映射合同 | 开发中，尚未登记具体 profile |
 | [MLIR dialect](mlir/README.md) | TBD |
-| [参考算例](demos/README.md) | 已描述计算问题，源程序实现 TBD |
+| [参考算例](demos/README.md) | 已描述计算问题，每个算例都提供 RVISA 记法源形式 |
 
-保留 Python 与 C++ demo 作为参考算例，本版本不包含源语言前端实现。
+参考算例的源形式为 RVISA 记法（`<name>.rvisa`），可另附 Python 或 C++ 宿主机形式。本版本不包含源语言前端实现，因此记法形式不被编译或执行。
 
 文档状态与实现支持分别记录，变更见 [CHANGELOG.md](CHANGELOG.md)。
 

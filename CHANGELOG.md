@@ -7,6 +7,7 @@
 - Add specification-level positive and negative conformance cases; preserve unresolved numerical, packing, extended-store, and runtime contracts explicitly.
 
 - Define RVISA's positioning around virtual instruction syntax, register representations, and explicit mappings in versioned target profiles.
+- Add an RVISA-notation source form and metadata record for each of the six reference workloads; notation is not compiled or executed in this revision.
 - Specify tile register priority and distinguish mapping guarantees from concrete register allocation and profile maturity.
 - Align compiler design, profile templates, reference workloads, and conformance evidence with the instruction/register contracts.
 

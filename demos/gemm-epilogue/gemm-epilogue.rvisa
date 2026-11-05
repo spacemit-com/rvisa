@@ -1,0 +1,19 @@
+# RVISA notation — GEMM with bias and ReLU epilogue.
+#
+#   P[m,n] = C[m,n] + sum_k A[m,k] * B[n,k],  C = 0
+#   Y[m,n] = max(P[m,n] + bias[n], 0)
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+
+a = tload(a_view, origin=[0, 0], shape=static<[16, 16]>, other=0)
+b = tload(b_view, origin=[0, 0], shape=static<[16, 16]>, other=0)
+p = tmma(a, b, 0,
+         ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+
+bias = tload(bias_view, origin=[0, 0], shape=static<[1, 16]>, other=0)
+q = tadd(p, tbroadcast(bias, static<[16, 16]>, axes=[1]))   # bias[n] across m
+
+y = tmax(q, tzero(tile<f32, [16, 16]>))                     # ReLU
+
+tstore(y_view, origin=[0, 0], value=y)
