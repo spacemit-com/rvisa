@@ -20,7 +20,7 @@ Tile representations follow the [register priority policy](../types/tile.md#regi
 
 ## Views and representation
 
-A value view changes coordinate interpretation without reading external memory. Reshaping preserves element count and logical order; transposition changes the correspondence between axes. Representation conversion preserves logical coordinates while changing where elements are held.
+A value view changes coordinate interpretation without reading external memory or moving elements between carrier locations. Reshaping preserves element count and logical order; transposition relabels axes. Their maps compose under the [view rule](linear-layout.md#views-and-physical-movement). Representation conversion preserves logical coordinates while changing where elements are held; its movement is represented separately or legally absorbed by an anchor.
 
 A memory view is a descriptor, not a loaded value. Constructing a descriptor does not establish that the described allocation is valid.
 

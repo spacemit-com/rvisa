@@ -18,6 +18,10 @@ Describe typed operations, operand roles, and constraints on register groups usi
 
 Keep [tile register priority](spec/types/tile.md#register-representation) and [profile mapping guarantees](mappings/contract.md#mapping-guarantees) as the primary definitions. Distinguish logical values, register classes/groups, and concrete allocation. A profile may permit multiple instruction sequences and allocations; any required fixed registers, spills, or staging policies remain explicit. Do not imply that a virtual operation always maps to one machine instruction or that all tile elements are simultaneously resident.
 
+Tile-level compiler optimizations must have equivalent public RVISA expressions under [RVISA-TILE-EXPR-1](spec/core/tile-optimization.md#expressibility-requirement). Keep shape/permutation views location-preserving, derive conversions through linear layouts, and distinguish canonical grouping from anchor-selected layouts. Region rewriting preserves every relevant boundary, memory dependency, and numerical order.
+
+Use textract for axis-based subvalue extraction, tinsert for immutable subvalue replacement, and tselect for Boolean elementwise selection. Keep these roles distinct in the operation reference, examples, IR descriptions, and mappings.
+
 ## Specification quality
 
 Define the observable behavior before describing an implementation. Distinguish logical values, operand roles, memory descriptors, axis layouts, physical representations, and instruction operands.

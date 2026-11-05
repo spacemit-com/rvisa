@@ -20,6 +20,8 @@ Default arguments are expanded before comparing equivalent source forms. The MLI
 | --- | --- | --- |
 | Element types, LMUL, shape/rank structure | Compile time or resolved symbolic constraints | [Types](../types/README.md), [vconfig](../operations/control/vconfig.md) |
 | Matrix A/B/C layouts, batch mode, reduction order | Compile-time enums in their respective domains | [tmma](../operations/matrix/tmma.md#operands-and-defaults) |
+| Matrix factor-axis bindings and explicit carrier layouts | Compile-time metadata with provable symbolic constraints | [Axis-bound tmma](../operations/matrix/blocked-mma.md), [linear layouts](../core/linear-layout.md) |
+| Extraction axis / extraction index | Static axis / runtime index where supported | [textract and tinsert](../operations/tile/selection.md) |
 | Matrix/scale elements and accumulator | Runtime data | [tmma_scaled](../operations/matrix/tmma-scaled.md) |
 | valid_k | Runtime extent, default inferred from full K | [tmma](../operations/matrix/tmma.md#numerical-order-and-tails) |
 | Pointer, origin, descriptor sizes/strides | Runtime values with static rank and units | [Tile memory](../operations/memory/tile-memory.md) |

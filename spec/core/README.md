@@ -7,6 +7,8 @@ The core models define the semantics that RVISA virtual operations and their tar
 | [Execution](execution-model.md) | Logical programs, control flow, calls, and configuration scope |
 | [Values and state](value-model.md) | Computation values, descriptors, views, and effects |
 | [Layout](layout-model.md) | Coordinates, matrix axes, storage strides, and representation |
+| [Linear layouts](linear-layout.md) | Carrier basis maps, composition, conversions, and valid domains |
+| [Tile optimization](tile-optimization.md) | Programmer expressibility, anchors, and closed-region legality |
 | [Memory](memory-model.md) | Addressing, bounds, aliasing, ordering, and completion |
 | [Transfers](transfers.md) | Path selection, readiness, dependencies, and buffer lifetime |
 | [Numerics](numeric-model.md) | Precision, rounding, reductions, and special values |

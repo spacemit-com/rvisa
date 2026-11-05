@@ -20,7 +20,7 @@ Architecture versions, implementation revisions, and toolchain revisions are sep
 
 Mapping stability means that this declared contract is preserved within the identified profile revision. Changes to legal sequences, grouping requirements, resource policies, or observable behavior require the revision analysis below. Mapping stability is distinct from the evidence-based profile maturity state `stable`.
 
-A virtual operation may lower to several target instructions; several operations may share or fuse a legal sequence where their contracts permit it. A rule may specify an empty sequence when its semantics and representation constraints require no emitted instructions; a logical view alone does not establish that condition. Exact instruction counts, physical register numbers, scheduling, and spills may vary within the declared rules. Any fixed-register requirement imposed by the target remains binding and is recorded explicitly.
+A virtual operation may lower to several target instructions; several operations may share or fuse a legal sequence where their contracts permit it. A view node preserves carrier locations and introduces no data movement on its own. A consumer requiring another representation uses a separately derived conversion, which may be absorbed by an anchor when legal. Other rules may specify an empty sequence when their complete semantics and representation constraints permit it. Exact instruction counts, physical register numbers, scheduling, and spills may vary within the declared rules. Any fixed-register requirement imposed by the target remains binding and is recorded explicitly.
 
 ## Register and operand model
 
@@ -32,11 +32,15 @@ Tile representations follow [RVISA-TILE-REG-1](../spec/types/tile.md#register-re
 
 Configuration reads/writes, clobbers, function boundaries, temporary lifetime, and inter-domain transfers belong to the mapping. They cannot be hidden behind a one-line mnemonic correspondence.
 
+Profiles include [linear-layout](../spec/core/linear-layout.md) domains and basis maps, validity predicates, coordinate-view composition, and anchor constraints. Unsupported group capacities are decomposed into legal fragments; an aggregate m16 requirement is not a legal RVV instruction operand.
+
 ## Lowering legality
 
 Each rule specifies its source operation, preconditions, target sequence or precise pseudocode, coordinate transforms, dependencies, and diagnostics. It addresses zero extents, tails, bounds, aliasing, temporary lifetime, faults/restart, and completion as applicable.
 
 Native instructions are selected only when they satisfy the numerical and observable-state contract. A decomposition must preserve the same requirements and respect explicit capability/fallback policy.
+
+Tile rewrites satisfy [RVISA-TILE-EXPR-1](../spec/core/tile-optimization.md#expressibility-requirement): record an equivalent public RVISA expression, including explicit layouts and conversions. Load/store folding additionally proves [region boundary legality](../spec/core/tile-optimization.md#what-boundary-folding-preserves), including aliases, external users, and numerical order.
 
 Optimization advice is informative and qualified by profile conditions. Instruction counts or logical geometry do not constitute a performance measurement.
 

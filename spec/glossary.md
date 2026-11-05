@@ -8,13 +8,18 @@
 | Kernel | A compiled computation invoked through a runtime contract |
 | Scalar | A single computation value |
 | Vector / vec | An ordered value with fixed or scalable capacity and defined grouping |
-| Tile | A multidimensional computation value whose target representation prioritizes registers |
+| Tile | A rank-1 through rank-N computation value whose target representation prioritizes registers |
 | Mask | Boolean conditions over a specified logical coordinate domain |
 | Descriptor | Addressing metadata for memory; not the contents of that memory |
 | Operand | An input to an operation, with a type, role, and evaluation stage |
 | Attribute | Compile-time information in a particular IR representation |
 | Effect | An observable memory, configuration, allocation, or other state interaction |
 | Layout | A coordinate interpretation or physical representation, qualified by context |
+| Linear layout | Basis-described carrier-to-coordinate map, composed with exact views and validity domains |
+| Carrier | Register-class/group, fragment, and element-slot representation of a value |
+| View | Coordinate reinterpretation that preserves every element's carrier location |
+| Anchor operation | Operation imposing or selecting representation constraints, such as load/store, MMA, or textract |
+| Closed tile region | Tile graph with loads or no tile inputs and stores or no tile outputs, subject to complete boundary/effect accounting |
 | Lowering | Transformation to a more concrete representation while preserving its contract |
 | Target profile | Versioned instruction mappings, register constraints, capabilities, and supported domain |
 | Register class | A target-defined category of architectural registers with stated operand and access rules |

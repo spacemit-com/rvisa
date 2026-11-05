@@ -17,3 +17,5 @@ Mapping cases also identify legal instruction sequence families, operand/registe
 Cases are independent of a particular source notation where possible. Python/C++ source expressions and target invocation details are supplied by the corresponding adapters.
 
 [Core design cases](core-designs.md) define inputs, exact expected values or diagnostics, and mapping obligations for the adopted type, matrix, memory, configuration, and convolution contracts. They are specification-level cases; an executable case catalogue remains under development. Return to the [conformance framework](../README.md).
+
+[Linear-layout cases](linear-layout.md) cover rank-1 through rank-N carriers, location-preserving views, explicit blocked contraction, selection/assembly, and anchor-region legality.

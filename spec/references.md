@@ -19,6 +19,14 @@ References provide architectural context and documentation guidance. A concrete 
 
 The [design baseline](design-baseline.md) identifies the exact earlier RVISA revision, its declared specification status, and the current primary definitions. It distinguishes semantic adoption from frontend or target implementation support.
 
+## Layout and grouping sources
+
+- [Linear Layouts, arXiv:2505.23819v5](https://arxiv.org/html/2505.23819v5), revised 2026-03-06: binary-linear carrier maps and layout algebra.
+- [Triton LinearLayout.h at f8cddb947b471d6902a39f62d0894d1e552e5e75](https://github.com/triton-lang/triton/blob/f8cddb947b471d6902a39f62d0894d1e552e5e75/include/triton/Tools/LinearLayout.h): fixed implementation reference for basis representation and composition.
+- [RISC-V vector v1.0 source at 3570f998903f00352552b670f1f7b7334f0a144a](https://github.com/riscvarchive/riscv-v-spec/blob/3570f998903f00352552b670f1f7b7334f0a144a/v-spec.adoc): VLEN units, register grouping, and per-instruction group limits. This tag identifies a frozen public-review source snapshot; its introduction is not used as a claim about later ratification status.
+
+RVISA's [linear-layout contract](core/linear-layout.md) and [tile-region rules](core/tile-optimization.md) define this project's semantics. The 8x8x8 example is a stated profile assumption, not a claim about an upstream matrix extension.
+
 ## Specification authoring references
 
 - [RISC-V specification template](https://github.com/riscv/docs-spec-template/tree/5885bbe659fc2955b49ab213c50ee2889db5e257) for document organization and state separation.

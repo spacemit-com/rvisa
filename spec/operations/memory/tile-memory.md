@@ -31,7 +31,7 @@ Origin contains runtime element coordinates, not tile indices. Shape contains po
 
 **RVISA-TLOAD-BOUNDS-1.** For every local result coordinate i, form x=origin+i. If every axis satisfies 0 <= x[d] < sizes[d], read view[x]; otherwise return other[i] without accessing that element's source address. This includes negative origins, partially outside tiles, empty source bounds, and tiles entirely outside the descriptor.
 
-The returned value observes memory according to program ordering. Later stores cannot alter that logical snapshot. The layout option concerns result representation and does not change coordinates or memory strides.
+The returned value observes memory according to program ordering. Later stores cannot alter that logical snapshot. The layout option concerns result representation and does not change coordinates or memory strides. An explicit layout constrains the result carrier; auto allows [anchor inference](../../core/tile-optimization.md#anchors). A load may directly construct a blocked carrier from the original logical addresses.
 
 ## tstore
 
@@ -52,6 +52,8 @@ Rank-3 and rank-4 values retain their complete batch structure. There is no impl
 Value and memory dtype, rank, access, and shape constraints must agree. Effective write addresses within the operation must not overlap unless a separately specified conflict-resolution operation is used.
 
 ## Transfer policy and mapping
+
+The load and store are layout anchors. [Boundary folding](../../core/tile-optimization.md#what-boundary-folding-preserves) may change their target sequences to produce/consume an inferred carrier, while preserving original addresses, bounds, fill, aliases, and completion. A store's source layout determines its value-to-address correspondence; no caller-memory transpose is implicit.
 
 Both memory operations use the compile-time permission defined in [Transfers](../../core/transfers.md#transfer-selection). Default/None and true permit a TMA path; false forbids that path for this operation. Neither operation returns an event or pending tile.
 

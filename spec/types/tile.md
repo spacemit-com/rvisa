@@ -1,10 +1,43 @@
 # Tile Types
 
-A tile is a typed mapping from a multidimensional logical coordinate domain to element values. Its shape and layout are semantic properties; they do not require a same-shaped physical matrix register.
+A tile is a typed value of rank 1 through rank N, written `tile<T, Shape, Layout>`. Shape describes logical coordinates; Layout describes their carrier relationship under the [linear-layout model](../core/linear-layout.md). Neither requires a same-shaped matrix register.
 
 ## Shape
 
-A tile can describe fixed extents and valid symbolic views of scalable values. The conceptual notation is `tile<T, Shape, Layout>`. Literal tile extents are positive compile-time quantities and need not be powers of two. Runtime access bounds and active contraction extents are distinct from the full value shape.
+A tile can describe fixed extents and valid symbolic views of scalable values. Literal extents are positive compile-time integers and need not be powers of two. Rank zero is represented by a scalar. Runtime access bounds and active contraction extents are distinct from the full value shape.
+
+For byte-addressable T and shape [x0,...,xN-1]:
+
+~~~text
+element_count = product(Shape)
+logical_bytes = element_count * sizeof(T)
+~~~
+
+**RVISA-TILE-SHAPE-1.** An N-dimensional shape MUST be interpretable as a view of the same element sequence as a one-dimensional tile of length product(Shape). Changing shape alone preserves every element's carrier location. Shape does not choose new register groups, transpose physical data, or imply a microtile layout.
+
+For example, [32,32], [4,8,4,8], and [1024] are reshape views of the same 1024-element sequence. An explicit axis permutation changes coordinate interpretation; an anchor-specific blocked representation is a separate layout decision.
+
+## Canonical linear carrier
+
+**RVISA-TILE-LINEAR-1.** The canonical linear representation places a one-dimensional tile's elements consecutively within an ordered tuple of legal register groups. For an RVV representation, let SEW=8*sizeof(T), vlenb=VLEN/8, and capacity(L)=L*VLEN/SEW.
+
+If one supported group can cover the value, select the smallest legal LMUL L with capacity(L) >= element_count. Legality includes element width and the selected profile's fractional-LMUL support. Surplus carrier slots are padding, not additional logical elements.
+
+If no single legal group can cover the value, partition its linear sequence into consecutive fragments. The canonical decomposition uses maximal legal groups for full fragments and the smallest legal covering group for the remaining fragment. Each group obeys architectural alignment and overlap rules. Separate fragments need not have consecutive physical register numbers.
+
+For 128 f16 elements, logical_bytes=256:
+
+| VLEN, in bits | Required capacity relative to one register | Canonical legal carrier |
+| --- | --- | --- |
+| 1024 | 2 | One f16m2 group |
+| 256 | 8 | One f16m8 group |
+| 128 | 16 | Two f16m8 groups, each holding 64 elements |
+
+Here f16m16 is only shorthand for aggregate capacity. It is not an architectural RVV type or a legal single-instruction register group. [RVV grouping constraints](https://github.com/riscvarchive/riscv-v-spec/blob/3570f998903f00352552b670f1f7b7334f0a144a/v-spec.adoc) bound each individual group; other register classes have their own profile rules.
+
+The same canonical carrier applies to a 2D or higher-rank reshape with the same element sequence. Anchors may infer a different representation for auto layout, or the programmer may specify one explicitly. Minimum covering LMUL describes the canonical linear choice, not a requirement that every optimized tile retain one maximal group.
+
+Symbolic capacity remains parameterized by the target. Packed FP4 and masks require their separate storage/representation rules; a fractional byte sizeof is not used.
 
 ## Register representation
 
@@ -49,6 +82,6 @@ Scalar broadcasting requires a uniquely inferable destination shape. Reshape, tr
 
 The absence of dedicated matrix registers alone does not invalidate a tile. Within a profile's supported operation and numerical domain, vector-register fragments can implement the same tile contract. Actual resource or capability failures still require a permitted decomposition or diagnostic. Tile axes are not limited to one vector register; explicit vector member-capacity restrictions remain in force.
 
-A view is not a promise of zero physical movement. Inter-domain transfers and staging requirements belong to target mappings.
+Reshape and permutation themselves preserve carrier locations. A consumer requiring a different carrier uses an explicit or compiler-reified representation conversion, possibly folded into an anchor. Inter-domain transfers and staging remain governed by target mappings.
 
 See [vectors](vector.md), [layout](../core/layout-model.md), and [tile operations](../operations/tile/README.md).

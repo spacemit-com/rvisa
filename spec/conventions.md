@@ -20,7 +20,7 @@ Distinguish a logical group from a target register group, a register class from 
 
 Operation synopses use language-neutral notation: `ptr<T>` denotes an element-typed address, `descriptor<T,R,Access>` a ranked memory descriptor, `tile_data<T,S>` a data position normalized under the tile interoperability rules, and `static<X>` information required at compile time or specialization. `vector<T>` abbreviates a resolved vector mode where its D/G parameters are described separately.
 
-These forms describe operand roles and constraints, not delivered SDK types or an MLIR assembly grammar. Defaults are expanded before validity checks; inference must be unique where required. Operation names use unprefixed scalar forms, v-prefixed vector forms, and t-prefixed tile forms, with im2col as an explicit exception. Family placement in this manual does not change canonical operation names.
+These forms describe operand roles and constraints, not delivered SDK types or an MLIR assembly grammar. In tile derivations, shape and permute denote tshape and ttranspose. Use textract for axis-based subvalue extraction, tinsert for immutable subvalue replacement, and tselect for Boolean elementwise selection. Defaults are expanded before validity checks; inference must be unique where required. Operation names use unprefixed scalar forms, v-prefixed vector forms, and t-prefixed tile forms, with im2col as an explicit exception. Family placement in this manual does not change canonical operation names.
 
 ## Requirement identifiers
 
@@ -38,7 +38,10 @@ Use a named Markdown anchor or a visible rule identifier at the definition. Mapp
 | `shape` | Logical coordinate domain |
 | `capacity` | Full logical vector capacity, possibly symbolic |
 | `vl`, `valid_k` | Operation-specific active extent; not a replacement for type capacity |
-| `vlenb` | Target vector-register width in bytes |
+| `VLEN` | Target vector-register width in bits |
+| `vlenb` | VLEN/8, the register width in bytes |
+| `Layout` | Carrier-to-logical-coordinate relation, with constraints and validity domains |
+| `axes` | Explicit factor-axis binding in the extended matrix form |
 | `offset`, `stride`, `origin` | Element-based quantities unless the applicable contract states otherwise |
 
 Every alternative unit or packed representation must be explicit. Pointer values, memory bounds, logical coordinates, and register numbers are different quantities.

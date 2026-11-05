@@ -14,6 +14,8 @@ RVISA defines virtual instruction syntax, typed operations, operand roles, and r
 | [Execution model](core/execution-model.md) | Programs, control flow, calls, and configuration scope |
 | [Value model](core/value-model.md) | Values, views, descriptors, and state |
 | [Layout model](core/layout-model.md) | Logical coordinates, matrix axes, and physical representation |
+| [Linear layouts](core/linear-layout.md) | Basis maps, carrier-preserving views, and representation conversions |
+| [Tile optimization](core/tile-optimization.md) | Explicit programmer forms, anchors, and closed tile regions |
 | [Memory model](core/memory-model.md) | Addressing, bounds, aliasing, ordering, and transfer completion |
 | [Compiler-managed transfers](core/transfers.md) | Transfer permission, readiness, waits, and temporary-storage lifetime |
 | [Numeric model](core/numeric-model.md) | Precision, rounding, reductions, and special values |

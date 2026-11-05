@@ -8,6 +8,12 @@ RVISA targets an abstraction level slightly above [NVIDIA PTX](https://docs.nvid
 
 Notation modeled on [RVV Intrinsics](https://github.com/riscv-non-isa/riscv-rvv-intrinsic-doc) keeps types and grouping constraints visible while leaving scheduling and physical register allocation to implementations within the selected profile's rules. The notation does not prescribe a C API, Python package, or a particular compiler interface.
 
+## Programmer-expressible tile optimization
+
+[RVISA-TILE-EXPR-1](core/tile-optimization.md#expressibility-requirement) requires every compiler tile optimization to have an equivalent expression in public RVISA operations, layouts, attributes, and control flow. Rank-1 through rank-N tiles retain a common carrier model; shape and permutation are coordinate views, while physical changes are explicit conversions or anchor realizations.
+
+[Linear layouts](core/linear-layout.md) derive the correspondence among logical coordinates, fragments, register groups, and anchor operands. This gives the programmer access to the same tile partitioning and layout choices used by legalization.
+
 ## Audience
 
 The specification addresses architecture designers defining target capabilities, compiler developers implementing IR and target lowering, kernel developers writing numerical workloads, and reviewers evaluating portability and conformance.

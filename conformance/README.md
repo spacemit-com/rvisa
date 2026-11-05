@@ -10,6 +10,8 @@ The conformance framework connects specification requirements to reusable cases,
 
 The obligations are defined in [spec/conformance.md](../spec/conformance.md). Concrete executable cases and adapters are under development.
 
+[Layout and tile-optimization cases](cases/linear-layout.md) compare explicit tile expressions with inferred region rewrites and cover capacities, view identity, blocked contraction, memory coordinates, and conflicting boundaries.
+
 ## Evidence records
 
 Record the specification and profile versions, implementation/tool versions, configuration, inputs, method, outcome, and limitations. Coverage and execution are distinct: a case can identify an obligation before an execution result exists.

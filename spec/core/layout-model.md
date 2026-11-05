@@ -1,34 +1,39 @@
 # Layout Model
 
-A layout description must identify which relationship it describes.
+RVISA separates logical coordinates, physical carriers, and memory addresses. Its layout optimization is derived from [linear layouts](linear-layout.md), with every tile-level transformation expressible by the programmer.
 
 | Relationship | Meaning |
 | --- | --- |
-| Logical shape | The coordinates belonging to a value |
-| Matrix-axis interpretation | Which exposed axes play the mathematical M, N, and K roles |
-| Memory layout | The address associated with a logical coordinate |
-| Representation layout | The register, lane, fragment, or storage location holding an element |
+| Logical shape | Coordinates of a rank-1 through rank-N value |
+| Matrix-axis interpretation | Which coordinates represent M, N, and K, including explicit factor axes |
+| Memory layout | The address associated with a logical coordinate through a descriptor |
+| Representation layout | The fragment, register group, and element slot holding that coordinate |
+| Concrete allocation | Physical registers and reuse times satisfying the representation constraints |
 
-These relationships can vary independently. A column-major matrix-axis interpretation does not, by itself, request a memory transpose or determine a register arrangement.
+A matrix-axis choice does not request a memory transpose. A reshape does not change physical placement. Concrete allocation does not redefine the logical value.
 
-## Coordinate preservation
+## Views and representation conversion
 
-A nonreplicating representation must cover each logical element exactly once. An operation that replicates values, such as a broadcast, identifies that replication explicitly.
+A [reshape](../operations/tile/layout-operations.md#tshape) preserves the complete last-dimension-fastest element sequence and all carrier locations. A [permutation](../operations/tile/layout-operations.md#ttranspose) relabels logical axes while preserving each element's location. Their layout descriptions change by coordinate composition, with no data-moving operation at the view node.
 
-A reshape preserves logical flattening order. A transpose permutes axes. A representation conversion preserves logical coordinates and element values. The latter may require physical movement even when it is a logical value transformation.
+A [representation conversion](../operations/tile/layout-operations.md#tconvert_layout) preserves coordinates and values but selects a different carrier. It may require actual movement. An anchor can absorb that movement only under the [region and boundary rules](tile-optimization.md).
 
-The default logical flattening order visits the last dimension fastest. All leading dimensions participate, including explicit batch dimensions.
+This distinction applies to 1D through ND tiles. A shape such as [4,4,8,8] alone does not prove that each trailing 8x8 block is contiguous in registers.
 
 ## Vector and tile interoperability
 
-A vector used in a tile data position must establish an explicit two-dimensional value view. The view preserves element count, symbolic capacity, and relevant group boundaries. Scalar broadcasting requires a uniquely determined destination shape.
+The [tile type rules](../types/tile.md#relationship-to-vectors) define explicit vector-to-tile entry and complete tile-to-vector flattening. Existing vector capacity/group checks remain in force. Physical layout does not replace the tile's current logical flattening order.
 
-A tile used in a vector data position is interpreted through its complete logical flattening order, then checked against the vector operation's type and configuration requirements. Physical storage layout cannot replace that logical order.
+## Inference and programmer control
+
+Load/store, MMA, and row/column extraction can constrain carrier layout. Their candidates are propagated through views and compatible computations using the [linear-layout algebra](linear-layout.md). Conflicts require explicit conversions or diagnostics.
+
+[RVISA-TILE-EXPR-1](tile-optimization.md#expressibility-requirement) requires an equivalent public RVISA expression for compiler tile optimizations. Explicit layout constraints remain binding; auto choices are resolved and made inspectable.
 
 ## Target realization
 
-Tile layouts follow the [register representation policy](../types/tile.md#register-representation). A logical tile may be distributed across multiple registers or executed in fragments. Fragment padding is not part of the value and must not contribute to computation or valid writes.
+Tile representations follow [RVISA-TILE-REG-1](../types/tile.md#register-representation). Logical fragment inventory, simultaneous register residency, instruction count, and exact allocation are different quantities. Padding must not become a logical contribution or an unintended access.
 
-Profiles document the relation from each logical element to a register class, group, lane, or matrix coordinate. They also record alignment, overlap, replication, transfers, and any permitted spill/staging layout. Register count, simultaneous residency, instruction count, and concrete physical register numbers are separate properties.
+Profiles identify supported carrier maps, operation anchors, group alignment/overlap, cross-class transfers, and any permitted spill/staging policy. A mapping proof includes coordinate equivalence and numerical, memory, state, and lifetime legality.
 
-See [vector types](../types/vector.md), [tile types](../types/tile.md), and [mapping requirements](../../mappings/contract.md).
+See [blocked MMA](../operations/matrix/blocked-mma.md), [mapping requirements](../../mappings/contract.md), and [conformance cases](../../conformance/cases/linear-layout.md).

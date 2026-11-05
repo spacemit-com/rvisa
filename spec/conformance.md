@@ -18,7 +18,8 @@ Verification addresses:
 - Operand roles, defaults, and evaluation stages.
 - Target instruction sequence conditions, register classes/groups, alignment, overlap, operand ties, and required fixed registers.
 - Tile register selection, fragmentation, live resource limits, and permitted spills or staging.
-- Logical coordinates, layout transformations, and batch relationships.
+- Logical coordinates, carrier-preserving views, linear-layout basis/inverse relations, and batch/factor-axis relationships.
+- Equivalent programmer expressions for compiler tile rewrites and complete region/anchor boundary proofs.
 - Bounds, aliasing, inactive elements, and temporary-storage lifetime.
 - Precision, reduction order, special values, and approximation guarantees.
 - Configuration, calls, and target-state preservation.

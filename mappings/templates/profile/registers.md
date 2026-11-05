@@ -16,9 +16,11 @@ Class/group constraints define legal allocations. State which concrete register 
 
 ## Coordinate representation
 
-Give the mapping from a logical element to its fragment, register class/group, lane, or accumulator coordinate. State coverage, replication, active extents, and physical padding. Distinguish logical groups from architectural register groups and from the registers simultaneously live in one generated sequence.
+Give the [linear-layout](../../../spec/core/linear-layout.md) basis/domain description and the mapping from a logical element to its fragment, register class/group, element slot, or accumulator coordinate. State coverage, replication, active extents, and physical padding. Distinguish logical groups from architectural register groups and from the registers simultaneously live in one generated sequence.
 
 Tile mappings follow [RVISA-TILE-REG-1](../../../spec/types/tile.md#register-representation). Explain the selected register representation and fragment geometry for each supported type/shape domain.
+
+Distinguish canonical linear grouping from anchor-selected fragment grouping. Record minimum legal covering LMUL, decomposition above the maximum group size, dtype-dependent accumulator capacity, and symbolic VLEN conditions. Shape-only views preserve element locations; physical retile steps require a conversion or proven boundary folding.
 
 ## Resource and temporary-storage policy
 

@@ -8,6 +8,8 @@ RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/p
 
 [tile 映射](spec/types/tile.md#register-representation)优先使用目标提供的寄存器，包括向量寄存器及寄存器组、矩阵操作数寄存器和累加寄存器。一个 tile 可以跨多个寄存器，也可以按照指令形状进行分片。[映射保证](mappings/contract.md#mapping-guarantees)明确各 profile 的合法指令序列、分组、分配约束和数据搬运，同时允许实现在这些约束内选择具体方案。
 
+RVISA tile 计算上的每项优化都必须能够[由编程者显式表达](spec/core/tile-optimization.md#expressibility-requirement)。tile 支持 1D 到 ND；reshape 和轴置换保持元素的物理位置，物理布局由显式转换以及 load/store/MMA/textract 等 anchor 决定。[Linear layout](spec/core/linear-layout.md) 用于推导这些映射，包括[分块矩阵计算](spec/operations/matrix/blocked-mma.md)。
+
 本仓库包含 RVISA 指令语法、类型与操作数定义、目标映射合同、MLIR 设计文档，以及参考算例，面向架构设计者、编译器实现者、算子开发者和规范贡献者。
 
 ## 矩阵扩展上游仓库
@@ -45,7 +47,7 @@ RVISA 的目标抽象层次略高于 [NVIDIA PTX](https://docs.nvidia.com/cuda/p
 | 组件 | 状态 |
 | --- | --- |
 | 核心规范与操作参考 | 已写入关键合同的工作草案，未决事项单独跟踪 |
-| 目标映射合同 | 开发中，尚未登记具体 profile |
+| 目标映射合同 | 已登记草案 profile，尚未建立目标符合性证据 |
 | [MLIR dialect](mlir/README.md) | TBD |
 | [参考算例](demos/README.md) | 已描述计算问题，每个算例都提供 RVISA 记法源形式 |
 

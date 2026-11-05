@@ -23,6 +23,10 @@ Select legal microtiles, prepare operand layouts, retain the accumulator across 
 
 Record the instruction sequence and separate register classes/groups for A, B, and the accumulator/result. Check coordinate packing, overlap, live accumulator requirements, and the conditions for fragmentation, spills, or staging under the selected profile.
 
+## Explicit blocked form
+
+The [32x32 / 8x8x8 worked example](../../spec/operations/matrix/blocked-mma.md) supplies the shape/permutation chain, explicit matrix-axis binding, linear-layout basis, load/store composition, and an equivalent fragment loop using textract/tinsert. It distinguishes f16 input m1 fragments from f32 accumulator m2 fragments at VLEN=1024 bits and preserves global K order.
+
 ## Verification cases
 
 Cover rectangular shapes, nontrivial strides, initial accumulators, zero extents, and partial tiles. Compare against an independent computation using the declared numerical policy.
