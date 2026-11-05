@@ -1,0 +1,58 @@
+# Profile metadata for ime-main, mapping revision 1.
+# Parameter values are profile constraints on the target, not upstream guarantees.
+status: draft
+profile_id: ime-main
+mapping_revision: 1
+rvisa_version: 0.2.0
+target:
+  family: ime
+  extension_names:
+    - Zvvmm
+    - Zvvi8i32mm
+  implementation_revision: null
+specification_source:
+  repository_url: https://github.com/riscv/integrated-matrix-extension
+  revision: 6effbcae3204e5a8a9c9d15ff53959918144870c
+  document_path: src/integrated-matrix.adoc
+  accessed_on: 2026-11-05
+parameter_constraints:
+  VLEN_bits: 1024
+  vtype_vsew: 32
+  vtype_lambda: 4
+  LMUL: 1
+  vtype_altfmt_A: 0
+  vtype_altfmt_B: 0
+  widening_factor_W: 4
+  microtile_M: 8
+  microtile_N: 8
+  microtile_K_eff: 16
+  EMUL_C: 2
+  EMUL_A: 1
+  EMUL_B: 1
+  compute_vl: 32
+  input_element_type: int8
+  input_signedness: signed
+  accumulator_element_type: int32
+capabilities:
+  - tmma rank-2 signed int8 x signed int8 -> int32 with M = 8, N = 8, K multiple of 16
+  - valid_k = 0 and valid_k multiples of 16 up to K
+  - ALayout rowmajor, BLayout colmajor, CLayout rowmajor
+  - cross, reduce, and broadcast modes for rank-2 inputs (a single equation)
+  - ordered and tree reduction order with identical results
+register_domains:
+  - vector register file v0-v31 (32 x 1024 bits)
+  - vtype fields lambda[2:0], bs, altfmt_A, altfmt_B
+  - vl and vstart
+toolchain_constraints:
+  - No assembler, intrinsic, compiler, or simulator support for this instruction is verified by this revision; see conformance.yaml.
+  - Operand register numbers and the vtype field set are stated in architectural terms only; no assembly syntax is exercised.
+limitations:
+  - Only the single pinned geometry (VLEN 1024, SEW 32, lambda 4, LMUL 1) is in the declared domain; other VLEN, lambda, or LMUL values require a new revision.
+  - Only signed int8 inputs are supported. Unsigned inputs (altfmt_A or altfmt_B = 1) are a legal Zvvi8i32mm configuration but have no operand in RVISA tmma; they are rejected pending a signedness contract.
+  - Only rank-2 inputs are supported; rank-3 inputs need a per-batch decomposition that this revision does not define.
+  - Only K multiples of 16 and valid_k in {0} x {16, 32, ...} are supported; partial K fragments are diagnosed.
+  - Tile memory operations (tload, tstore, im2col) are outside the declared subset; the profile fixes the register-resident fragment layout and leaves fragment staging to a separate revision.
+  - ALayout colmajor, BLayout rowmajor, and CLayout colmajor are excluded; the hardware register layout fixes the layout triple.
+  - The pinned text states no source-snapshot rule for the multiply-accumulate instruction; the profile therefore requires the accumulator group to be disjoint from both input groups.
+  - lambda selection is WARL-clamped by the implementation, so the sequence must read back vtype.lambda[2:0] and diagnose a mismatch.
+  - No IME ABI statement exists in the pinned text for tile fragments across function boundaries.

@@ -1,0 +1,61 @@
+# Profile metadata for vme-main, mapping revision 1.
+# Parameter values are profile constraints on the target, not upstream guarantees.
+status: draft
+profile_id: vme-main
+mapping_revision: 1
+rvisa_version: 0.2.0
+target:
+  family: vme
+  extension_names:
+    - Zvtbase
+    - Zvt8e
+    - Zvti8i32mm
+  implementation_revision: null
+specification_source:
+  repository_url: https://github.com/riscv/riscv-isa-manual
+  revision: 98b0e96fb240a0b6a54bf814fc2f6a139a409e10
+  document_path: src/unpriv/zvt.adoc
+  accessed_on: 2026-11-05
+parameter_constraints:
+  VLEN_bits: 1024
+  vtype_vsew: 8
+  vtype_altfmt: 1
+  LMUL: 1
+  TWIDEN: 4
+  TEW_bits: 32
+  TE: 32
+  ETE: 32
+  EVE: 128
+  KMAX: 4
+  tm: 32
+  tn: 32
+  K_fragment_depth: 4
+  input_element_type: int8
+  input_signedness: signed
+  accumulator_element_type: int32
+  tile_count_TEW32: 4
+capabilities:
+  - tmma rank-2 signed int8 x signed int8 -> int32 with M = 32, N = 32, K a positive integer
+  - any valid_k in [0, K], including a partial final fragment programmed with tk below KMAX
+  - ALayout colmajor, BLayout rowmajor, CLayout rowmajor
+  - cross, reduce, and broadcast modes for rank-2 inputs (a single equation)
+  - ordered and tree reduction order with identical results
+  - accumulator save and restore through vtle32 and vtse32 with a row or column tile subset specifier
+register_domains:
+  - vector register file v0-v31 (32 x 1024 bits) as the input operand domain
+  - matrix tile state, four TEW=32 tiles of 32 x 32 int32 elements each
+  - mtype CSR (tm, tk, mtwiden), vl, vtype (vsew, altfmt, vlmul)
+  - mstatus.MS and vsstatus.MS context-status fields
+toolchain_constraints:
+  - No assembler, intrinsic, compiler, or simulator support for these instructions is verified by this revision; see conformance.yaml.
+  - The assembly spelling of the altfmt=1 form of msetmtypei is provisional; the source gives it as a metasyntactic optional token, not as a fixed token sequence.
+limitations:
+  - Only the single pinned geometry (VLEN 1024, SEW 8, TWIDEN 4, TE 32) is in the declared domain; other TE, VLEN, or SEW values require a new revision.
+  - Only the signed x signed row of Zvti8i32mm is supported; the mixed and unsigned rows of vtmms.tvv and vtmmu.tvv have no signedness axis in RVISA tmma.
+  - Only rank-2 inputs are supported; rank-3 batch pairing is not decomposed.
+  - Only M = N = 32 is supported; a larger logical output needs several tiles or a fragment-shifted accumulator that this revision does not define.
+  - The pinned source does not state the integer accumulator overflow behaviour, so the numerical contract is restricted to results representable in int32.
+  - The profile requires the whole 32 x 32 accumulator to live in one TEW=32 tile and requires the tile to be reloaded and stored per row when transferred to memory.
+  - Accumulator zeroing uses vtzero; a nonzero accumulator must be transferred in row by row with vtle32, or built with vtmv.t.v, because there is no other memory-to-tile path.
+  - msetmtypei and the mset* instructions are a mandatory part of every sequence, and any later vsetvli or vsetivli writes mtype = 0 and unconfigures the matrix unit.
+  - riscv/riscv-vme at revision 5570c7b2b8e2d5b28b3627a0bbed57bf3afb4e6a contains no Zvt specification text; only the riscv-isa-manual zvt branch is a normative source for this profile.

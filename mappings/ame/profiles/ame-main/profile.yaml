@@ -1,0 +1,63 @@
+# Profile metadata for ame-main, mapping revision 1.
+# Parameter values are profile constraints on the target, not upstream guarantees.
+status: draft
+profile_id: ame-main
+mapping_revision: 1
+rvisa_version: 0.2.0
+target:
+  family: ame
+  extension_names:
+    - AME
+  implementation_revision: null
+specification_source:
+  repository_url: https://github.com/riscv/riscv-attached-matrix-extension
+  revision: 8d27acdcee7a189aad4e2907412e0c40a9d4b9e2
+  document_path: src/instructions.adoc
+  accessed_on: 2026-11-05
+parameter_constraints:
+  AME_UNIT_DATATYPE_SIZE_bits: 32
+  AME_NELEM: 256
+  AME_N_sqrt_NELEM: 16
+  AME_MATRIX_REGISTER_SIZE_bits: 8192
+  AME_NUM_M_REGS_minimum: 2
+  AME_NUM_ACC_REGS_minimum: 1
+  input_pack_factor: 2
+  input_squares_per_operand: 2
+  contraction_depth_per_instruction: 32
+  input_datatype: FP16
+  input_rounding_field: RNE
+  input_infinity_field: 1
+  input_denormal_field: 1
+  accumulator_datatype: FP32
+  accumulator_rounding_field: RNE
+  accumulator_infinity_field: 1
+  accumulator_denormal_field: 1
+  microtile_M: 16
+  microtile_N: 16
+capabilities:
+  - tmma rank-2 fp16 x fp16 -> fp32 with M = 16, N = 16, K a positive multiple of 32
+  - valid_k = 0 and valid_k multiples of 32 up to K
+  - ALayout rowmajor, BLayout rowmajor, CLayout rowmajor
+  - cross, reduce, and broadcast modes for rank-2 inputs (a single equation)
+  - tree reduction order; ordered accumulation is not claimed
+  - accumulator initialization through asettyp raw-bit zero, or through mls.rm and mmov.a.m
+  - operand and result transfer through mls.rm and mss.rm with a one-square memory image
+register_domains:
+  - matrix registers M0-M15 or M0-M31 with datatype registers Md
+  - accumulator registers Acc0-Acc[N-1] with datatype registers Ad
+  - CSRs amenlen, ameudsz, amestype, ameown, amefflags, amexsat, amestatus
+  - mstatus.MS context-status field
+toolchain_constraints:
+  - No assembler, intrinsic, compiler, or simulator support for these instructions is verified by this revision; see conformance.yaml.
+  - The datatype descriptors are written as 32-bit values in a general-purpose register; the profile states the required field values rather than a mnemonic-level descriptor syntax.
+limitations:
+  - Only the single pinned geometry (AME_UNIT_DATATYPE_SIZE 32, AME_NELEM 256) is in the declared domain; other parameter values are separate profiles.
+  - Only the fp16 x fp16 -> fp32 tuple is declared; it is a profile precondition because AME leaves the supported operation/datatype tuples to the implementation.
+  - Only M = N = 16 is supported; a larger logical output needs several accumulator squares that this revision does not combine.
+  - Only K multiples of 32 and valid_k in {0} union {32, 64, ...} are supported; partial fragments are diagnosed.
+  - Only rank-2 inputs are supported; rank-3 batch pairing is not decomposed.
+  - Accumulation order is an implementation-defined deterministic permutation of the 32 (s,q) terms, so only tmma reduce_order = tree is claimed; ordered is diagnosed.
+  - The accumulator zero fast path uses asettyp, which clears raw bits to +0.0 and is therefore equivalent only when the virtual accumulator is +0.0.
+  - AME accrues floating-point exception flags in amefflags, not in fflags; the profile records this as target state that the virtual operation does not observe.
+  - An unsupported operation/datatype tuple sets amestatus.UN and writes nothing; the mapping must detect that outcome instead of assuming success.
+  - The pinned revision states that operand base alignment is derived and checked but does not state the general derivation; the profile avoids relying on it because every declared operand span is a single register.

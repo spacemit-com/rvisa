@@ -22,7 +22,7 @@ Profile authors begin with [vmadot](../spec/operations/vector/vmadot.md), [tmma]
 
 ## Profiles
 
-Concrete profiles are registered under `<family>/profiles/<profile-id>/`. No [IME](https://github.com/riscv/integrated-matrix-extension), [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), or [AME](https://github.com/riscv/riscv-attached-matrix-extension) profile has yet been registered.
+Concrete profiles are registered under `<family>/profiles/<profile-id>/`. One [IME](https://github.com/riscv/integrated-matrix-extension), one [VME](https://github.com/riscv/riscv-isa-manual/pull/2997), and one [AME](https://github.com/riscv/riscv-attached-matrix-extension) profile are registered, all at `draft` maturity: [ime-main](ime/profiles/README.md), [vme-main](vme/profiles/README.md), and [ame-main](ame/profiles/README.md). Each covers a single integer or floating-point matrix multiply-accumulate tuple with a fixed microtile geometry, and each records its own open issues.
 
 The [mapping contract](contract.md) defines required content. The [profile format](templates/profile/README.md) provides a reusable document structure. A profile states its supported subset and retains a source and evidence history across revisions.
 

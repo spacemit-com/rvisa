@@ -1,0 +1,120 @@
+# Coverage and evidence for ame-main, mapping revision 1.
+# Every verification layer is listed separately; only documentation checks ran.
+status: draft
+profile_id: ame-main
+mapping_revision: 1
+rvisa_version: 0.2.0
+rule_coverage:
+  - rule: AME-TMMA-F16F32
+    operation: RVISA-OP-TMMA
+    requirements:
+      - RVISA-MAP-1
+      - RVISA-TILE-REG-1
+      - RVISA-TMMA-AXES-1
+      - RVISA-TMMA-PAIR-1
+      - RVISA-TMMA-ORDER-1
+      - RVISA-TMMA-K-1
+    documents:
+      - operands.md#fragment-correspondence
+      - registers.md#coordinate-representation
+      - lowering.md#rule-ame-tmma-f16f32
+      - numerics.md#arithmetic-contract
+  - rule: AME-TMMA-F16F32-K0
+    operation: RVISA-OP-TMMA
+    requirements:
+      - RVISA-TMMA-K-1
+      - RVISA-MAP-1
+    documents:
+      - lowering.md#rule-ame-tmma-f16f32-k0
+      - numerics.md#equivalence-domain
+checks:
+  - id: ame-doc-1
+    layer: documentation
+    versions:
+      profile: ame-main@1
+      rvisa: 0.2.0
+      source: 8d27acdcee7a189aad4e2907412e0c40a9d4b9e2
+    configuration: repository tree at 4d98d3e
+    inputs: profile.yaml, conformance.yaml, README.md, sources.md, registers.md, operands.md, lowering.md, numerics.md, CHANGELOG.md
+    method: >-
+      ad-hoc script using python3 with PyYAML to parse both YAML records and to resolve every
+      relative Markdown link and heading anchor reachable from this profile directory; the
+      script was not retained in the repository
+    outcome: passed
+    evidence: mapping revision 1 files in this directory and their repository-wide link targets
+    limitations: >-
+      no MkDocs build was performed (MkDocs is not installed on the checking host); anchor
+      resolution uses the heading-slug rule of the static site generator, so a future renderer
+      change could invalidate a passing result
+  - id: ame-ir-1
+    layer: ir-legality
+    versions:
+      profile: ame-main@1
+      rvisa: 0.2.0
+    configuration: not applicable
+    inputs: none
+    method: no IR producer or verifier implements this profile
+    outcome: not-run
+    evidence: none
+    limitations: the profile defines no IR encoding of its own
+  - id: ame-compile-1
+    layer: compilation
+    versions:
+      profile: ame-main@1
+      toolchain: none identified
+    configuration: not applicable
+    inputs: none
+    method: no assembler or compiler support for mmulacc.2d, msettyp, asettyp, mls.rm, mss.rm, mmov.a.m, mmov.m.a, ame.acquire, or ame.release was verified for this revision
+    outcome: not-run
+    evidence: none
+    limitations: the datatype descriptors are profile-derived 32-bit values, not a checked tool syntax
+  - id: ame-inspect-1
+    layer: instruction-inspection
+    versions:
+      profile: ame-main@1
+    configuration: (AME_UNIT_DATATYPE_SIZE 32, AME_NELEM 256, FP16 inputs, FP32 accumulator)
+    inputs: none
+    method: inspection obligations are listed in lowering.md#evidence-and-cost but were not executed
+    outcome: not-run
+    evidence: none
+    limitations: no generated code exists to inspect
+  - id: ame-numeric-1
+    layer: mathematical-and-numerical
+    versions:
+      profile: ame-main@1
+    configuration: fp16 products exact in fp32, tree accumulation
+    inputs: none
+    method: no reference model was run against a target; the comparison strategy is stated in numerics.md#comparison-strategy
+    outcome: not-run
+    evidence: none
+    limitations: bit-exact comparison requires the implementation's documented fold order, which no target has reported
+  - id: ame-sim-1
+    layer: simulator-execution
+    versions:
+      profile: ame-main@1
+    configuration: not applicable
+    inputs: none
+    method: no simulator implements the pinned AME revision
+    outcome: not-run
+    evidence: none
+    limitations: none
+  - id: ame-device-1
+    layer: device-execution
+    versions:
+      profile: ame-main@1
+    configuration: not applicable
+    inputs: none
+    method: no device was available
+    outcome: not-run
+    evidence: none
+    limitations: none
+  - id: ame-perf-1
+    layer: performance
+    versions:
+      profile: ame-main@1
+    configuration: not applicable
+    inputs: none
+    method: no measurement was made; the profile makes no performance claim
+    outcome: not-run
+    evidence: none
+    limitations: transfer counts in lowering.md are structural, not measured
