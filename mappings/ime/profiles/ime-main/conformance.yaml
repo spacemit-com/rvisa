@@ -1,0 +1,120 @@
+# Coverage and evidence for ime-main, mapping revision 1.
+# Every verification layer is listed separately; only documentation checks ran.
+status: draft
+profile_id: ime-main
+mapping_revision: 1
+rvisa_version: 0.2.0
+rule_coverage:
+  - rule: IME-TMMA-I8I32
+    operation: RVISA-OP-TMMA
+    requirements:
+      - RVISA-MAP-1
+      - RVISA-TILE-REG-1
+      - RVISA-TMMA-AXES-1
+      - RVISA-TMMA-PAIR-1
+      - RVISA-TMMA-ORDER-1
+      - RVISA-TMMA-K-1
+    documents:
+      - operands.md#fragment-correspondence
+      - registers.md#coordinate-representation
+      - lowering.md#rule-ime-tmma-i8i32
+      - numerics.md#arithmetic-contract
+  - rule: IME-TMMA-I8I32-K0
+    operation: RVISA-OP-TMMA
+    requirements:
+      - RVISA-TMMA-K-1
+      - RVISA-MAP-1
+    documents:
+      - lowering.md#rule-ime-tmma-i8i32-k0
+      - numerics.md#equivalence-domain
+checks:
+  - id: ime-doc-1
+    layer: documentation
+    versions:
+      profile: ime-main@1
+      rvisa: 0.2.0
+      source: 6effbcae3204e5a8a9c9d15ff53959918144870c
+    configuration: repository tree at 4d98d3e
+    inputs: profile.yaml, conformance.yaml, README.md, sources.md, registers.md, operands.md, lowering.md, numerics.md, CHANGELOG.md
+    method: >-
+      ad-hoc script using python3 with PyYAML to parse both YAML records and to resolve every
+      relative Markdown link and heading anchor reachable from this profile directory; the
+      script was not retained in the repository
+    outcome: passed
+    evidence: mapping revision 1 files in this directory and their repository-wide link targets
+    limitations: >-
+      no MkDocs build was performed (MkDocs is not installed on the checking host); anchor
+      resolution uses the heading-slug rule of the static site generator, so a future renderer
+      change could invalidate a passing result
+  - id: ime-ir-1
+    layer: ir-legality
+    versions:
+      profile: ime-main@1
+      rvisa: 0.2.0
+    configuration: not applicable
+    inputs: none
+    method: no IR producer or verifier implements this profile
+    outcome: not-run
+    evidence: none
+    limitations: the profile defines no IR encoding of its own
+  - id: ime-compile-1
+    layer: compilation
+    versions:
+      profile: ime-main@1
+      toolchain: none identified
+    configuration: not applicable
+    inputs: none
+    method: no assembler or compiler support for vqmmacc.vv was verified for this revision
+    outcome: not-run
+    evidence: none
+    limitations: the pinned source specifies encodings but this revision exercises no toolchain
+  - id: ime-inspect-1
+    layer: instruction-inspection
+    versions:
+      profile: ime-main@1
+    configuration: (VLEN 1024, SEW 32, lambda 4, LMUL 1, vl 32)
+    inputs: none
+    method: inspection obligations are listed in lowering.md#evidence-and-cost but were not executed
+    outcome: not-run
+    evidence: none
+    limitations: no generated code exists to inspect
+  - id: ime-numeric-1
+    layer: mathematical-and-numerical
+    versions:
+      profile: ime-main@1
+    configuration: integer tuple, modular int32 accumulation
+    inputs: none
+    method: no reference model was run against a target; the comparison strategy is stated in numerics.md#comparison-strategy
+    outcome: not-run
+    evidence: none
+    limitations: derivation of the contract from the source is documented, but no case was evaluated
+  - id: ime-sim-1
+    layer: simulator-execution
+    versions:
+      profile: ime-main@1
+    configuration: not applicable
+    inputs: none
+    method: no simulator implements Zvvi8i32mm as pinned here
+    outcome: not-run
+    evidence: none
+    limitations: none
+  - id: ime-device-1
+    layer: device-execution
+    versions:
+      profile: ime-main@1
+    configuration: not applicable
+    inputs: none
+    method: no device was available
+    outcome: not-run
+    evidence: none
+    limitations: none
+  - id: ime-perf-1
+    layer: performance
+    versions:
+      profile: ime-main@1
+    configuration: not applicable
+    inputs: none
+    method: no measurement was made; the profile makes no performance claim
+    outcome: not-run
+    evidence: none
+    limitations: instruction counts in lowering.md are structural, not measured

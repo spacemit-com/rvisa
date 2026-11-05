@@ -104,12 +104,36 @@ nav:
       - IME:
           - Mapping requirements: mappings/ime/README.md
           - Registered profiles: mappings/ime/profiles/README.md
+          - ime-main:
+              - Overview: mappings/ime/profiles/ime-main/README.md
+              - Registers: mappings/ime/profiles/ime-main/registers.md
+              - Operands: mappings/ime/profiles/ime-main/operands.md
+              - Lowering: mappings/ime/profiles/ime-main/lowering.md
+              - Numerics: mappings/ime/profiles/ime-main/numerics.md
+              - Sources: mappings/ime/profiles/ime-main/sources.md
+              - Changelog: mappings/ime/profiles/ime-main/CHANGELOG.md
       - VME:
           - Mapping requirements: mappings/vme/README.md
           - Registered profiles: mappings/vme/profiles/README.md
+          - vme-main:
+              - Overview: mappings/vme/profiles/vme-main/README.md
+              - Registers: mappings/vme/profiles/vme-main/registers.md
+              - Operands: mappings/vme/profiles/vme-main/operands.md
+              - Lowering: mappings/vme/profiles/vme-main/lowering.md
+              - Numerics: mappings/vme/profiles/vme-main/numerics.md
+              - Sources: mappings/vme/profiles/vme-main/sources.md
+              - Changelog: mappings/vme/profiles/vme-main/CHANGELOG.md
       - AME:
           - Mapping requirements: mappings/ame/README.md
           - Registered profiles: mappings/ame/profiles/README.md
+          - ame-main:
+              - Overview: mappings/ame/profiles/ame-main/README.md
+              - Registers: mappings/ame/profiles/ame-main/registers.md
+              - Operands: mappings/ame/profiles/ame-main/operands.md
+              - Lowering: mappings/ame/profiles/ame-main/lowering.md
+              - Numerics: mappings/ame/profiles/ame-main/numerics.md
+              - Sources: mappings/ame/profiles/ame-main/sources.md
+              - Changelog: mappings/ame/profiles/ame-main/CHANGELOG.md
       - RVV:
           - Mapping requirements: mappings/rvv/README.md
       - Vendor profiles: mappings/vendors/README.md

@@ -1,0 +1,22 @@
+# RVISA notation — dense forward 2-D cross-correlation as im2col + tmma.
+#
+#   x: NHWC descriptor [B,H,W,C]     w: filter [K_total, R*S*C]
+#   y: [M_total, K_total], one 16x16 tile of the unfolded matrices
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+
+x_view = tview(ptr_x, sizes=[B, H, W, C], strides=[H * W * C, W * C, C, 1])
+w_view = tview(ptr_w, sizes=[K_total, R * S * C], strides=[R * S * C, 1])
+y_view = tview(ptr_y, sizes=[M_total, K_total], strides=[K_total, 1])
+
+a = im2col(x_view, origin=[m0, 0], shape=static<[16, 16]>,
+           kernel=static<[R, S]>, stride=static<[SH, SW]>,
+           dilation=static<[DH, DW]>, padding=static<[PT, PB, PL, PR]>,
+           other=0)
+b = tload(w_view, origin=[n0, 0], shape=static<[16, 16]>, other=0)
+
+d = tmma(a, b, 0,
+         ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+
+tstore(y_view, origin=[m0, n0], value=d)

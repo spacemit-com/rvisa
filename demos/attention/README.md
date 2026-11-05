@@ -26,4 +26,33 @@ Record the register classes/groups for matrix inputs, score fragments, reduction
 
 Compare with an independent dense reference over the supported domain. Cover masks, sequence-length tails, multiple heads, extreme logits, and blocked rescaling behavior.
 
-Python/C++ source forms are TBD. See [numerics](../../spec/core/numeric-model.md), [tmma](../../spec/operations/matrix/tmma.md), [vector reductions](../../spec/operations/vector/README.md#computation-vocabulary), and the [workload index](../README.md).
+The source form is described in [Source form](#source-form). See [numerics](../../spec/core/numeric-model.md), [tmma](../../spec/operations/matrix/tmma.md), [vector reductions](../../spec/operations/vector/README.md#computation-vocabulary), and the [workload index](../README.md).
+
+## Source form
+
+[attention.rvisa](attention.rvisa) expresses one 16x16 block of scaled dot-product
+attention. Two of its steps have no defined spelling in this revision, and the
+file states them as contracts instead of inventing syntax:
+
+- mask application — the public mask spelling is an open contract in
+  [Mask types](../../spec/types/mask.md);
+- row-wise normalization — no defined operation reduces along one tile axis, and
+  the tile reduction is provisional in [the tile vocabulary](../../spec/operations/tile/README.md#shape-and-layout-operations).
+
+~~~text
+s = tmma(q, k, 0, ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+s = tmul(s, scale)                        # scale = 1/sqrt(d), a static scalar
+
+# masked scores and row-wise softmax: stated, not spelled (see above)
+
+o = tmma(p, v, 0, ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+tstore(o_view, origin=[0, 0], value=o)
+~~~
+
+Notation only: nothing compiles or executes this file (this revision has no frontend). `demo.yaml` records the metadata.
+
+Not covered: causal and fully masked rows, sequence-length tails, multiple heads,
+extreme logits, blocked or online softmax rescaling, log-sum-exp outputs, and
+reuse of the first-phase accumulator.

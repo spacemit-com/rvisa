@@ -47,9 +47,9 @@ The specification is a **working draft**. Its scope and outstanding decisions ar
 | Core specification and operation reference | Key contracts defined in the working draft; open decisions tracked separately |
 | Target mapping contracts | In development; concrete profiles are not yet registered |
 | [MLIR dialect](mlir/README.md) | TBD |
-| [Reference workloads](demos/README.md) | Documented workloads; source implementations TBD |
+| [Reference workloads](demos/README.md) | Documented workloads, each with an RVISA-notation source form |
 
-Python and C++ demos remain part of the reference workloads. Source-language frontend implementations are outside the scope of this revision.
+A workload's source form is RVISA notation (`<name>.rvisa`); a host Python or C++ form may accompany it. Source-language frontend implementations are outside the scope of this revision, so notation is not compiled or executed.
 
 Document status and implementation support are tracked separately. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 

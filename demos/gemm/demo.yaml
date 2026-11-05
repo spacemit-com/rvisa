@@ -1,0 +1,63 @@
+# Reference workload record for demos/gemm. Field encodings follow schemas/README.md;
+# the detailed schema is under development, so this is an authoring record rather
+# than a validated backend interface. Claims are limited to what was checked.
+
+id: gemm
+title: GEMM
+workload: "D[m,n] = C[m,n] + sum_k A[m,k] * B[n,k], A: [M,K], B: [N,K]; this demo uses C = 0"
+spec_version: "0.2.0"
+status: notation
+source_forms:
+  rvisa: demos/gemm/gemm.rvisa
+  host_forms: []
+
+virtual_operations:
+  - {id: RVISA-OP-TVIEW, role: descriptor construction for A, B, and D}
+  - {id: RVISA-OP-TLOAD, role: loads A and B; the accumulator is an explicit scalar zero}
+  - {id: RVISA-OP-TMMA, role: "rank-2 contraction; ALayout.rowmajor, BLayout.colmajor, CLayout.rowmajor"}
+  - {id: RVISA-OP-TSTORE, role: stores the f32 result tile}
+
+profiles:
+  required: []
+  note: no profile is required; the source form states no target sequence, register group, or transfer policy
+
+element_types: {a: f16, b: f16, accumulator: f32, result: f32}
+element_types_note: >
+  The baseline combination in spec/types/element-types.md. The notation does not
+  materialize storage; a host form would have to.
+
+geometry:
+  logical_shape: {M: 16, N: 16, K: 16}
+  microtile: {M: 16, N: 16, K: 16}
+  k_blocks: 1
+  initial_accumulator: explicit zero
+  epilogue: none
+  bias: none
+  layouts: {a: ALayout.rowmajor, b: BLayout.colmajor, c: CLayout.rowmajor}
+  reduce_order: ReduceOrder.ordered
+  valid_k: 16
+
+numerical_policy: >
+  Stated only where the notation must name it: reduce_order = ordered and the
+  baseline f16 x f16 -> f32 tuple. No rounding mode, tie rule, special-value rule,
+  or reassociation permission is selected; those stay open under "Matrix numerics"
+  in spec/status.md.
+
+verification:
+  status: structural-only
+  performed:
+    - {layer: documentation, method: "every operation name, operand role, and default matches its synopsis in spec/operations/", result: consistent}
+    - {layer: documentation, method: "relative links and anchors in demos/gemm/README.md and this record", result: resolve}
+  not_performed:
+    - frontend parsing or IR construction (no frontend exists in this revision)
+    - compilation, emitted instruction or register inspection
+    - numerical evaluation, simulator or hardware execution
+    - performance measurement
+
+not_covered:
+  - valid_k tails, several tiles or K blocks, non-unit strides, nonzero origins, batch axes, nonzero accumulator
+  - bf16, mixed formats, low-precision and block-scaled tuples
+  - tmma_scaled, epilogues, bias
+  - any register representation, transfer, or configuration realization
+
+run: none

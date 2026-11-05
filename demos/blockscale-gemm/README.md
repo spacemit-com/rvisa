@@ -28,4 +28,32 @@ Record payload, scale, and accumulator operand correspondence in the target sequ
 
 Use nonuniform scales and accumulators, block-boundary tails, and zero active K. Separate coordinate checks from low-precision decoding and floating-point behavior.
 
-Python/C++ source forms are TBD. See [tmma_scaled](../../spec/operations/matrix/tmma-scaled.md), [numerics](../../spec/core/numeric-model.md), and the [workload index](../README.md).
+The source form is described in [Source form](#source-form). See [tmma_scaled](../../spec/operations/matrix/tmma-scaled.md), [numerics](../../spec/core/numeric-model.md), and the [workload index](../README.md).
+
+## Source form
+
+[blockscale-gemm.rvisa](blockscale-gemm.rvisa) expresses the workload in RVISA
+notation with `K = 32`, `Ks = 2`, and block length `G = K/Ks = 16`. Scale shapes
+follow [RVISA-SCALE-SHAPE-1](../../spec/operations/matrix/tmma-scaled.md#scale-axes-and-block-inference):
+`A [M,K]` pairs with `SA [M,Ks]`, and `B` in the colmajor view `[N,K]` pairs with
+`SB [N,Ks]`.
+
+~~~text
+a = tload(a_view, origin=[0, 0], shape=static<[16, 32]>, other=0)
+sa = tload(sa_view, origin=[0, 0], shape=static<[16, 2]>, other=0)   # [M, Ks]
+b = tload(b_view, origin=[0, 0], shape=static<[16, 32]>, other=0)
+sb = tload(sb_view, origin=[0, 0], shape=static<[16, 2]>, other=0)   # [N, Ks]
+d = tmma_scaled(a, sa, b, sb, 0, ALayout=rowmajor, BLayout=colmajor,
+                CLayout=rowmajor, mode=reduce, reduce_order=ordered, valid_k=32)
+tstore(d_view, origin=[0, 0], value=d)
+~~~
+
+Notation only: nothing compiles or executes this file (this revision has no frontend). `demo.yaml` records the metadata.
+
+Payload and scale formats are deliberately not chosen: `tmma_scaled` leaves them
+to a profile, and this form states only shapes, axes, and the contraction. The
+operation has no block-size operand; `G` follows from `K` and `Ks`.
+
+Not covered: payload and scale formats, decoding and scale-application rounding,
+partial active K, block-boundary tails, nonuniform scales, and `K` not divisible
+by `Ks`.

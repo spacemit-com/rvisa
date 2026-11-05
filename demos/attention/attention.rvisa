@@ -1,0 +1,31 @@
+# RVISA notation — scaled dot-product attention, one 16x16 block.
+#
+#   S = Q*K^T / sqrt(d);  P = softmax(mask(S));  O = P*V
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+
+q = tload(q_view, origin=[0, 0], shape=static<[16, 16]>, other=0)   # [BM, D]
+k = tload(k_view, origin=[0, 0], shape=static<[16, 16]>, other=0)   # [BN, D]
+v = tload(v_view, origin=[0, 0], shape=static<[16, 16]>, other=0)   # [BN, DV]
+
+s = tmma(q, k, 0,
+         ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+
+s = tmul(s, scale)                        # scale = 1/sqrt(d), a static scalar
+
+# Mask application. The public mask spelling is an open contract (spec/types/mask.md),
+# so the masked score tile is stated rather than spelled:
+#   M[m,n] = s[m,n]  where mask[m,n] holds,  else the masked-score value
+#
+# Row-wise normalization. No defined operation in this revision reduces along one
+# tile axis, so the normalization is stated as its contract rather than spelled:
+#   P[m,n] = exp(M[m,n] - max_n M[m,n]) / sum_n exp(M[m,n] - max_n M[m,n])
+#
+# `p` below denotes the tile of P, produced from `s` by those two steps.
+
+o = tmma(p, v, 0,
+         ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+
+tstore(o_view, origin=[0, 0], value=o)

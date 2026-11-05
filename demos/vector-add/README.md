@@ -22,4 +22,31 @@ Identify the load/add/store sequence, vector register groups, mask representatio
 
 Cover N=0, N=1, values around a capacity boundary, and multiple iterations. Verify both arithmetic and untouched memory outside the output range.
 
-Python/C++ source forms are TBD. See the [workload index](../README.md), [vector types](../../spec/types/vector.md), [vconfig](../../spec/operations/control/vconfig.md), and [vector memory](../../spec/operations/memory/vector-memory.md).
+The source form is described in [Source form](#source-form). See the [workload index](../README.md), [vector types](../../spec/types/vector.md), [vconfig](../../spec/operations/control/vconfig.md), and [vector memory](../../spec/operations/memory/vector-memory.md).
+
+## Source form
+
+[vector-add.rvisa](vector-add.rvisa) expresses the workload in RVISA notation.
+The vector family in this revision defines `vzero`, `vmacc`, `vbroadcast`,
+`vselect`, reductions, and memory access, but no elementwise addition, so the add
+is the tile operation `tadd` on explicit rank-1 tiles. Descriptor bounds then
+supply the tail contract, in place of `vconfig` and the flat valid extent.
+
+~~~text
+x_view = tview(ptr_x, sizes=[N], strides=[1])
+y_view = tview(ptr_y, sizes=[N], strides=[1])
+
+x = tload(x_view, origin=[i], shape=static<[16]>, other=0.0)
+z = tload(z_view, origin=[i], shape=static<[16]>, other=0.0)
+y = tadd(x, z)
+tstore(y_view, origin=[i], value=y)   # writes only coordinates inside sizes
+~~~
+
+Notation only: nothing compiles or executes this file (this revision has no frontend). `demo.yaml` records the metadata.
+
+Elementwise vector addition is the one gap this form exposes: the tile vocabulary
+names `tadd`, the vector vocabulary does not name an addition, so a vector-form
+add needs an RFC before a vector spelling can be written here.
+
+Not covered: N = 0, capacity-boundary specialization, masking, `group=G` forms,
+and the aliasing variant.

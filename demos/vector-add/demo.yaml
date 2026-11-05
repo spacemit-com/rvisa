@@ -1,0 +1,45 @@
+# Reference workload record (RVISA notation only). Field encodings follow
+# schemas/README.md; the detailed schema is under development, so this is an
+# authoring record rather than a validated backend interface.
+
+id: vector-add
+title: Vector Addition
+workload: "Y[i] = X[i] + Z[i], 0 <= i < N, f32"
+spec_version: "0.2.0"
+status: notation
+source_forms:
+  rvisa: demos/vector-add/vector-add.rvisa
+  host_forms: []
+
+virtual_operations:
+  - {id: RVISA-OP-TVIEW, role: "rank-1 descriptors for X, Z, and Y"}
+  - {id: RVISA-OP-TLOAD, role: "loads one 16-element block, other=0 outside the descriptor"}
+  - {id: tadd, role: "elementwise addition; not an RVISA-OP identifier because the tile vocabulary names it without one"}
+  - {id: RVISA-OP-TSTORE, role: "stores only coordinates inside the Y descriptor"}
+
+profiles:
+  required: []
+  note: no profile is required; the source form states no target sequence, register group, or transfer policy
+
+element_types: {x: f32, z: f32, y: f32}
+geometry: reference block 16 elements, tail by descriptor bounds
+tail_policy: descriptor bounds (RVISA-TLOAD-BOUNDS-1, RVISA-TSTORE-BOUNDS-1), no vconfig
+numerical_policy: >
+  Stated only where the notation must name it: f32 elements. No rounding, special-value, or reassociation policy is selected.
+
+verification:
+  status: structural-only
+  performed:
+    - {layer: documentation, method: "operation names, operand roles, and defaults checked against spec/operations/", result: consistent}
+    - {layer: documentation, method: "relative links and anchors in this workload README", result: resolve}
+  not_performed:
+    - frontend parsing or IR construction (no frontend exists in this revision)
+    - compilation, instruction or register inspection
+    - numerical evaluation, simulator or hardware execution
+    - performance measurement
+
+not_covered:
+  - the vector family has no elementwise add in this revision; tadd on rank-1 tiles is used
+  - N = 0, capacity-boundary specialization, masking, group=G forms, and the aliasing variant
+
+run: none

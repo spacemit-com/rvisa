@@ -1,0 +1,47 @@
+# Reference workload record (RVISA notation only). Field encodings follow
+# schemas/README.md; the detailed schema is under development, so this is an
+# authoring record rather than a validated backend interface.
+
+id: blockscale-gemm
+title: Block-Scaled GEMM
+workload: "D[m,n] = C[m,n] + sum_k (A[m,k]*SA[m,q(k)]) * (B[n,k]*SB[n,q(k)]), q(k)=floor(k/G), G = K/Ks = 16, C = 0"
+spec_version: "0.2.0"
+status: notation
+source_forms:
+  rvisa: demos/blockscale-gemm/blockscale-gemm.rvisa
+  host_forms: []
+
+virtual_operations:
+  - {id: RVISA-OP-TVIEW, role: "descriptors for A, SA, B, SB, and D"}
+  - {id: RVISA-OP-TLOAD, role: "loads both data tiles and both scale tiles"}
+  - {id: RVISA-OP-TMMA-SCALED, role: "block-scaled contraction; scale axes follow RVISA-SCALE-SHAPE-1"}
+  - {id: RVISA-OP-TSTORE, role: "stores the f32 result tile"}
+
+profiles:
+  required: []
+  note: no profile is required; the source form states no target sequence, register group, or transfer policy
+
+element_types: {payload: "profile choice", scale: "profile choice", accumulator: f32, result: f32}
+geometry: {M: 16, N: 16, K: 32, Ks: 2, G: 16}
+scale_shapes: {a: "[M, Ks] = [16, 2]", b: "[N, Ks] = [16, 2]"}
+layouts: {a: ALayout.rowmajor, b: BLayout.colmajor, c: CLayout.rowmajor}
+numerical_policy: >
+  Stated only where the notation must name it: f32 accumulation and ordered reduction. The payload and scale tuples are deliberately left to a profile.
+
+verification:
+  status: structural-only
+  performed:
+    - {layer: documentation, method: "operation names, operand roles, and defaults checked against spec/operations/", result: consistent}
+    - {layer: documentation, method: "relative links and anchors in this workload README", result: resolve}
+  not_performed:
+    - frontend parsing or IR construction (no frontend exists in this revision)
+    - compilation, instruction or register inspection
+    - numerical evaluation, simulator or hardware execution
+    - performance measurement
+
+not_covered:
+  - payload and scale formats, decoding, and scale-application rounding (all profile choices)
+  - partial active K, block-boundary tails, nonuniform scales, and K not divisible by Ks
+  - native versus decomposed block-scaling paths
+
+run: none

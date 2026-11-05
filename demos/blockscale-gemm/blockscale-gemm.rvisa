@@ -1,0 +1,16 @@
+# RVISA notation — block-scaled GEMM: K = 32, Ks = 2, block length G = K/Ks = 16.
+#
+#   D[m,n] = C[m,n] + sum_k (A[m,k] * SA[m,q(k)]) * (B[n,k] * SB[n,q(k)]),  C = 0
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+
+a = tload(a_view, origin=[0, 0], shape=static<[16, 32]>, other=0)
+sa = tload(sa_view, origin=[0, 0], shape=static<[16, 2]>, other=0)   # [M, Ks]
+b = tload(b_view, origin=[0, 0], shape=static<[16, 32]>, other=0)
+sb = tload(sb_view, origin=[0, 0], shape=static<[16, 2]>, other=0)   # [N, Ks]
+
+d = tmma_scaled(a, sa, b, sb, 0,
+                ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+                mode=reduce, reduce_order=ordered, valid_k=32)
+
+tstore(d_view, origin=[0, 0], value=d)

@@ -1,0 +1,20 @@
+# RVISA notation — GEMM, one 16x16x16 tile, one tmma, zero initial accumulator.
+#
+#   A: ptr<f16>, [M,K] = [16,16], rowmajor     B: ptr<f16>, [N,K] = [16,16]
+#   D: ptr<f32>, [M,N] = [16,16], rowmajor
+#   D[m,n] = 0 + sum_k A[m,k] * B[n,k],  k < valid_k = K
+#
+# Notation only: this revision includes no frontend, so nothing executes this file.
+
+a_view = tview(ptr_a, sizes=[16, 16], strides=[16, 1])
+b_view = tview(ptr_b, sizes=[16, 16], strides=[16, 1])
+d_view = tview(ptr_d, sizes=[16, 16], strides=[16, 1])
+
+a = tload(a_view, origin=[0, 0], shape=static<[16, 16]>, other=0)
+b = tload(b_view, origin=[0, 0], shape=static<[16, 16]>, other=0)
+
+d = tmma(a, b, 0,
+         ALayout=rowmajor, BLayout=colmajor, CLayout=rowmajor,
+         mode=reduce, reduce_order=ordered, valid_k=16)
+
+tstore(d_view, origin=[0, 0], value=d)

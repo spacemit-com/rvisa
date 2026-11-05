@@ -1,0 +1,46 @@
+# Reference workload record (RVISA notation only). Field encodings follow
+# schemas/README.md; the detailed schema is under development, so this is an
+# authoring record rather than a validated backend interface.
+
+id: attention
+title: Attention
+workload: "S = Q*K^T/sqrt(d); P = softmax(mask(S)); O = P*V, one 16x16 block"
+spec_version: "0.2.0"
+status: notation
+source_forms:
+  rvisa: demos/attention/attention.rvisa
+  host_forms: []
+
+virtual_operations:
+  - {id: RVISA-OP-TVIEW, role: "descriptors for Q, K, V, and O"}
+  - {id: RVISA-OP-TLOAD, role: "loads the Q, K, and V tiles"}
+  - {id: RVISA-OP-TMMA, role: "scores and output product, both with an explicit zero accumulator"}
+  - {id: tmul, role: "score scaling by 1/sqrt(d) with a static scalar"}
+  - {id: RVISA-OP-TSTORE, role: "stores the output tile"}
+
+profiles:
+  required: []
+  note: no profile is required; the source form states no target sequence, register group, or transfer policy
+
+element_types: {q: f16, k: f16, v: f16, scores: f32, probabilities: f32, output: f32}
+geometry: {BM: 16, BN: 16, D: 16, DV: 16, one block}
+normalization: row-wise over n; stated as a contract, not spelled (see the workload README)
+mask: spelling is an open contract; the masked-score tile is stated, not spelled
+
+verification:
+  status: structural-only
+  performed:
+    - {layer: documentation, method: "operation names, operand roles, and defaults checked against spec/operations/", result: consistent}
+    - {layer: documentation, method: "relative links and anchors in this workload README", result: resolve}
+  not_performed:
+    - frontend parsing or IR construction (no frontend exists in this revision)
+    - compilation, instruction or register inspection
+    - numerical evaluation, simulator or hardware execution
+    - performance measurement
+
+not_covered:
+  - the masked-score and row-wise normalization steps: this revision defines neither the mask spelling nor a single-axis reduction
+  - causal and fully masked rows, sequence-length tails, multiple heads, extreme logits
+  - blocked or online softmax rescaling, log-sum-exp outputs, and second-phase accumulator reuse
+
+run: none
